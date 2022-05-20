@@ -1,0 +1,31 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background: #aaa;
+  width: 1440px;
+  padding: 48px 164px;
+  position: fixed;
+  background: transparent;
+  z-index: 1;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
+
+  .logo {
+    color: #fef8f0;
+    font-weight: 600;
+  }
+
+  .links {
+    width: 225px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #fffeff;
+    cursor: pointer;
+  }
+
+  //   li {
+  //   }
+}
