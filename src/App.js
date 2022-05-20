@@ -1,14 +1,21 @@
 // import logo from './logo.svg';
-// import styles from "./App.module.scss";
+import styles from "./App.module.scss";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
+import { BackProject } from "./components/BackProject";
+import { Stats } from "./components/Stats";
+import { About } from "./components/About";
 
 const App = () => {
   return (
-    <div className="container">
+    <div className={styles.container}>
       <Navbar />
       <Hero />
-      <h1>hello</h1>
+      <div className={styles.mainSection}>
+        <BackProject />
+        <Stats />
+        <About />
+      </div>
     </div>
   );
 };

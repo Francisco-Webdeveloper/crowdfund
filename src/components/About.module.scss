@@ -1,0 +1,6 @@
+@import "../App.module.scss";
+
+.about {
+  height: 1194px;
+  @include cardDesign;
+}
