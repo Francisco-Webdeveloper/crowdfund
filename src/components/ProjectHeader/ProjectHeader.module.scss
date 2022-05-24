@@ -1,40 +1,69 @@
 @import "../../style.scss";
 @import "../../pages/Project.module.scss";
 
-.backProject {
-  height: 266px;
+.backProjectCard {
+  height: 284px;
   @include cardDesign;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 54px;
+  text-align: center;
+  padding: 54px 26px 0 26px;
+  // DESKTOP
+  @media (min-width: 1440px) {
+    height: 266px;
+  }
 
   .logo {
     position: absolute;
     top: -30px;
-    left: 336px;
+    left: 135px;
+    // Desktop
+    @media (min-width: 1440px) {
+      left: 336px;
+    }
   }
 
   .title {
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 700;
     margin-bottom: 16px;
+    width: 200px;
+    // Desktop
+    @media (min-width: 1440px) {
+      font-size: 28px;
+      width: 600px;
+    }
   }
 
   .description {
-    color: #8a8a8a;
-    margin-bottom: 36px;
+    font-size: 14px;
+    color: #a8a4a4;
+    margin-bottom: 26px;
+    //mobile
+    line-height: 24px;
+    // Desktop
+    @media (min-width: 1440px) {
+      font-size: 16px;
+      margin-bottom: 36px;
+      // line-height: 0;
+    }
   }
 
   .buttons {
     display: flex;
     justify-content: space-between;
-    width: 638px;
+    // mobile
+    width: 282px;
+    // Desktop
+    @media (min-width: 1440px) {
+      width: 638px;
+    }
   }
 
   .backProjectBtn {
-    width: 204px;
+    width: 216px;
     height: 56px;
     border-radius: 44px;
     border: none;
@@ -42,27 +71,42 @@
     background: $primary-color;
     font-family: $font-stack;
     font-weight: 700;
-
-    &:hover {
-      background: $hover-color;
+    // Desktop
+    @media (min-width: 1440px) {
+      width: 204px;
+      &:hover {
+        background: $hover-color;
+      }
     }
   }
 
-  .bookmarkBtn {
-    width: 176px;
-    height: 56px;
-    border-radius: 44px;
-    border: none;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0;
+  // Mobile
+  @media (max-width: 1440px) {
+    .bookmarkBtn {
+      display: none;
+    }
   }
 
-  .bookmark {
-    font-family: $font-stack;
-    font-weight: 700;
-    color: #7d7d7d;
-    margin-left: 16px;
+  // Desktop
+  @media (min-width: 1440px) {
+    .bookmarkBtn {
+      width: 176px;
+      height: 56px;
+      border-radius: 44px;
+      border: none;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0;
+    }
+    .bookmark {
+      font-family: $font-stack;
+      font-weight: 700;
+      color: #7d7d7d;
+      margin-left: 16px;
+    }
+    .bookmarkIconMobile {
+      display: none;
+    }
   }
 }

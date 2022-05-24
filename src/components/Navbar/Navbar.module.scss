@@ -1,17 +1,33 @@
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background: #aaa;
-  width: 1440px;
-  padding: 48px 164px;
+  width: 375px;
   position: fixed;
+  padding: 24px 24px;
   background: transparent;
-  z-index: 1;
-  // text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
+  // Desktop
+  @media (min-width: 1440px) {
+    width: 1440px;
+    padding: 48px 164px;
+    z-index: 1;
+  }
 
   .logo {
-    color: #fef8f0;
+    color: #fff;
     font-weight: 600;
+    font-size: 26px;
+    @media (min-width: 1440px) {
+      // Desktop
+      color: #fef8f0;
+    }
+  }
+
+  .burgerMenu {
+    @media (min-width: 1440px) {
+      display: none;
+    }
   }
 
   .links {
@@ -25,5 +41,9 @@
     font-size: 14px;
     color: #fffeff;
     cursor: pointer;
+
+    @media (max-width: 1440px) {
+      display: none;
+    }
   }
 }
