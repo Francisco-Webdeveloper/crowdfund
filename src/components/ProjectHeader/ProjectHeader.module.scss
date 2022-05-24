@@ -1,0 +1,68 @@
+@import "../../style.scss";
+@import "../../pages/Project.module.scss";
+
+.backProject {
+  height: 266px;
+  @include cardDesign;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 54px;
+
+  .logo {
+    position: absolute;
+    top: -30px;
+    left: 336px;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .description {
+    color: #8a8a8a;
+    margin-bottom: 36px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 638px;
+  }
+
+  .backProjectBtn {
+    width: 204px;
+    height: 56px;
+    border-radius: 44px;
+    border: none;
+    color: #e1fbfb;
+    background: $primary-color;
+    font-family: $font-stack;
+    font-weight: 700;
+
+    &:hover {
+      background: $hover-color;
+    }
+  }
+
+  .bookmarkBtn {
+    width: 176px;
+    height: 56px;
+    border-radius: 44px;
+    border: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0;
+  }
+
+  .bookmark {
+    font-family: $font-stack;
+    font-weight: 700;
+    color: #7d7d7d;
+    margin-left: 16px;
+  }
+}
