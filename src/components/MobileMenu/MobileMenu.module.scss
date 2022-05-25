@@ -1,0 +1,28 @@
+.menuModal {
+  width: 326px;
+  margin-top: 86px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #262626;
+
+  .menuContent {
+    height: 213px;
+
+    * {
+      height: 71px;
+      display: flex;
+      align-items: center;
+      padding-left: 24px;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.025);
+      }
+    }
+
+    .discover {
+      border: 1px solid #ececec;
+      border-width: 1px 0 1px 0;
+    }
+  }
+}

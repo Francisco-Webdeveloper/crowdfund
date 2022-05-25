@@ -24,7 +24,9 @@
     }
   }
 
-  .burgerMenu {
+  .menuIcon {
+    cursor: pointer;
+    margin-bottom: 6px;
     @media (min-width: 1440px) {
       display: none;
     }
