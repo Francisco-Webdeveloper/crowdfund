@@ -35,4 +35,14 @@
       margin-bottom: 32px;
     }
   }
+
+  .campaignsCard {
+    @include cardDesign;
+    padding: 36px 24px 20px 24px;
+
+    // Desktop
+    @media (min-width: 1440px) {
+      padding: 46px 46px 20px 46px;
+    }
+  }
 }
