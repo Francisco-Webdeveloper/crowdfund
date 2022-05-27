@@ -1,0 +1,23 @@
+@import "../../pages/Project.module.scss";
+@import "../../style.scss";
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 23px;
+  @media (min-width: 1440px) {
+    font-size: 20px;
+    margin-bottom: 36px;
+  }
+}
+
+.description {
+  font-size: 14px;
+  line-height: 25px;
+  color: $paragraph-color;
+  @media (min-width: 1440px) {
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 39px;
+  }
+}

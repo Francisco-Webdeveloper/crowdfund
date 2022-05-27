@@ -1,6 +1,103 @@
 @import "../../pages/Project.module.scss";
+@import "../../style.scss";
 
-.stats {
-  height: 210px;
+@mixin font-h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.status {
+  height: 412px;
   @include cardDesign;
+  text-align: center;
+  padding: 0 22px;
+  // Desktop
+  @media (min-width: 1440px) {
+    height: 210px;
+    display: grid;
+    grid-template-columns: 150px 300px auto;
+    padding: 46px;
+    text-align: left;
+  }
+
+  .moneyBacked {
+    height: 122px;
+    @media (min-width: 1440px) {
+      height: 0;
+    }
+    h1 {
+      @include font-h1;
+      padding-top: 30px;
+      @media (min-width: 1440px) {
+        padding: 0;
+      }
+    }
+    p {
+      color: $paragraph-color;
+      font-size: 14px;
+      @media (min-width: 1440px) {
+        margin: 0;
+      }
+    }
+  }
+
+  .totalBackers {
+    height: 114px;
+    border: 1px solid #e7e2e2;
+    border-width: 1px 0 1px 0;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    @media (min-width: 1440px) {
+      height: 0;
+      border-width: 0 1px 0 1px;
+      padding: 0 100px 0 50px;
+    }
+
+    h1 {
+      @include font-h1;
+      padding-top: 22px;
+      @media (min-width: 1440px) {
+        padding: 0;
+      }
+    }
+    p {
+      color: $paragraph-color;
+      font-size: 14px;
+      @media (min-width: 1440px) {
+        margin: 0;
+      }
+    }
+  }
+
+  .daysLeft {
+    height: 122px;
+    @media (min-width: 1440px) {
+      height: 40px;
+    }
+    h1 {
+      @include font-h1;
+      padding-top: 20px;
+      @media (min-width: 1440px) {
+        padding: 0;
+      }
+    }
+    p {
+      color: $paragraph-color;
+      font-size: 14px;
+      @media (min-width: 1440px) {
+        margin: 0;
+      }
+    }
+  }
+
+  .progressBar {
+    height: 12px;
+    border-radius: 14px;
+    // Desktop
+    @media (min-width: 1440px) {
+      grid-column: 1 / 4;
+      margin-top: 30px;
+    }
+  }
 }
