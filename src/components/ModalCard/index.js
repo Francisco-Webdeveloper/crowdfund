@@ -10,7 +10,6 @@ export const ModalCard = ({ showModal, handleClose }) => {
       keyboard={false}
       centered
       dialogClassName={styles.modalWidth}
-      className={styles.modal}
     >
       <Modal.Header closeButton>
         <Modal.Title>Modal heading</Modal.Title>
