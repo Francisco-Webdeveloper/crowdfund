@@ -6,7 +6,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Project />} />
-        <Route path="/project-crowdfunding" element={<Project />} />
+        <Route path="/project-crowdfunding/:projectId" element={<Project />} />
       </Routes>
     </BrowserRouter>
   );
