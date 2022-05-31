@@ -1,4 +1,5 @@
 import { Modal } from "react-bootstrap";
+import { RadioButtons } from "../RadioButtons";
 import styles from "./ModalCard.module.scss";
 import closeModalIcon from "../../icons/icon-close-modal.svg";
 
@@ -7,15 +8,17 @@ export const ModalCard = ({
   handleClose,
   campaigns,
   modalIntroduction,
-  noRewardPledge,
-  noRewardPledgeDescription,
+  ...rest
 }) => {
   const campaignsList = campaigns.map(
     ({ product, pledgeAmount, description, stock }) => {
+      const campaignCardClassName =
+        stock > 0 ? styles.campaignCard : styles.campaignCardDisabled;
+      const disabled = stock > 0 ? false : true;
       return (
-        <div className={styles.campaignCard}>
+        <div className={campaignCardClassName}>
           <div className={styles.inputLabelAndPledgeAmount}>
-            <input type="radio" id={product} className={styles.inputReward} />
+            <input type="radio" id={product} disabled={disabled} />
             <div className={styles.labelAndPledgeAmount}>
               <label htmlFor={product} className={styles.product}>
                 {product}
@@ -57,22 +60,7 @@ export const ModalCard = ({
           </div>
           <p className={styles.introduction}>{modalIntroduction}</p>
         </div>
-        <form type="radio">
-          <div className={styles.campaignCard}>
-            <div className={styles.inputAndLabel}>
-              <input
-                type="radio"
-                id="noReward"
-                className={styles.inputNoReward}
-              />
-              <label htmlFor="noReward" className={styles.noProduct}>
-                {noRewardPledge}
-              </label>
-            </div>
-            <p className={styles.description}>{noRewardPledgeDescription}</p>
-          </div>
-          {campaignsList}
-        </form>
+        <RadioButtons campaignsList={campaignsList} {...rest} />
       </div>
     </Modal>
   );

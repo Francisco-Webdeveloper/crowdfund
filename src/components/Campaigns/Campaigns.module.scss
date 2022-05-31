@@ -1,7 +1,8 @@
 @import "../../pages/Project.module.scss";
 @import "../../style.scss";
 
-.campaignCard {
+.campaignCard,
+.campaignCardDisabled {
   border: 1px solid #d5d0d0;
   border-radius: 7px;
   padding: 22px;
@@ -56,8 +57,16 @@
     margin: 0 0 6px 8px;
   }
 
-  .selectReward {
+  .selectReward,
+  .selectRewardDisabled {
     @include selectRewardBtn;
+  }
+
+  .selectRewardDisabled {
+    background: $paragraph-color;
+    &:hover {
+      background: $paragraph-color;
+    }
   }
 
   // Desktop
@@ -71,4 +80,8 @@
       margin-top: 26px;
     }
   }
+}
+
+.campaignCardDisabled {
+  opacity: 0.5;
 }

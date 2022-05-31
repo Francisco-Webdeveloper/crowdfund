@@ -58,6 +58,8 @@ const Project = () => {
           title={title}
           onClick={handleShowModal}
         />
+        {/* {allCampaigns.map(({ stock }) => {
+          return ( */}
         <ModalCard
           showModal={showModal}
           handleClose={handleCloseModal}
@@ -66,6 +68,8 @@ const Project = () => {
           noRewardPledge={noRewardPledge}
           noRewardPledgeDescription={noRewardPledgeDescription}
         />
+        {/* );
+        })} */}
         <StatusCard
           moneyBacked={moneyBacked}
           totalBackers={totalBackers}

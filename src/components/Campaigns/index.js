@@ -1,8 +1,12 @@
 import styles from "./Campaigns.module.scss";
 
 export const Campaigns = ({ product, description, pledgeAmount, stock }) => {
+  const campaignCardClassName =
+    stock > 0 ? styles.campaignCard : styles.campaignCardDisabled;
+  const selectRewardClassName =
+    stock > 0 ? styles.selectReward : styles.selectRewardDisabled;
   return (
-    <div className={styles.campaignCard}>
+    <div className={campaignCardClassName}>
       <div className={styles.productAndPledge}>
         <p className={styles.product}>{product}</p>
         <p className={styles.pledgeAmount}>Pledge ${pledgeAmount} or more</p>
@@ -13,7 +17,9 @@ export const Campaigns = ({ product, description, pledgeAmount, stock }) => {
           <h1 className={styles.stock}>{stock}</h1>
           <span className={styles.left}>left</span>
         </div>
-        <button className={styles.selectReward}>Select Reward</button>
+        <button className={selectRewardClassName} disabled={true}>
+          {stock > 0 ? "Select Reward" : "Out of Stock"}
+        </button>
       </div>
     </div>
   );
