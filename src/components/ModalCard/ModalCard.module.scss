@@ -1,1 +1,186 @@
+@import "../../style.scss";
 
+.campaignsModal {
+  width: 326px;
+  margin: 0 auto;
+  margin-top: 118px;
+  @media (min-width: 1440px) {
+    width: 732px;
+    margin-top: 180px;
+  }
+}
+
+.modalContainer {
+  padding: 36px 24px 4px 24px;
+  @media (min-width: 1440px) {
+    padding: 50px 48px 22px 48px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 23px;
+    @media (min-width: 1440px) {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .modalClose {
+    height: 15px;
+    cursor: pointer;
+    margin-top: -25px;
+    margin-right: -25px;
+  }
+
+  .introduction {
+    font-size: 14px;
+    line-height: 25px;
+    color: $paragraph-color;
+    white-space: pre-wrap;
+    @media (min-width: 1440px) {
+      font-size: 16px;
+      line-height: 30px;
+      margin-bottom: 32px;
+    }
+  }
+
+  .campaignCard {
+    border: 1px solid #d5d0d0;
+    border-radius: 7px;
+    padding: 20px 22px 16px 22px;
+    font-size: 14px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    @media (min-width: 1440px) {
+      padding: 24px 28px 24px 27px;
+      position: relative;
+    }
+  }
+
+  .product,
+  .noProduct {
+    font-weight: 700;
+    @media (min-width: 1440px) {
+      font-size: 16px;
+      padding-right: 18px;
+    }
+  }
+
+  input[type="radio"] {
+    border: 1px solid #d5d0d0;
+    border-radius: 50%;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    margin-right: 16px;
+    outline: none;
+    cursor: pointer;
+    @media (min-width: 1440px) {
+      width: 24px;
+      height: 24px;
+      margin-right: 25px;
+    }
+    &:hover {
+      box-shadow: 0 0 5px 0px $primary-color inset;
+    }
+    &:before {
+      content: "";
+      display: block;
+      width: 60%;
+      height: 60%;
+      margin: 20% auto;
+      border-radius: 50%;
+      @media (min-width: 1440px) {
+        margin: 20% 22%;
+      }
+    }
+    &:checked:before {
+      background: $primary-color;
+    }
+  }
+
+  .inputAndLabel,
+  .inputLabelAndPledgeAmount {
+    display: flex;
+    align-items: center;
+  }
+
+  .inputAndLabel {
+    padding-top: 12px;
+    margin-bottom: 34px;
+    @media (min-width: 1440px) {
+      margin-bottom: 0;
+      padding-bottom: 8px;
+    }
+  }
+  .inputLabelAndPledgeAmount {
+    margin-bottom: 26px;
+    @media (min-width: 1440px) {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .labelAndPledgeAmount {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 45px;
+    @media (min-width: 1440px) {
+      flex-direction: row;
+      align-items: center;
+      padding-bottom: 10px;
+    }
+  }
+
+  .pledgeAmount {
+    margin-bottom: 0;
+    color: $primary-color;
+    @media (min-width: 1440px) {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+
+  .description {
+    color: $paragraph-color;
+    margin-bottom: 14px;
+    line-height: 24px;
+    @media (min-width: 1440px) {
+      font-size: 15px;
+      line-height: 28px;
+      padding-left: 50px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .stockLeft {
+    display: flex;
+    align-items: center;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    @media (min-width: 1440px) {
+      position: absolute;
+      top: 23px;
+      right: 24px;
+    }
+  }
+
+  .stock {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 6px 8px;
+  }
+
+  .left {
+    font-size: 16px;
+    color: $paragraph-color;
+    margin: 0 0 8px 8px;
+  }
+}

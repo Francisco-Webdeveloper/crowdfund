@@ -51,13 +51,18 @@ body {
 
   // Desktop
   @media (min-width: 1440px) {
-    max-width: 728px;
+    max-width: 732px;
   }
 }
 
-.modal-backdrop {
-  background: linear-gradient(transparent, 40%, black);
+.modal-content {
+  border-radius: 10px;
+  margin-bottom: 130px;
 }
+
+// .modal-backdrop {
+//   background: linear-gradient(transparent, 40%, black);
+// }
 
 .progress-bar {
   border-radius: 14px;

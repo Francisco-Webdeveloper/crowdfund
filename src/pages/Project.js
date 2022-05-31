@@ -8,8 +8,8 @@ import { About } from "../components/About";
 import { Campaigns } from "../components/Campaigns";
 import { ModalCard } from "../components/ModalCard";
 import campaignsData from "../campaignsData";
-import { useParams } from "react-router-dom";
 import projectsData from "../projectsData";
+import { useParams } from "react-router-dom";
 
 const Project = () => {
   const [showModal, setShowModal] = useState(false);
@@ -17,35 +17,36 @@ const Project = () => {
 
   console.log({ projectId });
 
-  // const campaigns = campaignsData.data.campaigns.map(
-  //   ({ product, pledgeAmount, description, stock }) => {
-  //     return {
-  //       product,
-  //       pledgeAmount,
-  //       description,
-  //       stock,
-  //     };
-  //   }
-  // );
-
   const { campaigns } = campaignsData.data;
   const [allCampaigns, setAllCampaigns] = useState(campaigns);
 
-  console.log(allCampaigns);
-
+  // show the modal when the user clicks the button
   const handleShowModal = () => setShowModal(true);
 
+  // hide the modal when the user clicks exits
   const handleCloseModal = () => setShowModal(false);
 
   const { projects } = projectsData.data;
+  // find the project whose id is the same as the projectId in our path
   const currentProject = projects.find((project) => project.id === projectId);
 
   if (!currentProject) {
-    return <div>Project not found</div>;
+    return <div style={{ color: "white" }}>Project not found</div>;
   }
 
-  const { daysLeft, moneyBacked, progress, totalBackers, title, description } =
-    currentProject;
+  // get the value of a specific project's properties
+  const {
+    daysLeft,
+    moneyBacked,
+    progress,
+    totalBackers,
+    title,
+    description,
+    about,
+    modalIntroduction,
+    noRewardPledge,
+    noRewardPledgeDescription,
+  } = currentProject;
 
   return (
     <div className={styles.container}>
@@ -57,7 +58,14 @@ const Project = () => {
           title={title}
           onClick={handleShowModal}
         />
-        <ModalCard showModal={showModal} handleClose={handleCloseModal} />
+        <ModalCard
+          showModal={showModal}
+          handleClose={handleCloseModal}
+          campaigns={allCampaigns}
+          modalIntroduction={modalIntroduction}
+          noRewardPledge={noRewardPledge}
+          noRewardPledgeDescription={noRewardPledgeDescription}
+        />
         <StatusCard
           moneyBacked={moneyBacked}
           totalBackers={totalBackers}
@@ -65,7 +73,7 @@ const Project = () => {
           progress={progress}
         />
         <div className={styles.campaignsCard}>
-          <About />
+          <About about={about} />
           {allCampaigns.map(
             ({ product, pledgeAmount, description, stock }, id) => {
               return (
