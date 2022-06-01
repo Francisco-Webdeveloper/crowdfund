@@ -66,6 +66,7 @@
     background: $paragraph-color;
     &:hover {
       background: $paragraph-color;
+      cursor: default;
     }
   }
 

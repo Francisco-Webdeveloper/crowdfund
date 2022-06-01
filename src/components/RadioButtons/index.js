@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./RadioButtons.module.scss";
 
 export const RadioButtons = ({
@@ -5,15 +6,31 @@ export const RadioButtons = ({
   noRewardPledge,
   noRewardPledgeDescription,
 }) => {
+  const [formData, setFormData] = useState({ pledgeCard: "" });
+
+  // update the state with value of the radio buttons
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ [name]: value });
+  };
+
   const campaignsList = campaigns.map(
-    ({ product, pledgeAmount, description, stock }) => {
+    ({ product, pledgeAmount, description, stock }, index) => {
       const campaignCardClassName =
         stock > 0 ? styles.campaignCard : styles.campaignCardDisabled;
       const disabled = stock > 0 ? false : true;
       return (
-        <div className={campaignCardClassName}>
+        <div key={index + 1} className={campaignCardClassName}>
           <div className={styles.inputLabelAndPledgeAmount}>
-            <input type="radio" id={product} disabled={disabled} />
+            <input
+              type="radio"
+              id={product}
+              name="pledgeCard"
+              value={product}
+              checked={formData.pledgeCard === product} // React is in charge of controlling the input rather than the input having its own html state
+              onChange={handleChange}
+              disabled={disabled}
+            />
             <div className={styles.labelAndPledgeAmount}>
               <label htmlFor={product} className={styles.product}>
                 {product}
@@ -37,7 +54,14 @@ export const RadioButtons = ({
     <form type="radio">
       <div className={styles.campaignCard}>
         <div className={styles.inputAndLabel}>
-          <input type="radio" id="noReward" />
+          <input
+            type="radio"
+            id="noReward"
+            name="pledgeCard"
+            value="noReward"
+            checked={formData.pledgeCard === "noReward"}
+            onChange={handleChange}
+          />
           <label htmlFor="noReward" className={styles.noProduct}>
             {noRewardPledge}
           </label>

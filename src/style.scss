@@ -23,6 +23,7 @@ $paragraph-color: #959595;
   @media (min-width: 1440px) {
     &:hover {
       background: $hover-color;
+      cursor: pointer;
     }
   }
 }
