@@ -71,12 +71,12 @@
     background: $primary-color;
     font-family: $font-stack;
     font-weight: 700;
+    &:hover {
+      background: $hover-color;
+    }
     // Desktop
     @media (min-width: 1440px) {
       width: 204px;
-      &:hover {
-        background: $hover-color;
-      }
     }
   }
 
