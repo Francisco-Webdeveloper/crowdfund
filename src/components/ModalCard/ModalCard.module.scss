@@ -34,8 +34,6 @@
   .modalClose {
     height: 15px;
     cursor: pointer;
-    // margin-top: -25px;
-    // margin-right: -25px;
     @media (min-width: 1440px) {
       margin-top: -25px;
       margin-right: -15px;
@@ -52,89 +50,5 @@
       line-height: 30px;
       margin-bottom: 32px;
     }
-  }
-
-  .campaignCard,
-  .campaignCardDisabled {
-    @include campaignCardModal;
-  }
-
-  .product {
-    font-weight: 700;
-    @media (min-width: 1440px) {
-      font-size: 16px;
-      padding-right: 18px;
-    }
-  }
-
-  input[type="radio"] {
-    @include radioButton;
-  }
-
-  .campaignCardDisabled {
-    opacity: 0.5;
-    input:hover {
-      box-shadow: none;
-      cursor: default;
-    }
-  }
-
-  .inputLabelAndPledgeAmount {
-    display: flex;
-    align-items: center;
-    margin-bottom: 26px;
-    @media (min-width: 1440px) {
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-  }
-
-  .labelAndPledgeAmount {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 45px;
-    @media (min-width: 1440px) {
-      flex-direction: row;
-      align-items: center;
-      padding-bottom: 10px;
-    }
-  }
-
-  .pledgeAmount {
-    margin-bottom: 0;
-    color: $primary-color;
-    @media (min-width: 1440px) {
-      font-size: 16px;
-      font-weight: 500;
-    }
-  }
-
-  .description {
-    @include productDescriptionModal;
-  }
-
-  .stockLeft {
-    display: flex;
-    align-items: center;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    @media (min-width: 1440px) {
-      position: absolute;
-      top: 23px;
-      right: 24px;
-    }
-  }
-
-  .stock {
-    font-size: 18px;
-    font-weight: 700;
-    margin: 0 0 6px 8px;
-  }
-
-  .left {
-    font-size: 16px;
-    color: $paragraph-color;
-    margin: 0 0 8px 8px;
   }
 }
