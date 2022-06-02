@@ -1,0 +1,88 @@
+@import "../../pages/Project.module.scss";
+@import "../../style.scss";
+
+.campaignCard,
+.campaignCardDisabled {
+  border: 1px solid #d5d0d0;
+  border-radius: 7px;
+  padding: 22px;
+  font-size: 14px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  @media (min-width: 1440px) {
+    padding: 36px 32px 24px 22px;
+  }
+
+  .product {
+    font-weight: 700;
+    margin-bottom: 5px;
+    @media (min-width: 1440px) {
+      font-size: 18px;
+    }
+  }
+
+  .pledgeAmount {
+    font-weight: 600;
+    color: $primary-color;
+    margin-bottom: 20px;
+    @media (min-width: 1440px) {
+      font-size: 15px;
+      font-weight: 500;
+    }
+  }
+
+  .description {
+    color: $paragraph-color;
+    margin-bottom: 22px;
+    line-height: 24px;
+    @media (min-width: 1440px) {
+      font-size: 16px;
+      line-height: 28px;
+    }
+  }
+
+  .stockLeft {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .stock {
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  .left {
+    color: $paragraph-color;
+    margin: 0 0 6px 8px;
+  }
+
+  .selectReward,
+  .selectRewardDisabled {
+    @include selectRewardBtn;
+  }
+
+  .selectRewardDisabled {
+    background: $paragraph-color;
+    &:hover {
+      background: $paragraph-color;
+      cursor: default;
+    }
+  }
+
+  // Desktop
+  @media (min-width: 1440px) {
+    .productAndPledge,
+    .stockAndSelect {
+      display: flex;
+      justify-content: space-between;
+    }
+    .stockAndSelect {
+      margin-top: 26px;
+    }
+  }
+}
+
+.campaignCardDisabled {
+  opacity: 0.5;
+}
