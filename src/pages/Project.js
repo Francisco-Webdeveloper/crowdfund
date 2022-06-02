@@ -5,11 +5,12 @@ import { HeroImage } from "../components/HeroImage";
 import { ProjectHeader } from "../components/ProjectHeader";
 import { StatusCard } from "../components/StatusCard";
 import { About } from "../components/About";
-import { Campaigns } from "../components/Campaigns";
-import { ModalCard } from "../components/ModalCard";
+import { CampaignCard } from "../components/CampaignCard";
+import { PledgesModalCard } from "../components/PledgesModalCard";
 import campaignsData from "../campaignsData";
 import projectsData from "../projectsData";
 import { useParams } from "react-router-dom";
+import { CampaignList } from "../components/CampaignList";
 
 const Project = () => {
   const [showModal, setShowModal] = useState(false);
@@ -58,18 +59,17 @@ const Project = () => {
           title={title}
           onClick={handleShowModal}
         />
-        {/* {allCampaigns.map(({ stock }) => {
-          return ( */}
-        <ModalCard
+        <PledgesModalCard
           showModal={showModal}
           handleClose={handleCloseModal}
-          campaigns={allCampaigns}
           modalIntroduction={modalIntroduction}
-          noRewardPledge={noRewardPledge}
-          noRewardPledgeDescription={noRewardPledgeDescription}
-        />
-        {/* );
-        })} */}
+        >
+          <CampaignList
+            campaigns={allCampaigns}
+            noRewardPledge={noRewardPledge}
+            noRewardPledgeDescription={noRewardPledgeDescription}
+          />
+        </PledgesModalCard>
         <StatusCard
           moneyBacked={moneyBacked}
           totalBackers={totalBackers}
@@ -81,7 +81,7 @@ const Project = () => {
           {allCampaigns.map(
             ({ product, pledgeAmount, description, stock }, id) => {
               return (
-                <Campaigns
+                <CampaignCard
                   key={id + 1}
                   product={product}
                   pledgeAmount={pledgeAmount}
