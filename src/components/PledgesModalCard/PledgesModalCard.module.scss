@@ -1,0 +1,54 @@
+@import "../../style.scss";
+
+.campaignsModal {
+  width: 326px;
+  margin: 0 auto;
+  margin-top: 118px;
+  @media (min-width: 1440px) {
+    width: 732px;
+    margin-top: 180px;
+  }
+}
+
+.modalContainer {
+  padding: 36px 24px 4px 24px;
+  @media (min-width: 1440px) {
+    padding: 50px 48px 22px 48px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 23px;
+    @media (min-width: 1440px) {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .modalClose {
+    height: 15px;
+    cursor: pointer;
+    @media (min-width: 1440px) {
+      margin-top: -25px;
+      margin-right: -15px;
+    }
+  }
+
+  .introduction {
+    font-size: 14px;
+    line-height: 25px;
+    color: $paragraph-color;
+    white-space: pre-wrap;
+    @media (min-width: 1440px) {
+      font-size: 16px;
+      line-height: 30px;
+      margin-bottom: 32px;
+    }
+  }
+}
