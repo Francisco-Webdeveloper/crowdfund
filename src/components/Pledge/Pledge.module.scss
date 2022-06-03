@@ -1,0 +1,61 @@
+@import "../../style.scss";
+
+.pledgeCard {
+  // display: none;
+  text-align: center;
+  padding: 24px 0 10px 0;
+  margin: 10px -22px 0 -22px;
+  border-top: 1px solid #d5d0d0;
+  @media (min-width: 1440px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px -27px 0 -27px;
+    padding: 24px 27px 0 27px;
+  }
+}
+
+.pledgeTitle {
+  color: $paragraph-color;
+  margin-bottom: 20px;
+  @media (min-width: 1440px) {
+    margin-bottom: 0;
+    font-size: 15px;
+  }
+}
+
+.pledgeAndSubmit {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  height: 46px;
+  @media (min-width: 1440px) {
+    gap: 14px;
+  }
+}
+
+.pledgeInput {
+  width: 100px;
+  border-radius: 30px;
+  border: 1px solid #d5d0d0;
+  padding: 1px 10px;
+  outline: none;
+  &:focus {
+    border: 1px solid $primary-color;
+  }
+}
+
+.pledgeButton {
+  width: 114px;
+  border-radius: 30px;
+  background-color: $primary-color;
+  color: #e1fbfb;
+  border: none;
+  font-weight: 500;
+  &:hover {
+    background-color: $hover-color;
+  }
+  @media (min-width: 1440px) {
+    width: 108px;
+  }
+}

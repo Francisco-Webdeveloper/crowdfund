@@ -1,18 +1,66 @@
 .hero {
-  background-image: url("../../images/image-hero-mobile.jpg");
+  background-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.25) 100%
+    ),
+    url("../../images/image-hero-375x300.jpg");
   background-size: cover;
-  width: 375px;
   height: 300px;
+  width: 100%;
 
-  // DESKTOP
+  // Small
+  @media (min-width: 576px) {
+    background-image: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.25) 100%
+      ),
+      url("../../images/image-hero-576x300.jpg");
+    height: 300px;
+  }
+
+  // Medium
+  @media (min-width: 768px) {
+    background-image: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.25) 100%
+      ),
+      url("../../images/image-hero-768x350.jpg");
+    height: 350px;
+  }
+
+  // Large
+  @media (min-width: 992px) {
+    background-image: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.25) 100%
+      ),
+      url("../../images/image-hero-992x350.jpg");
+    height: 350px;
+  }
+
+  // XL
+  @media (min-width: 1200px) {
+    background-image: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.25) 100%
+      ),
+      url("../../images/image-hero-1200x400.jpg");
+    height: 400px;
+  }
+
+  // XXL
   @media (min-width: 1440px) {
     background-image: linear-gradient(
         to top,
         rgba(0, 0, 0, 0) 0%,
         rgba(0, 0, 0, 0.25) 100%
       ),
-      url("../../images/image-hero-desktop.jpg");
-    width: 1440px;
+      url("../../images/image-hero-1440x400.jpg");
     height: 400px;
   }
 }

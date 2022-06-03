@@ -3,13 +3,12 @@
   justify-content: space-between;
   align-items: center;
   background: #aaa;
-  width: 375px;
+  width: 100%;
   position: fixed;
   padding: 24px 24px;
   background: transparent;
   // Desktop
-  @media (min-width: 1440px) {
-    width: 1440px;
+  @media (min-width: 992px) {
     padding: 48px 164px;
     z-index: 1;
   }
@@ -44,7 +43,7 @@
     color: #fffeff;
     cursor: pointer;
 
-    @media (max-width: 1440px) {
+    @media (max-width: 992px) {
       display: none;
     }
   }

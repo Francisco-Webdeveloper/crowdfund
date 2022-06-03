@@ -1,7 +1,6 @@
 @import "../../style.scss";
 
-.campaignCard,
-.campaignCardDisabled {
+.campaignCard {
   border: 1px solid #d5d0d0;
   border-radius: 7px;
   padding: 20px 22px 16px 22px;
@@ -14,14 +13,6 @@
   }
 }
 
-.campaignCardDisabled {
-  opacity: 0.5;
-  input:hover {
-    box-shadow: none;
-    cursor: default;
-  }
-}
-
 .inputAndLabel {
   display: flex;
   align-items: center;
@@ -30,37 +21,6 @@
   @media (min-width: 1440px) {
     margin-bottom: 0;
     padding-bottom: 8px;
-  }
-}
-
-.inputLabelAndPledgeAmount {
-  display: flex;
-  align-items: center;
-  margin-bottom: 26px;
-  @media (min-width: 1440px) {
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-}
-
-.labelAndPledgeAmount {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 45px;
-  @media (min-width: 1440px) {
-    flex-direction: row;
-    align-items: center;
-    padding-bottom: 10px;
-  }
-}
-
-.pledgeAmount {
-  margin-bottom: 0;
-  color: $primary-color;
-  @media (min-width: 1440px) {
-    font-size: 16px;
-    font-weight: 500;
   }
 }
 
@@ -79,9 +39,7 @@ input[type="radio"] {
     margin-right: 25px;
   }
   &:hover {
-    @media (min-width: 1440px) {
-      box-shadow: 0 0 5px 0px $primary-color inset;
-    }
+    box-shadow: 0 0 5px 0px $primary-color inset;
   }
   &:before {
     content: "";
@@ -99,17 +57,11 @@ input[type="radio"] {
   }
 }
 
-.product,
 .noProduct {
   font-weight: 700;
   @media (min-width: 1440px) {
     font-size: 16px;
     padding-right: 18px;
-  }
-}
-
-.noProduct {
-  @media (min-width: 1440px) {
     padding-bottom: 10px;
   }
 }
@@ -124,28 +76,4 @@ input[type="radio"] {
     padding-left: 50px;
     margin-bottom: 8px;
   }
-}
-
-.stockLeft {
-  display: flex;
-  align-items: center;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  @media (min-width: 1440px) {
-    position: absolute;
-    top: 23px;
-    right: 27px;
-  }
-}
-
-.stock {
-  font-size: 18px;
-  font-weight: 700;
-  margin: 0 0 6px 0;
-}
-
-.left {
-  font-size: 16px;
-  color: $paragraph-color;
-  margin: 0 0 8px 8px;
 }

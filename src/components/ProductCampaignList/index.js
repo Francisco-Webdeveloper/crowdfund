@@ -2,8 +2,6 @@ import { Pledge } from "../Pledge";
 import styles from "./ProductCampaignList.module.scss";
 
 export const ProductCampaignList = ({ campaigns, formData, onChange }) => {
-  console.log(campaigns);
-
   return campaigns.map(({ product, pledgeAmount, description, stock }) => {
     const disabled = stock > 0 ? false : true;
     const campaignCardSelected = product === formData.pledgeCard;
