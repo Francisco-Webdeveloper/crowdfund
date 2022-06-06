@@ -6,11 +6,14 @@
   padding: 24px 0 10px 0;
   margin: 10px -22px 0 -22px;
   border-top: 1px solid #d5d0d0;
+  @media (min-width: 992px) {
+    margin-top: 24px;
+  }
   @media (min-width: 1440px) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px -27px 0 -27px;
+    margin: 24px -27px 0 -27px;
     padding: 24px 27px 0 27px;
   }
 }

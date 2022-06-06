@@ -9,6 +9,10 @@
   background: transparent;
   // Desktop
   @media (min-width: 992px) {
+    padding: 48px 64px;
+    z-index: 1;
+  }
+  @media (min-width: 1440px) {
     padding: 48px 164px;
     z-index: 1;
   }
@@ -17,7 +21,7 @@
     color: #fff;
     font-weight: 600;
     font-size: 26px;
-    @media (min-width: 1440px) {
+    @media (min-width: 992px) {
       // Desktop
       color: #fef8f0;
     }
@@ -26,7 +30,7 @@
   .menuIcon {
     cursor: pointer;
     margin-bottom: 6px;
-    @media (min-width: 1440px) {
+    @media (min-width: 992px) {
       display: none;
     }
   }

@@ -4,17 +4,23 @@
   width: 326px;
   margin: 0 auto;
   margin-top: 118px;
+  @media (min-width: 992px) {
+    width: 528px;
+    margin-top: 180px;
+  }
   @media (min-width: 1440px) {
     width: 732px;
-    margin-top: 180px;
   }
 }
 
 .modalContainer {
   padding: 36px 24px 4px 24px;
-  @media (min-width: 1440px) {
+  @media (min-width: 992px) {
     padding: 50px 48px 22px 48px;
   }
+  // @media (min-width: 1440px) {
+  //   padding: 50px 48px 22px 48px;
+  // }
 
   .header {
     display: flex;
@@ -25,19 +31,27 @@
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 23px;
-    @media (min-width: 1440px) {
+    @media (min-width: 992px) {
       font-size: 24px;
       margin-bottom: 16px;
     }
+    // @media (min-width: 1440px) {
+    //   font-size: 24px;
+    //   margin-bottom: 16px;
+    // }
   }
 
   .modalClose {
     height: 15px;
     cursor: pointer;
-    @media (min-width: 1440px) {
+    @media (min-width: 992px) {
       margin-top: -25px;
       margin-right: -15px;
     }
+    // @media (min-width: 1440px) {
+    //   margin-top: -25px;
+    //   margin-right: -15px;
+    // }
   }
 
   .introduction {
@@ -45,10 +59,15 @@
     line-height: 25px;
     color: $paragraph-color;
     white-space: pre-wrap;
-    @media (min-width: 1440px) {
+    @media (min-width: 992px) {
       font-size: 16px;
       line-height: 30px;
       margin-bottom: 32px;
     }
+    // @media (min-width: 1440px) {
+    //   font-size: 16px;
+    //   line-height: 30px;
+    //   margin-bottom: 32px;
+    // }
   }
 }

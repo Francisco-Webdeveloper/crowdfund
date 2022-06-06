@@ -9,7 +9,7 @@
   font-size: 14px;
   margin-top: 24px;
   margin-bottom: 24px;
-  @media (min-width: 1440px) {
+  @media (min-width: 992px) {
     padding: 24px 26px 24px 27px;
     position: relative;
   }
@@ -31,8 +31,11 @@
   display: flex;
   align-items: center;
   margin-bottom: 26px;
-  @media (min-width: 1440px) {
+  @media (min-width: 992px) {
     margin-bottom: 0;
+    padding-bottom: 8px;
+  }
+  @media (min-width: 1440px) {
     padding-bottom: 0;
   }
 }
@@ -52,7 +55,7 @@
 .pledgeAmount {
   margin-bottom: 0;
   color: $primary-color;
-  @media (min-width: 1440px) {
+  @media (min-width: 992px) {
     font-size: 16px;
     font-weight: 500;
   }
@@ -93,7 +96,7 @@ input[type="radio"] {
 
 .product {
   font-weight: 700;
-  @media (min-width: 1440px) {
+  @media (min-width: 992px) {
     font-size: 16px;
     padding-right: 18px;
   }
@@ -103,11 +106,13 @@ input[type="radio"] {
   color: $paragraph-color;
   margin-bottom: 14px;
   line-height: 24px;
-  @media (min-width: 1440px) {
+  @media (min-width: 992px) {
     font-size: 15px;
     line-height: 28px;
-    padding-left: 50px;
     margin-bottom: 8px;
+  }
+  @media (min-width: 1440px) {
+    padding-left: 50px;
   }
 }
 
@@ -116,9 +121,9 @@ input[type="radio"] {
   align-items: center;
   padding-top: 6px;
   padding-bottom: 6px;
-  @media (min-width: 1440px) {
+  @media (min-width: 992px) {
     position: absolute;
-    top: 23px;
+    top: 18px;
     right: 27px;
   }
 }

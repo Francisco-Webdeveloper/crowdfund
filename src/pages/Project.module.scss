@@ -2,7 +2,9 @@
   width: 326px;
   background: #fff;
   border-radius: 7px;
-  // Desktop
+  @media (min-width: 992px) {
+    width: 528px;
+  }
   @media (min-width: 1440px) {
     width: 728px;
     border-radius: 10px;
@@ -25,7 +27,7 @@
     position: relative;
     bottom: 55px;
     // Desktop
-    @media (min-width: 1440px) {
+    @media (min-width: 728px) {
       gap: 26px;
       bottom: 92px;
       margin-bottom: 32px;

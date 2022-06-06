@@ -45,8 +45,9 @@ body {
 .modal-dialog {
   max-width: 326px;
   margin: 0 auto;
-
-  // Desktop
+  @media (min-width: 992px) {
+    max-width: 528px;
+  }
   @media (min-width: 1440px) {
     max-width: 732px;
   }

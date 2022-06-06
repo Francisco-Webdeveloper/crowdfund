@@ -46,7 +46,6 @@ export const CampaignList = ({
         </div>
         <p className={styles.description}>{noRewardPledgeDescription}</p>
       </div>
-      {/* {campaignsList} */}
       <ProductCampaignList
         campaigns={campaigns}
         formData={formData}

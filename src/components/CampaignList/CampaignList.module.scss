@@ -7,7 +7,7 @@
   font-size: 14px;
   margin-top: 24px;
   margin-bottom: 24px;
-  @media (min-width: 1440px) {
+  @media (min-width: 992px) {
     padding: 24px 26px 24px 27px;
     position: relative;
   }
@@ -18,8 +18,11 @@
   align-items: center;
   padding-top: 12px;
   margin-bottom: 34px;
-  @media (min-width: 1440px) {
+  @media (min-width: 992px) {
     margin-bottom: 0;
+    padding-bottom: 16px;
+  }
+  @media (min-width: 1440px) {
     padding-bottom: 8px;
   }
 }
@@ -32,7 +35,7 @@ input[type="radio"] {
   height: 22px;
   margin-right: 16px;
   outline: none;
-  @media (min-width: 1440px) {
+  @media (min-width: 992px) {
     cursor: pointer;
     width: 24px;
     height: 24px;
@@ -48,7 +51,7 @@ input[type="radio"] {
     height: 60%;
     margin: 20% auto;
     border-radius: 50%;
-    @media (min-width: 1440px) {
+    @media (min-width: 992px) {
       margin: 20% 22%;
     }
   }
@@ -59,8 +62,10 @@ input[type="radio"] {
 
 .noProduct {
   font-weight: 700;
-  @media (min-width: 1440px) {
+  @media (min-width: 992px) {
     font-size: 16px;
+  }
+  @media (min-width: 1440px) {
     padding-right: 18px;
     padding-bottom: 10px;
   }
@@ -70,10 +75,12 @@ input[type="radio"] {
   color: $paragraph-color;
   margin-bottom: 14px;
   line-height: 24px;
-  @media (min-width: 1440px) {
+  @media (min-width: 992px) {
     font-size: 15px;
     line-height: 28px;
-    padding-left: 50px;
     margin-bottom: 8px;
+  }
+  @media (min-width: 1440px) {
+    padding-left: 50px;
   }
 }
