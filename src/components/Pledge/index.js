@@ -6,6 +6,7 @@ export const Pledge = ({ pledgeAmount, onChange, name }) => {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
   };
+
   return (
     <motion.div
       initial="hidden"
@@ -18,13 +19,13 @@ export const Pledge = ({ pledgeAmount, onChange, name }) => {
       <div className={styles.pledgeAndSubmit}>
         <input
           type="text"
-          pattern="[0-9]*"
           value={pledgeAmount}
-          placeholder="$"
+          // placeholder="$"
           onChange={onChange}
           className={styles.pledgeInput}
           name={name}
         />
+        <span class={styles.placeholder}>$</span>
         <button className={styles.pledgeButton}>Continue</button>
       </div>
     </motion.div>

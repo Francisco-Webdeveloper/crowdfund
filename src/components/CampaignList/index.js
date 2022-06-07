@@ -12,10 +12,14 @@ export const CampaignList = ({
     pledgeAmount: "",
   });
 
-  console.log(formData.pledgeCard);
   // update the state with value of the radio buttons
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name } = event.target;
+    let value;
+    name === "pledgeAmount"
+      ? (value = event.target.value.replace(/\D/g, ""))
+      : (value = event.target.value);
+
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
