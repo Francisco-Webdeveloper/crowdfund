@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./CampaignList.module.scss";
 import { ProductCampaignList } from "../ProductCampaignList";
 
@@ -6,28 +5,9 @@ export const CampaignList = ({
   campaigns,
   noRewardPledge,
   noRewardPledgeDescription,
+  formData,
+  onChange,
 }) => {
-  const [formData, setFormData] = useState({
-    pledgeCard: "",
-    pledgeAmount: "",
-  });
-
-  // update the state with value of the radio buttons
-  const handleChange = (event) => {
-    const { name } = event.target;
-    let value;
-    name === "pledgeAmount"
-      ? (value = event.target.value.replace(/\D/g, ""))
-      : (value = event.target.value);
-
-    setFormData((prevFormData) => {
-      return {
-        ...prevFormData,
-        [name]: value,
-      };
-    });
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formData);
@@ -49,7 +29,7 @@ export const CampaignList = ({
             name="pledgeCard"
             value="noReward"
             checked={formData.pledgeCard === "noReward"}
-            onChange={handleChange}
+            onChange={onChange}
           />
           <label htmlFor="noReward" className={styles.noProduct}>
             {noRewardPledge}
@@ -60,7 +40,7 @@ export const CampaignList = ({
       <ProductCampaignList
         campaigns={campaigns}
         formData={formData}
-        onChange={handleChange}
+        onChange={onChange}
       />
     </form>
   );

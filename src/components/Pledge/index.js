@@ -25,7 +25,7 @@ export const Pledge = ({ pledgeAmount, onChange, name }) => {
           className={styles.pledgeInput}
           name={name}
         />
-        <span class={styles.placeholder}>$</span>
+        <span className={styles.placeholder}>$</span>
         <button className={styles.pledgeButton}>Continue</button>
       </div>
     </motion.div>

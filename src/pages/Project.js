@@ -16,16 +16,40 @@ const Project = () => {
   const [showModal, setShowModal] = useState(false);
   const { projectId } = useParams();
 
-  console.log({ projectId });
-
   const { campaigns } = campaignsData.data;
   const [allCampaigns, setAllCampaigns] = useState(campaigns);
+
+  const [formData, setFormData] = useState({
+    pledgeCard: "",
+    pledgeAmount: "",
+  });
+
+  // update the state with value of the radio buttons
+  const handleChange = (event) => {
+    const { name } = event.target;
+    let value;
+    name === "pledgeAmount"
+      ? (value = event.target.value.replace(/\D/g, ""))
+      : (value = event.target.value);
+
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        [name]: value,
+      };
+    });
+  };
+
+  console.log(formData);
 
   // show the modal when the user clicks the button
   const handleShowModal = () => setShowModal(true);
 
-  // hide the modal when the user clicks exits
-  const handleCloseModal = () => setShowModal(false);
+  // hide the modal when the user and exits and clean the data
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setFormData({ pledgeCard: "", pledgeAmount: "" });
+  };
 
   const { projects } = projectsData.data;
   // find the project whose id is the same as the projectId in our path
@@ -68,6 +92,8 @@ const Project = () => {
             campaigns={allCampaigns}
             noRewardPledge={noRewardPledge}
             noRewardPledgeDescription={noRewardPledgeDescription}
+            formData={formData}
+            onChange={handleChange}
           />
         </PledgesModalCard>
         <StatusCard
@@ -87,6 +113,8 @@ const Project = () => {
                   pledgeAmount={pledgeAmount}
                   description={description}
                   stock={stock}
+                  onClick={handleShowModal}
+                  formData={formData}
                 />
               );
             }

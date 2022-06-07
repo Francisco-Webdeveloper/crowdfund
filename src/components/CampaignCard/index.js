@@ -1,10 +1,24 @@
 import styles from "./CampaignCard.module.scss";
 
-export const CampaignCard = ({ product, description, pledgeAmount, stock }) => {
+export const CampaignCard = ({
+  product,
+  description,
+  pledgeAmount,
+  stock,
+  onClick,
+  formData,
+}) => {
+  // opens the campaign list modal with the pledge card selected from the project page
+  const handleSelectedCardClicked = () => {
+    onClick();
+    formData.pledgeCard = product;
+  };
+
   const campaignCardClassName =
     stock > 0 ? styles.campaignCard : styles.campaignCardDisabled;
   const selectRewardClassName =
     stock > 0 ? styles.selectReward : styles.selectRewardDisabled;
+
   return (
     <div className={campaignCardClassName}>
       <div className={styles.productAndPledge}>
@@ -17,7 +31,11 @@ export const CampaignCard = ({ product, description, pledgeAmount, stock }) => {
           <h1 className={styles.stock}>{stock}</h1>
           <span className={styles.left}>left</span>
         </div>
-        <button className={selectRewardClassName} disabled={true}>
+        <button
+          className={selectRewardClassName}
+          disabled={stock > 0 ? false : true}
+          onClick={handleSelectedCardClicked}
+        >
           {stock > 0 ? "Select Reward" : "Out of Stock"}
         </button>
       </div>
