@@ -12,6 +12,7 @@ export const CampaignList = ({
     pledgeAmount: "",
   });
 
+  console.log(formData.pledgeCard);
   // update the state with value of the radio buttons
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,7 +31,13 @@ export const CampaignList = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className={styles.campaignCard}>
+      <div
+        className={
+          formData.pledgeCard === "noReward"
+            ? styles.campaignCardSelected
+            : styles.campaignCard
+        }
+      >
         <div className={styles.inputAndLabel}>
           <input
             type="radio"

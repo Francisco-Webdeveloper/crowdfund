@@ -1,7 +1,0 @@
-    <motion.div
-      animate={{ display: "flex" }}
-      transition={{ duration: 0.5 }}
-      className={styles.pledgeCard}
-    >
-
-    </motion.div>

@@ -8,6 +8,7 @@ export const MobileMenu = ({ showMenu, handleClose }) => {
       show={showMenu}
       onHide={handleClose}
       dialogClassName={styles.menuModal}
+      centered={false}
     >
       <div className={styles.menuContent}>
         <div>About</div>
