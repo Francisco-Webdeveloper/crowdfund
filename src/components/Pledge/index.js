@@ -20,7 +20,6 @@ export const Pledge = ({ pledgeAmount, onChange, name }) => {
         <input
           type="text"
           value={pledgeAmount}
-          // placeholder="$"
           onChange={onChange}
           className={styles.pledgeInput}
           name={name}

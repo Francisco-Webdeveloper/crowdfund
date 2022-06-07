@@ -7,41 +7,39 @@ export const CampaignList = ({
   noRewardPledgeDescription,
   formData,
   onChange,
+  onSubmit,
 }) => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(formData);
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <div
-        className={
-          formData.pledgeCard === "noReward"
-            ? styles.campaignCardSelected
-            : styles.campaignCard
-        }
-      >
-        <div className={styles.inputAndLabel}>
-          <input
-            type="radio"
-            id="noReward"
-            name="pledgeCard"
-            value="noReward"
-            checked={formData.pledgeCard === "noReward"}
-            onChange={onChange}
-          />
-          <label htmlFor="noReward" className={styles.noProduct}>
-            {noRewardPledge}
-          </label>
+    <>
+      <form onSubmit={onSubmit}>
+        <div
+          className={
+            formData.pledgeCard === "noReward"
+              ? styles.campaignCardSelected
+              : styles.campaignCard
+          }
+        >
+          <div className={styles.inputAndLabel}>
+            <input
+              type="radio"
+              id="noReward"
+              name="pledgeCard"
+              value="noReward"
+              checked={formData.pledgeCard === "noReward"}
+              onChange={onChange}
+            />
+            <label htmlFor="noReward" className={styles.noProduct}>
+              {noRewardPledge}
+            </label>
+          </div>
+          <p className={styles.description}>{noRewardPledgeDescription}</p>
         </div>
-        <p className={styles.description}>{noRewardPledgeDescription}</p>
-      </div>
-      <ProductCampaignList
-        campaigns={campaigns}
-        formData={formData}
-        onChange={onChange}
-      />
-    </form>
+        <ProductCampaignList
+          campaigns={campaigns}
+          formData={formData}
+          onChange={onChange}
+        />
+      </form>
+    </>
   );
 };

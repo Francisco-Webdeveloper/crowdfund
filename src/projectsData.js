@@ -18,6 +18,8 @@ export default {
         noRewardPledge: "Pledge with no reward",
         noRewardPledgeDescription:
           "Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email.",
+        confirmationPledgeText:
+          "Your pledge bring us one step closer to sharing Mastercraft Bamboo Monitor Riser worldwide. You will get an email once our campaign is completed.",
       },
       {
         id: "2",
@@ -34,6 +36,8 @@ export default {
         noRewardPledge: "Pledge with no reward",
         noRewardPledgeDescription:
           "Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email.",
+        confirmationPledgeText:
+          "Your pledge bring us one step closer to sharing Mastercraft Bamboo Monitor Riser worldwide. You will get an email once our campaign is completed.",
       },
     ],
   },

@@ -1,0 +1,73 @@
+@import "../../style.scss";
+
+.campaignsModal {
+  width: 326px;
+  margin: 0 auto;
+  margin-top: -46px;
+  @media (min-width: 992px) {
+    width: 528px;
+    margin-top: 180px;
+  }
+  @media (min-width: 1440px) {
+    width: 542px;
+    margin-top: 388px;
+  }
+}
+
+.modalContainer {
+  padding: 32px 24px 4px 24px;
+  text-align: center;
+  @media (min-width: 992px) {
+    padding: 50px 48px 22px 48px;
+  }
+
+  .iconCheck {
+    margin-bottom: 24px;
+    @media (min-width: 1440px) {
+      margin-bottom: 40px;
+      height: 90px;
+      width: 90px;
+    }
+  }
+
+  .sayThanks {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 28px;
+    @media (min-width: 992px) {
+      font-size: 20px;
+    }
+    @media (min-width: 1440px) {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .confirmationText {
+    font-size: 14px;
+    letter-spacing: 0.006em;
+    line-height: 1.5rem;
+    color: $paragraph-color;
+    @media (min-width: 992px) {
+      font-size: 16px;
+      line-height: 1.8rem;
+      margin-bottom: 30px;
+    }
+  }
+
+  .confirmationBtn {
+    height: 48px;
+    width: 108px;
+    border-radius: 24px;
+    border: none;
+    background-color: $primary-color;
+    color: #e1fbfb;
+    margin-bottom: 36px;
+    &:hover {
+      background-color: $hover-color;
+    }
+    @media (min-width: 1440px) {
+      margin-bottom: 34px;
+    }
+  }
+}

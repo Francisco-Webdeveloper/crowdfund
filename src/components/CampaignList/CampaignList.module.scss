@@ -40,8 +40,8 @@ input[type="radio"] {
   height: 22px;
   margin-right: 16px;
   outline: none;
+  cursor: pointer;
   @media (min-width: 992px) {
-    cursor: pointer;
     width: 24px;
     height: 24px;
     margin-right: 25px;

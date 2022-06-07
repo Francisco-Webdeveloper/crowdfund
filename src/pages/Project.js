@@ -22,6 +22,7 @@ const Project = () => {
   const [formData, setFormData] = useState({
     pledgeCard: "",
     pledgeAmount: "",
+    formSubmitted: false,
   });
 
   // update the state with value of the radio buttons
@@ -36,6 +37,17 @@ const Project = () => {
       return {
         ...prevFormData,
         [name]: value,
+      };
+    });
+  };
+
+  // update the state to true when the form is submitted
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        formSubmitted: true,
       };
     });
   };
@@ -71,6 +83,7 @@ const Project = () => {
     modalIntroduction,
     noRewardPledge,
     noRewardPledgeDescription,
+    confirmationPledgeText,
   } = currentProject;
 
   return (
@@ -87,6 +100,8 @@ const Project = () => {
           showModal={showModal}
           handleClose={handleCloseModal}
           modalIntroduction={modalIntroduction}
+          formData={formData}
+          confirmationPledgeText={confirmationPledgeText}
         >
           <CampaignList
             campaigns={allCampaigns}
@@ -94,6 +109,8 @@ const Project = () => {
             noRewardPledgeDescription={noRewardPledgeDescription}
             formData={formData}
             onChange={handleChange}
+            handleClose={handleCloseModal}
+            onSubmit={handleSubmit}
           />
         </PledgesModalCard>
         <StatusCard
