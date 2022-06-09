@@ -41,7 +41,7 @@ export const Pledge = ({
   };
 
   const inputValidationClassName =
-    validationErrorMessage && pledgeAmountInput !== ""
+    buttonDisabled && pledgeAmountInput !== ""
       ? styles.invalidInput
       : styles.validInput;
 
@@ -69,7 +69,12 @@ export const Pledge = ({
           onChange={handleChange}
         />
         <span className={styles.placeholder}>$</span>
-        <button className={styles.pledgeButton} disabled={buttonDisabled}>
+        <button
+          className={`${styles.pledgeButton} ${
+            buttonDisabled && styles.buttonDisabled
+          }`}
+          disabled={buttonDisabled}
+        >
           Continue
         </button>
       </div>
