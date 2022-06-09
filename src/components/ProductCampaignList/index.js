@@ -45,8 +45,10 @@ export const ProductCampaignList = ({ campaigns, formData, onChange }) => {
         </div>
         {campaignCardSelected && (
           <Pledge
-            pledgeAmount={formData.pledgeAmount}
+            pledgeAmountInput={formData.pledgeAmount}
+            pledgeAmountCampaign={pledgeAmount}
             onChange={onChange}
+            formData={formData}
             name="pledgeAmount"
           />
         )}

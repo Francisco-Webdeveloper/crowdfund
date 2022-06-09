@@ -1,7 +1,50 @@
 import styles from "./Pledge.module.scss";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import useDebouncedCallback from "../../hooks/useDebounceCallback";
 
-export const Pledge = ({ pledgeAmount, onChange, name }) => {
+export const Pledge = ({
+  pledgeAmountInput,
+  pledgeAmountCampaign,
+  onChange,
+  name,
+}) => {
+  const [validationErrorMessage, setValidationErrorMessage] = useState("");
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  // input form validations
+  const validatePledgeAmount = () => {
+    console.log({ pledgeAmountInput });
+    if (pledgeAmountInput < pledgeAmountCampaign) {
+      // show error message if the amount inserted by the user is lower than the required
+      setValidationErrorMessage(
+        `Value must be greater than or equal to $${pledgeAmountCampaign}`
+      );
+      // disable button if amount inserted by the user is less than the required
+      setButtonDisabled(true);
+    } else {
+      setValidationErrorMessage(null);
+      setButtonDisabled(false);
+    }
+  };
+
+  // usedebounce hook
+  const debouncedValidatePledgeAmount = useDebouncedCallback(() => {
+    validatePledgeAmount();
+  }, 500);
+
+  const handleChange = (e) => {
+    if (onChange) {
+      onChange(e);
+    }
+    debouncedValidatePledgeAmount();
+  };
+
+  const inputValidationClassName =
+    validationErrorMessage && pledgeAmountInput !== ""
+      ? styles.invalidInput
+      : styles.validInput;
+
   const variants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
@@ -19,14 +62,22 @@ export const Pledge = ({ pledgeAmount, onChange, name }) => {
       <div className={styles.pledgeAndSubmit}>
         <input
           type="text"
-          value={pledgeAmount}
-          onChange={onChange}
-          className={styles.pledgeInput}
+          value={pledgeAmountInput}
+          className={`${styles.pledgeInput} ${inputValidationClassName}`}
           name={name}
+          required
+          onChange={handleChange}
         />
         <span className={styles.placeholder}>$</span>
-        <button className={styles.pledgeButton}>Continue</button>
+        <button className={styles.pledgeButton} disabled={buttonDisabled}>
+          Continue
+        </button>
       </div>
+      {validationErrorMessage && pledgeAmountInput !== "" && (
+        <p className={styles.validationErrorMessage}>
+          {validationErrorMessage}
+        </p>
+      )}
     </motion.div>
   );
 };

@@ -60,7 +60,7 @@ const Project = () => {
   // hide the modal when the user and exits and clean the data
   const handleCloseModal = () => {
     setShowModal(false);
-    setFormData({ pledgeCard: "", pledgeAmount: "" });
+    setFormData({ pledgeCard: "", pledgeAmount: "", formSubmitted: false });
   };
 
   const { projects } = projectsData.data;
@@ -121,21 +121,19 @@ const Project = () => {
         />
         <div className={styles.campaignsCard}>
           <About about={about} />
-          {allCampaigns.map(
-            ({ product, pledgeAmount, description, stock }, id) => {
-              return (
-                <CampaignCard
-                  key={id + 1}
-                  product={product}
-                  pledgeAmount={pledgeAmount}
-                  description={description}
-                  stock={stock}
-                  onClick={handleShowModal}
-                  formData={formData}
-                />
-              );
-            }
-          )}
+          {allCampaigns.map(({ product, pledgeAmount, description, stock }) => {
+            return (
+              <CampaignCard
+                key={product}
+                product={product}
+                pledgeAmount={pledgeAmount}
+                description={description}
+                stock={stock}
+                onClick={handleShowModal}
+                formData={formData}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

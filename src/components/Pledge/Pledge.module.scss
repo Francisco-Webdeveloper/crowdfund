@@ -42,13 +42,18 @@
     border: 1px solid #d5d0d0;
     padding: 1px 10px 4px 32px;
     outline: none;
-    font-weight: 700;
-    &:focus {
-      border: 1px solid $primary-color;
-    }
+    // &:focus {
+    //   border: 1px solid $primary-color;
+    // }
     @media (min-width: 1440px) {
       padding: 1px 10px 2px 32px;
     }
+  }
+  .validInput:focus {
+    border: 1px solid $primary-color;
+  }
+  .invalidInput:focus {
+    border: 1px solid red;
   }
 
   .pledgeButton {
@@ -80,5 +85,12 @@
       left: 401px;
       top: 36px;
     }
+  }
+
+  .validationErrorMessage {
+    color: red;
+    font-size: 11px;
+    margin-top: 10px;
+    margin-bottom: 0;
   }
 }
