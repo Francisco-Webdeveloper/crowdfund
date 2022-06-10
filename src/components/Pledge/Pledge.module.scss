@@ -1,20 +1,24 @@
 @import "../../style.scss";
 
-.pledgeCard {
-  text-align: center;
-  padding: 24px 0 10px 0;
-  margin: 10px -22px 0 -22px;
-  border-top: 1px solid #d5d0d0;
+.pledgeCardAndErrorMessage {
   position: relative;
-  @media (min-width: 992px) {
-    margin-top: 24px;
-  }
-  @media (min-width: 1440px) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 24px -27px 0 -27px;
-    padding: 24px 27px 0 27px;
+
+  .pledgeCard {
+    text-align: center;
+    padding: 24px 0 10px 0;
+    margin: 10px -22px 0 -22px;
+    border-top: 1px solid #d5d0d0;
+    position: relative;
+    @media (min-width: 992px) {
+      margin-top: 24px;
+    }
+    @media (min-width: 1440px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 24px -27px 0 -27px;
+      padding: 24px 27px 0 27px;
+    }
   }
 
   .pledgeTitle {
@@ -42,9 +46,6 @@
     border: 1px solid #d5d0d0;
     padding: 1px 10px 4px 32px;
     outline: none;
-    // &:focus {
-    //   border: 1px solid $primary-color;
-    // }
     @media (min-width: 1440px) {
       padding: 1px 10px 2px 32px;
     }
@@ -58,6 +59,7 @@
 
   .pledgeButton {
     width: 114px;
+    height: 44px;
     border-radius: 30px;
     background-color: $primary-color;
     color: #e1fbfb;
@@ -72,6 +74,7 @@
   }
   .buttonDisabled:hover {
     background-color: $primary-color;
+    cursor: not-allowed;
   }
 
   .placeholder {
@@ -89,11 +92,17 @@
       top: 36px;
     }
   }
-
-  .validationErrorMessage {
+  .errorMessage {
+    position: absolute;
     color: red;
     font-size: 11px;
-    margin-top: 10px;
-    margin-bottom: 0;
+    margin: 2px auto 0 auto;
+    left: 0;
+    right: 0;
+    width: 209px;
+    @media (min-width: 1440px) {
+      text-align: right;
+      margin: 10px 6px 0 auto;
+    }
   }
 }

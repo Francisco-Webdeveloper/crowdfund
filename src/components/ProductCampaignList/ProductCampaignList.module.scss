@@ -5,13 +5,16 @@
 .campaignCardSelected {
   border: 1px solid #d5d0d0;
   border-radius: 7px;
-  padding: 20px 22px 16px 22px;
+  padding: 20px 22px 38px 22px;
   font-size: 14px;
   margin-top: 24px;
   margin-bottom: 24px;
   @media (min-width: 992px) {
-    padding: 24px 26px 24px 27px;
+    padding: 24px 26px 38px 27px;
     position: relative;
+  }
+  @media (min-width: 992px) {
+    padding: 24px 26px 42px 27px;
   }
 }
 

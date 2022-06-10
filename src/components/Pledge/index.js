@@ -9,7 +9,8 @@ export const Pledge = ({
   onChange,
   name,
 }) => {
-  const [validationErrorMessage, setValidationErrorMessage] = useState("");
+  const [lowValueErrorMessage, setLowValueErrorMessage] = useState("");
+  const [enterPledgeErrorMessage, setEnterPledgeErrorMessage] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   // input form validations
@@ -17,13 +18,13 @@ export const Pledge = ({
     console.log({ pledgeAmountInput });
     if (pledgeAmountInput < pledgeAmountCampaign) {
       // show error message if the amount inserted by the user is lower than the required
-      setValidationErrorMessage(
+      setLowValueErrorMessage(
         `Value must be greater than or equal to $${pledgeAmountCampaign}`
       );
       // disable button if amount inserted by the user is less than the required
       setButtonDisabled(true);
     } else {
-      setValidationErrorMessage(null);
+      setLowValueErrorMessage(null);
       setButtonDisabled(false);
     }
   };
@@ -40,6 +41,16 @@ export const Pledge = ({
     debouncedValidatePledgeAmount();
   };
 
+  const handleMouseEnter = () => {
+    if (buttonDisabled) {
+      setEnterPledgeErrorMessage("Please enter your pledge");
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setEnterPledgeErrorMessage("");
+  };
+
   const inputValidationClassName =
     buttonDisabled && pledgeAmountInput !== ""
       ? styles.invalidInput
@@ -51,38 +62,43 @@ export const Pledge = ({
   };
 
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={variants}
-      transition={{ duration: 1 }}
-      className={styles.pledgeCard}
-    >
-      <p className={styles.pledgeTitle}>Enter your pledge</p>
-      <div className={styles.pledgeAndSubmit}>
-        <input
-          type="text"
-          value={pledgeAmountInput}
-          className={`${styles.pledgeInput} ${inputValidationClassName}`}
-          name={name}
-          required
-          onChange={handleChange}
-        />
-        <span className={styles.placeholder}>$</span>
-        <button
-          className={`${styles.pledgeButton} ${
-            buttonDisabled && styles.buttonDisabled
-          }`}
-          disabled={buttonDisabled}
-        >
-          Continue
-        </button>
-      </div>
-      {validationErrorMessage && pledgeAmountInput !== "" && (
-        <p className={styles.validationErrorMessage}>
-          {validationErrorMessage}
-        </p>
-      )}
-    </motion.div>
+    <div className={styles.pledgeCardAndErrorMessage}>
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={variants}
+        transition={{ duration: 1 }}
+        className={styles.pledgeCard}
+      >
+        <p className={styles.pledgeTitle}>Enter your pledge</p>
+        <div className={styles.pledgeAndSubmit}>
+          <input
+            type="text"
+            value={pledgeAmountInput}
+            className={`${styles.pledgeInput} ${inputValidationClassName}`}
+            name={name}
+            required
+            onChange={handleChange}
+          />
+          <span className={styles.placeholder}>$</span>
+          <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <button
+              className={`${styles.pledgeButton} ${
+                buttonDisabled && styles.buttonDisabled
+              }`}
+              disabled={buttonDisabled}
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+      </motion.div>
+      {lowValueErrorMessage && pledgeAmountInput !== "" ? (
+        <p className={styles.errorMessage}>{lowValueErrorMessage}</p>
+      ) : null}
+      {enterPledgeErrorMessage && !pledgeAmountInput ? (
+        <p className={styles.errorMessage}>{enterPledgeErrorMessage}</p>
+      ) : null}
+    </div>
   );
 };
