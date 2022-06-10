@@ -1,3 +1,4 @@
+import { HashLink as Link } from "react-router-hash-link";
 import { Modal } from "react-bootstrap";
 import styles from "./ModalPledgeSubmittedCard.module.scss";
 import iconCheck from "../../icons/icon-check.svg";
@@ -24,9 +25,11 @@ export const ModalPledgeSubmittedCard = ({
         />
         <h5 className={styles.sayThanks}>Thanks for your support!</h5>
         <p className={styles.confirmationText}>{confirmationPledgeText}</p>
-        <button onClick={handleClose} className={styles.confirmationBtn}>
-          Got it
-        </button>
+        <Link to="#top">
+          <button onClick={handleClose} className={styles.confirmationBtn}>
+            Got it
+          </button>
+        </Link>
       </div>
     </Modal>
   );

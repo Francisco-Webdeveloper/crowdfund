@@ -18,7 +18,7 @@ export const ProductCampaignList = ({ campaigns, formData, onChange }) => {
     }
 
     return (
-      <div key={product} className={campaignCardClassName}>
+      <div key={product} className={campaignCardClassName} id="reward">
         <div className={styles.inputLabelAndPledgeAmount}>
           <input
             type="radio"

@@ -1,4 +1,5 @@
 import styles from "./CampaignCard.module.scss";
+import { HashLink as Link } from "react-router-hash-link";
 
 export const CampaignCard = ({
   product,
@@ -31,13 +32,15 @@ export const CampaignCard = ({
           <h1 className={styles.stock}>{stock}</h1>
           <span className={styles.left}>left</span>
         </div>
-        <button
-          className={selectRewardClassName}
-          disabled={stock > 0 ? false : true}
-          onClick={handleSelectedCardClicked}
-        >
-          {stock > 0 ? "Select Reward" : "Out of Stock"}
-        </button>
+        <Link to="#reward">
+          <button
+            className={selectRewardClassName}
+            disabled={stock > 0 ? false : true}
+            onClick={handleSelectedCardClicked}
+          >
+            {stock > 0 ? "Select Reward" : "Out of Stock"}
+          </button>
+        </Link>
       </div>
     </div>
   );
