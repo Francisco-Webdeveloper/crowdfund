@@ -4,8 +4,8 @@ export default {
     projects: [
       {
         id: "1",
-        moneyBacked: "$89,914",
-        totalBackers: "5,007",
+        moneyBacked: 89914,
+        totalBackers: 5007,
         daysLeft: 56,
         progress: 89.914,
         title: "Mastercraft Bamboo Monitor Riser",
@@ -23,8 +23,8 @@ export default {
       },
       {
         id: "2",
-        moneyBacked: "$89,914",
-        totalBackers: "5,007",
+        moneyBacked: 50000,
+        totalBackers: 2380,
         daysLeft: 56,
         progress: 89.914,
         title: "New Cool game",

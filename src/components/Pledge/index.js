@@ -8,6 +8,7 @@ export const Pledge = ({
   pledgeAmountCampaign,
   onChange,
   name,
+  onClick,
 }) => {
   const [lowValueErrorMessage, setLowValueErrorMessage] = useState("");
   const [enterPledgeErrorMessage, setEnterPledgeErrorMessage] = useState("");
@@ -41,12 +42,12 @@ export const Pledge = ({
     debouncedValidatePledgeAmount();
   };
 
+  // display error message when use hovers the button without inserting the pledge
   const handleMouseEnter = () => {
     if (buttonDisabled) {
       setEnterPledgeErrorMessage("Please enter your pledge");
     }
   };
-
   const handleMouseLeave = () => {
     setEnterPledgeErrorMessage("");
   };
@@ -86,6 +87,7 @@ export const Pledge = ({
               className={`${styles.pledgeButton} ${
                 buttonDisabled && styles.buttonDisabled
               }`}
+              onClick={onClick}
               disabled={buttonDisabled}
             >
               Continue

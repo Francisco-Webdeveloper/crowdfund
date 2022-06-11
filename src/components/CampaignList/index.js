@@ -8,6 +8,7 @@ export const CampaignList = ({
   formData,
   onChange,
   onSubmit,
+  ...rest
 }) => {
   return (
     <>
@@ -38,6 +39,7 @@ export const CampaignList = ({
           campaigns={campaigns}
           formData={formData}
           onChange={onChange}
+          {...rest}
         />
       </form>
     </>

@@ -19,6 +19,8 @@ const Project = () => {
   const { campaigns } = campaignsData.data;
   const [allCampaigns, setAllCampaigns] = useState(campaigns);
 
+  const { projects } = projectsData.data;
+
   const [formData, setFormData] = useState({
     pledgeCard: "",
     pledgeAmount: "",
@@ -30,7 +32,7 @@ const Project = () => {
     const { name } = event.target;
     let value;
     name === "pledgeAmount"
-      ? (value = event.target.value.replace(/\D/g, ""))
+      ? (value = parseInt(event.target.value.replace(/\D/g, "")))
       : (value = event.target.value);
 
     setFormData((prevFormData) => {
@@ -52,8 +54,6 @@ const Project = () => {
     });
   };
 
-  console.log(formData);
-
   // show the modal when the user clicks the button
   const handleShowModal = () => setShowModal(true);
 
@@ -63,9 +63,23 @@ const Project = () => {
     setFormData({ pledgeCard: "", pledgeAmount: "", formSubmitted: false });
   };
 
-  const { projects } = projectsData.data;
   // find the project whose id is the same as the projectId in our path
   const currentProject = projects.find((project) => project.id === projectId);
+
+  const [projectStatus, setProjectStatus] = useState({
+    moneyBacked: currentProject.moneyBacked,
+    totalBackers: currentProject.totalBackers,
+  });
+
+  // update the status card with the additional backer + money backed
+  const handleProjectStatus = () => {
+    setProjectStatus((prevProjectStatus) => {
+      return {
+        moneyBacked: prevProjectStatus.moneyBacked + formData.pledgeAmount,
+        totalBackers: prevProjectStatus.totalBackers + 1,
+      };
+    });
+  };
 
   if (!currentProject) {
     return <div style={{ color: "white" }}>Project not found</div>;
@@ -74,9 +88,7 @@ const Project = () => {
   // get the value of a specific project's properties
   const {
     daysLeft,
-    moneyBacked,
     progress,
-    totalBackers,
     title,
     description,
     about,
@@ -111,13 +123,13 @@ const Project = () => {
             onChange={handleChange}
             handleClose={handleCloseModal}
             onSubmit={handleSubmit}
+            onClick={handleProjectStatus}
           />
         </PledgesModalCard>
         <StatusCard
-          moneyBacked={moneyBacked}
-          totalBackers={totalBackers}
           daysLeft={daysLeft}
           progress={progress}
+          projectStatus={projectStatus}
         />
         <div className={styles.campaignsCard}>
           <About about={about} />
