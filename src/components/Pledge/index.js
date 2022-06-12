@@ -74,7 +74,7 @@ export const Pledge = ({
         <p className={styles.pledgeTitle}>Enter your pledge</p>
         <div className={styles.pledgeAndSubmit}>
           <input
-            type="text"
+            type="number"
             value={pledgeAmountInput}
             className={`${styles.pledgeInput} ${inputValidationClassName}`}
             name={name}
