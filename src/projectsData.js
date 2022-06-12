@@ -7,7 +7,8 @@ export default {
         moneyBacked: 89914,
         totalBackers: 5007,
         daysLeft: 56,
-        progress: 89.914,
+        // progress: 89.914,
+        goal: 100000,
         title: "Mastercraft Bamboo Monitor Riser",
         description:
           "A beautifully handcrafted monitor stand to reduce neck and eye strain.",
@@ -23,10 +24,11 @@ export default {
       },
       {
         id: "2",
-        moneyBacked: 50000,
+        moneyBacked: 25000,
         totalBackers: 2380,
         daysLeft: 56,
-        progress: 89.914,
+        // progress: 89.914,
+        goal: 50000,
         title: "New Cool game",
         description: "A beautifully game.",
         about:

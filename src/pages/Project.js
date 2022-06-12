@@ -27,6 +27,8 @@ const Project = () => {
     formSubmitted: false,
   });
 
+  const [addBacker, setAddBacker] = useState(false);
+
   // update the state with value of the radio buttons
   const handleChange = (event) => {
     const { name } = event.target;
@@ -73,10 +75,15 @@ const Project = () => {
 
   // update the status card with the additional backer + money backed
   const handleProjectStatus = () => {
+    setAddBacker(true);
     setProjectStatus((prevProjectStatus) => {
       return {
         moneyBacked: prevProjectStatus.moneyBacked + formData.pledgeAmount,
-        totalBackers: prevProjectStatus.totalBackers + 1,
+        totalBackers: addBacker
+          ? // if the user already made a first pledge, keep the same number of backers
+            prevProjectStatus.totalBackers
+          : // if it is his first pledge, increment the total backers by 1.
+            prevProjectStatus.totalBackers++,
       };
     });
   };
@@ -88,7 +95,7 @@ const Project = () => {
   // get the value of a specific project's properties
   const {
     daysLeft,
-    progress,
+    goal,
     title,
     description,
     about,
@@ -128,7 +135,7 @@ const Project = () => {
         </PledgesModalCard>
         <StatusCard
           daysLeft={daysLeft}
-          progress={progress}
+          goal={goal}
           projectStatus={projectStatus}
         />
         <div className={styles.campaignsCard}>

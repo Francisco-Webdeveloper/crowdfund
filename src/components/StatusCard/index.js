@@ -1,12 +1,13 @@
 import styles from "./StatusCard.module.scss";
 import { ProgressBar } from "react-bootstrap";
 
-export const StatusCard = ({ daysLeft, progress, projectStatus }) => {
+export const StatusCard = ({ daysLeft, projectStatus, goal }) => {
+  console.log();
   return (
     <div className={styles.status}>
       <div className={styles.moneyBacked}>
         <h1>${projectStatus.moneyBacked}</h1>
-        <p>of $100,000 backed</p>
+        <p>of ${goal} backed</p>
       </div>
       <div className={styles.totalBackers}>
         <h1>{projectStatus.totalBackers}</h1>
@@ -17,7 +18,7 @@ export const StatusCard = ({ daysLeft, progress, projectStatus }) => {
         <p>days left</p>
       </div>
       <ProgressBar
-        now={progress}
+        now={(projectStatus.moneyBacked / goal) * 100}
         className={styles.progressBar}
         variant="info"
       />
