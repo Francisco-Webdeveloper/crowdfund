@@ -4,18 +4,17 @@ import styles from "./ModalPledgeSubmittedCard.module.scss";
 import iconCheck from "../../icons/icon-check.svg";
 
 export const ModalPledgeSubmittedCard = ({
-  formSubmitted,
   handleClose,
   confirmationPledgeText,
 }) => {
   return (
     <Modal
-      show={formSubmitted}
+      show
       onHide={handleClose}
       backdrop="static"
       keyboard={false}
       centered
-      dialogClassName={styles.campaignsModal}
+      dialogClassName={styles.pledgesModal}
     >
       <div className={styles.modalContainer}>
         <img

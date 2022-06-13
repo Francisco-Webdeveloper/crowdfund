@@ -1,27 +1,27 @@
-import styles from "./CampaignCard.module.scss";
+import styles from "./PledgeCard.module.scss";
 import { HashLink as Link } from "react-router-hash-link";
 
-export const CampaignCard = ({
+export const PledgeCard = ({
   product,
   description,
   pledgeAmount,
   stock,
   onClick,
-  formData,
+  selectedPledge,
 }) => {
-  // opens the campaign list modal with the pledge card selected from the project page
+  // opens the pledge list modal with the pledge selected from the project page
   const handleSelectedCardClicked = () => {
-    onClick();
-    formData.pledgeCard = product;
+    onClick(); // show modal
+    selectedPledge.pledgeId = product;
   };
 
-  const campaignCardClassName =
-    stock > 0 ? styles.campaignCard : styles.campaignCardDisabled;
+  const pledgeCardClassName =
+    stock > 0 ? styles.pledgeCard : styles.pledgeCardDisabled;
   const selectRewardClassName =
     stock > 0 ? styles.selectReward : styles.selectRewardDisabled;
 
   return (
-    <div className={campaignCardClassName}>
+    <div className={pledgeCardClassName}>
       <div className={styles.productAndPledge}>
         <p className={styles.product}>{product}</p>
         <p className={styles.pledgeAmount}>Pledge ${pledgeAmount} or more</p>

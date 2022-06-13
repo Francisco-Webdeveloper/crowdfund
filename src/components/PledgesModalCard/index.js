@@ -7,26 +7,25 @@ export const PledgesModalCard = ({
   showModal,
   handleClose,
   modalIntroduction,
-  formData,
+  pledgeSubmitted,
   confirmationPledgeText,
   children,
 }) => {
-  return formData.formSubmitted ? (
+  return pledgeSubmitted ? (
     // show the modal that confirms the form submission
     <ModalPledgeSubmittedCard
-      formSubmitted={formData.formSubmitted}
       handleClose={handleClose}
       confirmationPledgeText={confirmationPledgeText}
     />
   ) : (
-    // show the modal that shows the campaigns and inputs
+    // show the modal that shows the pledges and inputs
     <Modal
       show={showModal}
       onHide={handleClose}
       backdrop="static"
       keyboard={false}
       centered
-      dialogClassName={styles.campaignsModal}
+      dialogClassName={styles.pledgesModal}
     >
       <div className={styles.modalContainer}>
         <div className={styles.header}>

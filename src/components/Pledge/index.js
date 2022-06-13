@@ -5,10 +5,10 @@ import useDebouncedCallback from "../../hooks/useDebounceCallback";
 
 export const Pledge = ({
   pledgeAmountInput,
-  pledgeAmountCampaign,
+  pledgeAmountfromPledge,
   onChange,
   name,
-  onClick,
+  onPledgeConfirmClick,
 }) => {
   const [lowValueErrorMessage, setLowValueErrorMessage] = useState("");
   const [enterPledgeErrorMessage, setEnterPledgeErrorMessage] = useState("");
@@ -17,10 +17,10 @@ export const Pledge = ({
   // input form validations
   const validatePledgeAmount = () => {
     console.log({ pledgeAmountInput });
-    if (pledgeAmountInput < pledgeAmountCampaign) {
+    if (pledgeAmountInput < pledgeAmountfromPledge) {
       // show error message if the amount inserted by the user is lower than the required
       setLowValueErrorMessage(
-        `Value must be greater than or equal to $${pledgeAmountCampaign}`
+        `Value must be greater than or equal to $${pledgeAmountfromPledge}`
       );
       // disable button if amount inserted by the user is less than the required
       setButtonDisabled(true);
@@ -74,7 +74,7 @@ export const Pledge = ({
         <p className={styles.pledgeTitle}>Enter your pledge</p>
         <div className={styles.pledgeAndSubmit}>
           <input
-            type="number"
+            type="text"
             value={pledgeAmountInput}
             className={`${styles.pledgeInput} ${inputValidationClassName}`}
             name={name}
@@ -87,7 +87,7 @@ export const Pledge = ({
               className={`${styles.pledgeButton} ${
                 buttonDisabled && styles.buttonDisabled
               }`}
-              onClick={onClick}
+              onClick={onPledgeConfirmClick}
               disabled={buttonDisabled}
             >
               Continue

@@ -1,8 +1,8 @@
 @import "../../pages/Project.module.scss";
 @import "../../style.scss";
 
-.campaignCard,
-.campaignCardDisabled {
+.pledgeCard,
+.pledgeCardDisabled {
   border: 1px solid #d5d0d0;
   border-radius: 7px;
   padding: 22px;
@@ -83,6 +83,6 @@
   }
 }
 
-.campaignCardDisabled {
+.pledgeCardDisabled {
   opacity: 0.5;
 }

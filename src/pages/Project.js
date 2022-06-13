@@ -5,41 +5,36 @@ import { HeroImage } from "../components/HeroImage";
 import { ProjectHeader } from "../components/ProjectHeader";
 import { StatusCard } from "../components/StatusCard";
 import { About } from "../components/About";
-import { CampaignCard } from "../components/CampaignCard";
+import { PledgeCard } from "../components/PledgeCard";
 import { PledgesModalCard } from "../components/PledgesModalCard";
-import campaignsData from "../campaignsData";
+import pledgesData from "../pledgesData";
 import projectsData from "../projectsData";
 import { useParams } from "react-router-dom";
-import { CampaignList } from "../components/CampaignList";
+import { PledgeList } from "../components/PledgeList";
 
 const Project = () => {
   const [showModal, setShowModal] = useState(false);
-  const { projectId } = useParams();
+  const [addBacker, setAddBacker] = useState(false);
+  const { pledges } = pledgesData.data;
+  const [allPledges, setAllPledges] = useState(pledges);
 
-  const { campaigns } = campaignsData.data;
-  const [allCampaigns, setAllCampaigns] = useState(campaigns);
-
-  const { projects } = projectsData.data;
-
-  const [formData, setFormData] = useState({
-    pledgeCard: "",
+  const [selectedPledge, setSelectedPledge] = useState({
+    pledgeId: "",
     pledgeAmount: "",
     formSubmitted: false,
   });
 
-  const [addBacker, setAddBacker] = useState(false);
-
-  // update the state with value of the radio buttons
+  // update the state with value of the radio buttons and pledge amount
   const handleChange = (event) => {
     const { name } = event.target;
     let value;
     name === "pledgeAmount"
-      ? (value = parseInt(event.target.value.replace(/\D/g, "")))
+      ? (value = event.target.value.replace(/\D/g, ""))
       : (value = event.target.value);
 
-    setFormData((prevFormData) => {
+    setSelectedPledge((prevselectedPledge) => {
       return {
-        ...prevFormData,
+        ...prevselectedPledge,
         [name]: value,
       };
     });
@@ -48,9 +43,9 @@ const Project = () => {
   // update the state to true when the form is submitted
   const handleSubmit = (event) => {
     event.preventDefault();
-    setFormData((prevFormData) => {
+    setSelectedPledge((prevselectedPledge) => {
       return {
-        ...prevFormData,
+        ...prevselectedPledge,
         formSubmitted: true,
       };
     });
@@ -62,9 +57,16 @@ const Project = () => {
   // hide the modal when the user and exits and clean the data
   const handleCloseModal = () => {
     setShowModal(false);
-    setFormData({ pledgeCard: "", pledgeAmount: "", formSubmitted: false });
+    setSelectedPledge({
+      pledgeId: "",
+      pledgeAmount: "",
+      formSubmitted: false,
+    });
   };
 
+  const { projectId } = useParams();
+
+  const { projects } = projectsData.data;
   // find the project whose id is the same as the projectId in our path
   const currentProject = projects.find((project) => project.id === projectId);
 
@@ -78,7 +80,8 @@ const Project = () => {
     setAddBacker(true);
     setProjectStatus((prevProjectStatus) => {
       return {
-        moneyBacked: prevProjectStatus.moneyBacked + formData.pledgeAmount,
+        moneyBacked:
+          prevProjectStatus.moneyBacked + parseInt(selectedPledge.pledgeAmount),
         totalBackers: addBacker
           ? // if the user already made a first pledge, keep the same number of backers
             prevProjectStatus.totalBackers
@@ -100,8 +103,6 @@ const Project = () => {
     description,
     about,
     modalIntroduction,
-    noRewardPledge,
-    noRewardPledgeDescription,
     confirmationPledgeText,
   } = currentProject;
 
@@ -119,18 +120,16 @@ const Project = () => {
           showModal={showModal}
           handleClose={handleCloseModal}
           modalIntroduction={modalIntroduction}
-          formData={formData}
+          pledgeSubmitted={selectedPledge.formSubmitted}
           confirmationPledgeText={confirmationPledgeText}
         >
-          <CampaignList
-            campaigns={allCampaigns}
-            noRewardPledge={noRewardPledge}
-            noRewardPledgeDescription={noRewardPledgeDescription}
-            formData={formData}
-            onChange={handleChange}
+          <PledgeList
+            pledges={allPledges}
+            selectedPledge={selectedPledge}
+            onPledgeTypeChange={handleChange}
             handleClose={handleCloseModal}
             onSubmit={handleSubmit}
-            onClick={handleProjectStatus}
+            onPledgeConfirmClick={handleProjectStatus}
           />
         </PledgesModalCard>
         <StatusCard
@@ -138,18 +137,18 @@ const Project = () => {
           goal={goal}
           projectStatus={projectStatus}
         />
-        <div className={styles.campaignsCard}>
+        <div className={styles.pledgesCard}>
           <About about={about} />
-          {allCampaigns.map(({ product, pledgeAmount, description, stock }) => {
+          {allPledges.map(({ id, pledgeAmount, description, stock }) => {
             return (
-              <CampaignCard
-                key={product}
-                product={product}
+              <PledgeCard
+                key={id}
+                product={id}
                 pledgeAmount={pledgeAmount}
                 description={description}
                 stock={stock}
                 onClick={handleShowModal}
-                formData={formData}
+                selectedPledge={selectedPledge}
               />
             );
           })}
