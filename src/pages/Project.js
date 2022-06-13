@@ -24,6 +24,11 @@ const Project = () => {
     formSubmitted: false,
   });
 
+  const handleStockUpdate = (pledgeId, stockQuantity) => {
+    const chosenPledge = pledges.find(({ id }) => id === pledgeId);
+    chosenPledge.stock = stockQuantity - 1;
+  };
+
   // update the state with value of the radio buttons and pledge amount
   const handleChange = (event) => {
     const { name } = event.target;
@@ -130,6 +135,7 @@ const Project = () => {
             handleClose={handleCloseModal}
             onSubmit={handleSubmit}
             onPledgeConfirmClick={handleProjectStatus}
+            stockUpdate={handleStockUpdate}
           />
         </PledgesModalCard>
         <StatusCard

@@ -6,10 +6,16 @@ export const ProductPledgeList = ({
   selectedPledge,
   onChange,
   onPledgeConfirmClick,
+  stockUpdate,
 }) => {
   return pledges.map(({ id, pledgeAmount, description, stock }) => {
     const disabled = stock > 0 ? false : true;
     const pledgeCardSelected = id === selectedPledge.pledgeId;
+
+    const updateStockAndProjectStatus = () => {
+      onPledgeConfirmClick();
+      stockUpdate(id, stock);
+    };
 
     let pledgeCardClassName;
     if (stock > 0) {
@@ -54,7 +60,7 @@ export const ProductPledgeList = ({
             pledgeAmountfromPledge={pledgeAmount}
             onChange={onChange}
             name="pledgeAmount"
-            onPledgeConfirmClick={onPledgeConfirmClick}
+            updateData={updateStockAndProjectStatus}
           />
         )}
       </div>

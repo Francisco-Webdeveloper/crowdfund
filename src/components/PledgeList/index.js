@@ -7,6 +7,7 @@ export const PledgeList = ({
   onPledgeTypeChange,
   onSubmit,
   onPledgeConfirmClick,
+  stockUpdate,
 }) => {
   return (
     <>
@@ -42,6 +43,7 @@ export const PledgeList = ({
           selectedPledge={selectedPledge}
           onChange={onPledgeTypeChange}
           onPledgeConfirmClick={onPledgeConfirmClick}
+          stockUpdate={stockUpdate}
         />
       </form>
     </>

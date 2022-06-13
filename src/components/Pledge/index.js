@@ -8,7 +8,7 @@ export const Pledge = ({
   pledgeAmountfromPledge,
   onChange,
   name,
-  onPledgeConfirmClick,
+  updateStockAndProjectStatus,
 }) => {
   const [lowValueErrorMessage, setLowValueErrorMessage] = useState("");
   const [enterPledgeErrorMessage, setEnterPledgeErrorMessage] = useState("");
@@ -87,7 +87,8 @@ export const Pledge = ({
               className={`${styles.pledgeButton} ${
                 buttonDisabled && styles.buttonDisabled
               }`}
-              onClick={onPledgeConfirmClick}
+              // onClick={onPledgeConfirmClick}
+              onClick={updateStockAndProjectStatus}
               disabled={buttonDisabled}
             >
               Continue
