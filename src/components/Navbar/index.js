@@ -1,31 +1,61 @@
 import { MobileMenu } from "../MobileMenu";
 import styles from "./Navbar.module.scss";
-import menuIcon from "../../icons/icon-hamburger.svg";
-import closeMenuIcon from "../../icons/icon-close-menu.svg";
+// import menuIcon from "../../icons/icon-hamburger.svg";
+// import closeMenuIcon from "../../icons/icon-close-menu.svg";
+import { ReactComponent as MenuIcon } from "../../icons/icon-hamburger.svg";
+import { ReactComponent as CloseMenuIcon } from "../../icons/icon-close-menu.svg";
 import { useState } from "react";
 
 export const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [navbarBackgroundChange, setNavbarBackgroundChange] = useState(false);
 
   const handleShowMenu = () => setShowMenu(true);
 
   const handleCloseMenu = () => setShowMenu(false);
 
-  const icon = showMenu ? closeMenuIcon : menuIcon;
+  const changeNavbarBackground = () => {
+    window.scrollY >= 305
+      ? setNavbarBackgroundChange(true)
+      : setNavbarBackgroundChange(false);
+  };
+
+  window.addEventListener("scroll", changeNavbarBackground);
+
+  const iconColorClassName = navbarBackgroundChange
+    ? `${styles.menuIcon} ${styles.menuIconActive}`
+    : styles.menuIcon;
+
   return (
-    <div className={styles.navbar}>
-      <h3 className={styles.logo}>crowdfund</h3>
-      {/* Mobile */}
-      <img
-        className={styles.menuIcon}
-        src={icon}
-        alt="menu-icon"
-        onClick={handleShowMenu}
-        height="15px"
-      />
+    <div
+      className={
+        navbarBackgroundChange
+          ? `${styles.navbar} ${styles.active}`
+          : styles.navbar
+      }
+    >
+      <h3
+        className={
+          navbarBackgroundChange
+            ? `${styles.logo} ${styles.logoActive}`
+            : styles.logo
+        }
+      >
+        crowdfund
+      </h3>
+      {showMenu ? (
+        <CloseMenuIcon className={iconColorClassName} />
+      ) : (
+        <MenuIcon className={iconColorClassName} onClick={handleShowMenu} />
+      )}
       <MobileMenu showMenu={showMenu} handleClose={handleCloseMenu} />
-      {/* Desktop */}
-      <ul className={styles.links}>
+      <ul
+        className={
+          navbarBackgroundChange
+            ? `${styles.links} ${styles.linksActive}`
+            : styles.links
+        }
+      >
         <li>About</li>
         <li>Discover</li>
         <li>Get Started</li>
