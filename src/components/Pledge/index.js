@@ -87,7 +87,6 @@ export const Pledge = ({
               className={`${styles.pledgeButton} ${
                 buttonDisabled && styles.buttonDisabled
               }`}
-              // onClick={onPledgeConfirmClick}
               onClick={updateStockAndProjectStatus}
               disabled={buttonDisabled}
             >

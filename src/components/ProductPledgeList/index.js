@@ -60,7 +60,7 @@ export const ProductPledgeList = ({
             pledgeAmountfromPledge={pledgeAmount}
             onChange={onChange}
             name="pledgeAmount"
-            updateData={updateStockAndProjectStatus}
+            updateStockAndProjectStatus={updateStockAndProjectStatus}
           />
         )}
       </div>
