@@ -106,17 +106,7 @@ input[type="radio"] {
 }
 
 .description {
-  color: $paragraph-color;
-  margin-bottom: 14px;
-  line-height: 24px;
-  @media (min-width: 992px) {
-    font-size: 15px;
-    line-height: 28px;
-    margin-bottom: 8px;
-  }
-  @media (min-width: 1440px) {
-    padding-left: 50px;
-  }
+  @include pledgeDescription;
 }
 
 .stockLeft {

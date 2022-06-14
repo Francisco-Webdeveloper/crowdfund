@@ -77,15 +77,22 @@ input[type="radio"] {
 }
 
 .description {
-  color: $paragraph-color;
-  margin-bottom: 14px;
-  line-height: 24px;
+  @include pledgeDescription;
+}
+
+.noRewardPledgeCard {
+  text-align: center;
+  padding: 24px 0 10px 0;
+  margin: 10px -22px 0 -22px;
+  border-top: 1px solid #d5d0d0;
   @media (min-width: 992px) {
-    font-size: 15px;
-    line-height: 28px;
-    margin-bottom: 8px;
+    margin-top: 24px;
   }
   @media (min-width: 1440px) {
-    padding-left: 50px;
+    margin: 24px -27px 0 -27px;
+    padding: 24px 27px 0 27px;
   }
+}
+.noRewardPledgeButton {
+  @include pledgeButton;
 }

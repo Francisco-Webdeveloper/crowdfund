@@ -25,6 +25,36 @@ $paragraph-color: #959595;
   }
 }
 
+@mixin pledgeButton {
+  width: 114px;
+  height: 44px;
+  border-radius: 30px;
+  background-color: $primary-color;
+  color: #e1fbfb;
+  border: none;
+  font-weight: 500;
+  &:hover {
+    background-color: $hover-color;
+  }
+  @media (min-width: 1440px) {
+    width: 108px;
+  }
+}
+
+@mixin pledgeDescription {
+  color: $paragraph-color;
+  margin-bottom: 14px;
+  line-height: 24px;
+  @media (min-width: 992px) {
+    font-size: 15px;
+    line-height: 28px;
+    margin-bottom: 8px;
+  }
+  @media (min-width: 1440px) {
+    padding-left: 50px;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
