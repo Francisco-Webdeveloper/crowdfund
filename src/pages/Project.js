@@ -11,6 +11,8 @@ import pledgesData from "../pledgesData";
 import projectsData from "../projectsData";
 import { useParams } from "react-router-dom";
 import { PledgeList } from "../components/PledgeList";
+import { BsArrowUpCircleFill } from "react-icons/bs";
+import { HashLink as Link } from "react-router-hash-link";
 
 const Project = () => {
   const [showModal, setShowModal] = useState(false);
@@ -159,6 +161,13 @@ const Project = () => {
             );
           })}
         </div>
+      </div>
+      <div className={styles.toTheTopContainer}>
+        <Link to="#top">
+          <h2 className={styles.toTheTop}>
+            <BsArrowUpCircleFill />
+          </h2>
+        </Link>
       </div>
     </div>
   );

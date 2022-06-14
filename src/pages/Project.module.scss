@@ -23,14 +23,12 @@
     flex-direction: column;
     align-items: center;
     gap: 24px;
-    margin-bottom: 18px;
+    margin-bottom: 40px;
     position: relative;
     bottom: 55px;
-    // Desktop
     @media (min-width: 728px) {
       gap: 26px;
       bottom: 92px;
-      margin-bottom: 32px;
     }
   }
 
@@ -38,9 +36,33 @@
     @include cardDesign;
     padding: 36px 24px 20px 24px;
 
-    // Desktop
     @media (min-width: 1440px) {
       padding: 46px 46px 20px 46px;
+    }
+  }
+
+  .toTheTopContainer {
+    position: relative;
+    width: 100vw;
+
+    .toTheTop {
+      color: #3cb4ab;
+      position: absolute;
+      right: 20px;
+      bottom: 30px;
+      &:hover {
+        color: #157a74;
+      }
+      @media (min-width: 576px) {
+        right: 60px;
+      }
+      @media (min-width: 768px) {
+        right: 100px;
+        bottom: 50px;
+      }
+      @media (min-width: 1400px) {
+        right: 150px;
+      }
     }
   }
 }
