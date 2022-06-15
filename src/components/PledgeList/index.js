@@ -8,7 +8,7 @@ export const PledgeList = ({
   onPledgeTypeChange,
   onSubmit,
   onPledgeConfirmClick,
-  stockUpdate,
+  onStockUpdate,
 }) => {
   const noRewardPledgeCardSelected = selectedPledge.pledgeId === "noReward";
   const variants = {
@@ -58,9 +58,9 @@ export const PledgeList = ({
         <ProductPledgeList
           pledges={pledges}
           selectedPledge={selectedPledge}
-          onChange={onPledgeTypeChange}
+          onPledgeTypeChange={onPledgeTypeChange}
           onPledgeConfirmClick={onPledgeConfirmClick}
-          stockUpdate={stockUpdate}
+          onStockUpdate={onStockUpdate}
         />
       </form>
     </>

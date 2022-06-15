@@ -4,9 +4,9 @@ import styles from "./ProductPledgeList.module.scss";
 export const ProductPledgeList = ({
   pledges,
   selectedPledge,
-  onChange,
+  onPledgeTypeChange,
   onPledgeConfirmClick,
-  stockUpdate,
+  onStockUpdate,
 }) => {
   return pledges.map(({ id, pledgeAmount, description, stock }) => {
     const disabled = stock > 0 ? false : true;
@@ -14,7 +14,7 @@ export const ProductPledgeList = ({
 
     const updateStockAndProjectStatus = () => {
       onPledgeConfirmClick();
-      stockUpdate(id, stock);
+      onStockUpdate(id, stock);
     };
 
     let pledgeCardClassName;
@@ -37,7 +37,7 @@ export const ProductPledgeList = ({
             name="pledgeId"
             value={id}
             checked={pledgeCardSelected} // React is in charge of controlling the input rather than the input having its own html state
-            onChange={onChange}
+            onChange={onPledgeTypeChange}
             disabled={disabled}
           />
           <div className={styles.labelAndPledgeAmount}>
@@ -58,9 +58,9 @@ export const ProductPledgeList = ({
           <Pledge
             pledgeAmountInput={selectedPledge.pledgeAmount}
             pledgeAmountfromPledge={pledgeAmount}
-            onChange={onChange}
+            onPledgeTypeChange={onPledgeTypeChange}
             name="pledgeAmount"
-            updateStockAndProjectStatus={updateStockAndProjectStatus}
+            onContinueButtonClick={updateStockAndProjectStatus}
           />
         )}
       </div>

@@ -6,9 +6,9 @@ import useDebouncedCallback from "../../hooks/useDebounceCallback";
 export const Pledge = ({
   pledgeAmountInput,
   pledgeAmountfromPledge,
-  onChange,
+  onPledgeTypeChange,
   name,
-  updateStockAndProjectStatus,
+  onContinueButtonClick,
 }) => {
   const [lowValueErrorMessage, setLowValueErrorMessage] = useState("");
   const [enterPledgeErrorMessage, setEnterPledgeErrorMessage] = useState("");
@@ -36,8 +36,8 @@ export const Pledge = ({
   }, 500);
 
   const handleChange = (e) => {
-    if (onChange) {
-      onChange(e);
+    if (onPledgeTypeChange) {
+      onPledgeTypeChange(e);
     }
     debouncedValidatePledgeAmount();
   };
@@ -87,7 +87,7 @@ export const Pledge = ({
               className={`${styles.pledgeButton} ${
                 buttonDisabled && styles.buttonDisabled
               }`}
-              onClick={updateStockAndProjectStatus}
+              onClick={onContinueButtonClick}
               disabled={buttonDisabled}
             >
               Continue

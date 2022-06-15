@@ -26,18 +26,21 @@ const Project = () => {
     formSubmitted: false,
   });
 
+  console.log(selectedPledge);
+
   const handleStockUpdate = (pledgeId, stockQuantity) => {
-    const chosenPledge = pledges.find(({ id }) => id === pledgeId);
-    chosenPledge.stock = stockQuantity - 1;
+    setAllPledges((prevPledges) => {
+      const chosenPledge = prevPledges.find(({ id }) => id === pledgeId);
+      chosenPledge.stock = stockQuantity - 1;
+
+      return prevPledges;
+    });
   };
 
   // update the state with value of the radio buttons and pledge amount
-  const handleChange = (event) => {
+  const handlePledgeSelect = (event) => {
     const { name } = event.target;
-    let value;
-    name === "pledgeAmount"
-      ? (value = event.target.value.replace(/\D/g, ""))
-      : (value = event.target.value);
+    let value = event.target.value;
 
     setSelectedPledge((prevselectedPledge) => {
       return {
@@ -133,11 +136,10 @@ const Project = () => {
           <PledgeList
             pledges={allPledges}
             selectedPledge={selectedPledge}
-            onPledgeTypeChange={handleChange}
-            handleClose={handleCloseModal}
+            onPledgeSelect={handlePledgeSelect}
             onSubmit={handleSubmit}
             onPledgeConfirmClick={handleProjectStatus}
-            stockUpdate={handleStockUpdate}
+            onStockUpdate={handleStockUpdate}
           />
         </PledgesModalCard>
         <StatusCard
