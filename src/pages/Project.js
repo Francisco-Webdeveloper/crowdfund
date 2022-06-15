@@ -37,14 +37,22 @@ const Project = () => {
     });
   };
 
-  // update the state with value of the radio buttons and pledge amount
-  const handlePledgeSelect = (event) => {
-    const { name } = event.target;
-    let value = event.target.value;
-
-    setSelectedPledge((prevselectedPledge) => {
+  const handlePledgeAmountSelected = (productId, pledgeAmount) => {
+    setSelectedPledge((prevSelectedPledge) => {
       return {
-        ...prevselectedPledge,
+        ...prevSelectedPledge,
+        [productId]: pledgeAmount,
+      };
+    });
+  };
+
+  // update the state with value of the radio buttons
+  const handlePledgeSelect = (event) => {
+    const { name, value } = event.target;
+
+    setSelectedPledge((prevSelectedPledge) => {
+      return {
+        ...prevSelectedPledge,
         [name]: value,
       };
     });
@@ -137,6 +145,7 @@ const Project = () => {
             pledges={allPledges}
             selectedPledge={selectedPledge}
             onPledgeSelect={handlePledgeSelect}
+            onPledgeAmountSelected={handlePledgeAmountSelected}
             onSubmit={handleSubmit}
             onPledgeConfirmClick={handleProjectStatus}
             onStockUpdate={handleStockUpdate}

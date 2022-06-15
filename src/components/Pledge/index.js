@@ -6,7 +6,7 @@ import useDebouncedCallback from "../../hooks/useDebounceCallback";
 export const Pledge = ({
   pledgeAmountInput,
   pledgeAmountfromPledge,
-  onPledgeTypeChange,
+  onPledgeAmountSelected,
   name,
   onContinueButtonClick,
 }) => {
@@ -35,10 +35,12 @@ export const Pledge = ({
     validatePledgeAmount();
   }, 500);
 
-  const handleChange = (e) => {
-    if (onPledgeTypeChange) {
-      onPledgeTypeChange(e);
-    }
+  const handleChange = (event) => {
+    const { name } = event.target;
+    const value = event.target.value.replace(/\D/g, "");
+
+    onPledgeAmountSelected(name, value);
+
     debouncedValidatePledgeAmount();
   };
 

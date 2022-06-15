@@ -5,17 +5,18 @@ import { Pledge } from "../Pledge";
 export const PledgeList = ({
   pledges,
   selectedPledge,
-  onPledgeTypeChange,
+  onPledgeSelect,
   onSubmit,
   onPledgeConfirmClick,
   onStockUpdate,
+  onPledgeAmountSelected,
 }) => {
   return (
     <>
       <form onSubmit={onSubmit}>
         <NoRewardPledge
           pledgeId={selectedPledge.pledgeId}
-          onPledgeTypeChange={onPledgeTypeChange}
+          onPledgeSelect={onPledgeSelect}
         />
         {pledges.map(({ id, pledgeAmount, description, stock }) => {
           const disabled = stock > 0 ? false : true;
@@ -46,7 +47,7 @@ export const PledgeList = ({
                   name="pledgeId"
                   value={id}
                   checked={pledgeCardSelected} // React is in charge of controlling the input rather than the input having its own html state
-                  onChange={onPledgeTypeChange}
+                  onChange={onPledgeSelect}
                   disabled={disabled}
                 />
                 <div className={styles.labelAndPledgeAmount}>
@@ -67,7 +68,7 @@ export const PledgeList = ({
                 <Pledge
                   pledgeAmountInput={selectedPledge.pledgeAmount}
                   pledgeAmountfromPledge={pledgeAmount}
-                  onPledgeTypeChange={onPledgeTypeChange}
+                  onPledgeAmountSelected={onPledgeAmountSelected}
                   name="pledgeAmount"
                   onContinueButtonClick={updateStockAndProjectStatus}
                 />

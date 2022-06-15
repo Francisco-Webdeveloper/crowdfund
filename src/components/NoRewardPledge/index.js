@@ -1,7 +1,7 @@
 import styles from "./NoRewardPledge.module.scss";
 import { motion } from "framer-motion";
 
-export const NoRewardPledge = ({ pledgeId, onPledgeTypeChange }) => {
+export const NoRewardPledge = ({ pledgeId, onPledgeSelect }) => {
   const noRewardPledgeCardSelected = pledgeId === "noReward";
 
   const variants = {
@@ -24,7 +24,7 @@ export const NoRewardPledge = ({ pledgeId, onPledgeTypeChange }) => {
           name="pledgeId"
           value="noReward"
           checked={pledgeId === "noReward"}
-          onChange={onPledgeTypeChange}
+          onChange={onPledgeSelect}
         />
         <label htmlFor="noReward" className={styles.noProduct}>
           Pledge with no reward
