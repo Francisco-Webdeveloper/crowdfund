@@ -1,6 +1,6 @@
 import styles from "./PledgeList.module.scss";
-import { ProductPledgeList } from "../ProductPledgeList";
-import { motion } from "framer-motion";
+import { NoRewardPledge } from "../NoRewardPledge";
+import { Pledge } from "../Pledge";
 
 export const PledgeList = ({
   pledges,
@@ -10,58 +10,71 @@ export const PledgeList = ({
   onPledgeConfirmClick,
   onStockUpdate,
 }) => {
-  const noRewardPledgeCardSelected = selectedPledge.pledgeId === "noReward";
-  const variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-  };
   return (
     <>
       <form onSubmit={onSubmit}>
-        <div
-          className={
-            noRewardPledgeCardSelected
-              ? styles.pledgeCardSelected
-              : styles.pledgeCard
-          }
-        >
-          <div className={styles.inputAndLabel}>
-            <input
-              type="radio"
-              id="noReward"
-              name="pledgeId"
-              value="noReward"
-              checked={selectedPledge.pledgeId === "noReward"}
-              onChange={onPledgeTypeChange}
-            />
-            <label htmlFor="noReward" className={styles.noProduct}>
-              Pledge with no reward
-            </label>
-          </div>
-          <p className={styles.description}>
-            Choose to support us without a reward if you simply believe in our
-            project. As a backer, you will be signed up to receive product
-            updates via email.
-          </p>
-          {noRewardPledgeCardSelected && (
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={variants}
-              transition={{ duration: 1 }}
-              className={styles.noRewardPledgeCard}
-            >
-              <button className={styles.noRewardPledgeButton}>Continue</button>
-            </motion.div>
-          )}
-        </div>
-        <ProductPledgeList
-          pledges={pledges}
-          selectedPledge={selectedPledge}
+        <NoRewardPledge
+          pledgeId={selectedPledge.pledgeId}
           onPledgeTypeChange={onPledgeTypeChange}
-          onPledgeConfirmClick={onPledgeConfirmClick}
-          onStockUpdate={onStockUpdate}
         />
+        {pledges.map(({ id, pledgeAmount, description, stock }) => {
+          const disabled = stock > 0 ? false : true;
+          const pledgeCardSelected = id === selectedPledge.pledgeId;
+
+          const updateStockAndProjectStatus = () => {
+            onPledgeConfirmClick();
+            onStockUpdate(id, stock);
+          };
+
+          let pledgeCardClassName;
+          if (stock > 0) {
+            if (pledgeCardSelected) {
+              pledgeCardClassName = styles.pledgeCardSelected;
+            } else {
+              pledgeCardClassName = styles.pledgeCard;
+            }
+          } else {
+            pledgeCardClassName = styles.pledgeCardDisabled;
+          }
+
+          return (
+            <div key={id} className={pledgeCardClassName} id="reward">
+              <div className={styles.inputLabelAndPledgeAmount}>
+                <input
+                  type="radio"
+                  id={id}
+                  name="pledgeId"
+                  value={id}
+                  checked={pledgeCardSelected} // React is in charge of controlling the input rather than the input having its own html state
+                  onChange={onPledgeTypeChange}
+                  disabled={disabled}
+                />
+                <div className={styles.labelAndPledgeAmount}>
+                  <label htmlFor={id} className={styles.product}>
+                    {id}
+                  </label>
+                  <p className={styles.pledgeAmount}>
+                    Pledge ${pledgeAmount} or more
+                  </p>
+                </div>
+              </div>
+              <p className={styles.description}>{description}</p>
+              <div className={styles.stockLeft}>
+                <h3 className={styles.stock}>{stock} </h3>
+                <p className={styles.left}>left</p>
+              </div>
+              {pledgeCardSelected && (
+                <Pledge
+                  pledgeAmountInput={selectedPledge.pledgeAmount}
+                  pledgeAmountfromPledge={pledgeAmount}
+                  onPledgeTypeChange={onPledgeTypeChange}
+                  name="pledgeAmount"
+                  onContinueButtonClick={updateStockAndProjectStatus}
+                />
+              )}
+            </div>
+          );
+        })}
       </form>
     </>
   );

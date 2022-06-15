@@ -1,16 +1,28 @@
 @import "../../style.scss";
 
 .pledgeCard,
+.pledgeCardDisabled,
 .pledgeCardSelected {
   border: 1px solid #d5d0d0;
   border-radius: 7px;
-  padding: 20px 22px 16px 22px;
+  padding: 20px 22px 38px 22px;
   font-size: 14px;
   margin-top: 24px;
   margin-bottom: 24px;
   @media (min-width: 992px) {
-    padding: 24px 26px 24px 27px;
+    padding: 24px 26px 38px 27px;
     position: relative;
+  }
+  @media (min-width: 992px) {
+    padding: 24px 26px 42px 27px;
+  }
+}
+
+.pledgeCardDisabled {
+  opacity: 0.5;
+  input:hover {
+    box-shadow: none;
+    cursor: default;
   }
 }
 
@@ -18,17 +30,37 @@
   border: 2px solid $primary-color;
 }
 
-.inputAndLabel {
+.inputLabelAndPledgeAmount {
   display: flex;
   align-items: center;
-  padding-top: 12px;
-  margin-bottom: 34px;
+  margin-bottom: 26px;
   @media (min-width: 992px) {
     margin-bottom: 0;
     padding-bottom: 22px;
   }
   @media (min-width: 1440px) {
-    padding-bottom: 8px;
+    padding-bottom: 0;
+  }
+}
+
+.labelAndPledgeAmount {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 45px;
+  @media (min-width: 1440px) {
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 10px;
+  }
+}
+
+.pledgeAmount {
+  margin-bottom: 0;
+  color: $primary-color;
+  @media (min-width: 992px) {
+    font-size: 16px;
+    font-weight: 500;
   }
 }
 
@@ -40,8 +72,8 @@ input[type="radio"] {
   height: 22px;
   margin-right: 16px;
   outline: none;
-  cursor: pointer;
-  @media (min-width: 992px) {
+  @media (min-width: 1440px) {
+    cursor: pointer;
     width: 24px;
     height: 24px;
     margin-right: 25px;
@@ -56,7 +88,7 @@ input[type="radio"] {
     height: 60%;
     margin: 20% auto;
     border-radius: 50%;
-    @media (min-width: 992px) {
+    @media (min-width: 1440px) {
       margin: 20% 22%;
     }
   }
@@ -65,14 +97,11 @@ input[type="radio"] {
   }
 }
 
-.noProduct {
+.product {
   font-weight: 700;
   @media (min-width: 992px) {
     font-size: 16px;
-  }
-  @media (min-width: 1440px) {
     padding-right: 18px;
-    padding-bottom: 10px;
   }
 }
 
@@ -80,19 +109,26 @@ input[type="radio"] {
   @include pledgeDescription;
 }
 
-.noRewardPledgeCard {
-  text-align: center;
-  padding: 24px 0 10px 0;
-  margin: 10px -22px 0 -22px;
-  border-top: 1px solid #d5d0d0;
+.stockLeft {
+  display: flex;
+  align-items: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
   @media (min-width: 992px) {
-    margin-top: 24px;
-  }
-  @media (min-width: 1440px) {
-    margin: 24px -27px 0 -27px;
-    padding: 24px 27px 0 27px;
+    position: absolute;
+    top: 18px;
+    right: 27px;
   }
 }
-.noRewardPledgeButton {
-  @include pledgeButton;
+
+.stock {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+}
+
+.left {
+  font-size: 16px;
+  color: $paragraph-color;
+  margin: 0 0 8px 8px;
 }
