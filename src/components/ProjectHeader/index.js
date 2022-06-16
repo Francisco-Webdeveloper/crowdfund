@@ -1,6 +1,5 @@
 import styles from "./ProjectHeader.module.scss";
 import logo from "../../icons/logo-mastercraft.svg";
-import bookmarkIcon from "../../icons/icon-bookmark.svg";
 import { ReactComponent as BookmarkIcon } from "../../icons/icon-bookmark.svg";
 import { useState } from "react";
 
