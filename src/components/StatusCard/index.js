@@ -18,10 +18,6 @@ export const StatusCard = ({ daysLeft, projectStatus, goal }) => {
         <h1>{projectStatus.totalBackers}</h1>
         <p>total backers</p>
       </div>
-      {/* <div className={styles.daysLeft}>
-        <h1>{daysLeft}</h1>
-        <p>days left</p>
-      </div> */}
       <CountdownTimer targetDate={dateTimeAfterProjectDuration} />
       <ProgressBar
         now={(projectStatus.moneyBacked / goal) * 100}
