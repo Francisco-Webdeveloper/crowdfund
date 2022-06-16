@@ -1,7 +1,5 @@
 import { MobileMenu } from "../MobileMenu";
 import styles from "./Navbar.module.scss";
-// import menuIcon from "../../icons/icon-hamburger.svg";
-// import closeMenuIcon from "../../icons/icon-close-menu.svg";
 import { ReactComponent as MenuIcon } from "../../icons/icon-hamburger.svg";
 import { ReactComponent as CloseMenuIcon } from "../../icons/icon-close-menu.svg";
 import { useState } from "react";
