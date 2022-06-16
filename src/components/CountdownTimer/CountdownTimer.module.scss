@@ -1,0 +1,38 @@
+@import "../../style.scss";
+
+.daysLeft {
+  height: 122px;
+  @media (min-width: 992px) {
+    height: 40px;
+    padding-left: 40px;
+  }
+  @media (min-width: 1440px) {
+    padding-left: 0;
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    padding-top: 20px;
+    @media (min-width: 992px) {
+      padding: 0;
+    }
+  }
+  p {
+    color: $paragraph-color;
+    font-size: 14px;
+    @media (min-width: 992px) {
+      margin: 0;
+    }
+  }
+  .danger {
+    color: red;
+  }
+}
+.expiredNotice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: red;
+}

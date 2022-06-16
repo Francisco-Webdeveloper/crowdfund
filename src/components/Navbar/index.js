@@ -3,6 +3,7 @@ import styles from "./Navbar.module.scss";
 import { ReactComponent as MenuIcon } from "../../icons/icon-hamburger.svg";
 import { ReactComponent as CloseMenuIcon } from "../../icons/icon-close-menu.svg";
 import { useState } from "react";
+import { HashLink as Link } from "react-router-hash-link";
 
 export const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -32,15 +33,17 @@ export const Navbar = () => {
           : styles.navbar
       }
     >
-      <h3
-        className={
-          navbarBackgroundChange
-            ? `${styles.logo} ${styles.logoActive}`
-            : styles.logo
-        }
-      >
-        crowdfund
-      </h3>
+      <Link to="#top" style={{ "text-decoration": "none" }}>
+        <h3
+          className={
+            navbarBackgroundChange
+              ? `${styles.logo} ${styles.logoActive}`
+              : styles.logo
+          }
+        >
+          crowdfund
+        </h3>
+      </Link>
       {showMenu ? (
         <CloseMenuIcon className={iconColorClassName} />
       ) : (
