@@ -85,6 +85,26 @@
     }
   }
 
+  .bookmarkIconMobile {
+    cursor: pointer;
+  }
+
+  .bookmarkIconMobile,
+  .bookmarkIconDesktop {
+    fill: #2f2f2f;
+  }
+  .bookmarkIconMobile path,
+  .bookmarkIconDesktop path {
+    fill: #b1b1b1;
+  }
+
+  .bookmarkIconActive {
+    fill: $hover-color;
+  }
+  .bookmarkIconActive path {
+    fill: white;
+  }
+
   @media (max-width: 992px) {
     .bookmarkBtn {
       display: none;
@@ -102,12 +122,18 @@
       align-items: center;
       padding: 0;
     }
-    .bookmark {
+    .notBookmarked,
+    .bookmarked {
       font-family: $font-stack;
       font-weight: 700;
       color: #7d7d7d;
-      margin-left: 16px;
+      margin-left: 12px;
     }
+
+    .bookmarked {
+      color: $hover-color;
+    }
+
     .bookmarkIconMobile {
       display: none;
     }

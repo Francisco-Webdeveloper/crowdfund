@@ -1,8 +1,16 @@
 import styles from "./ProjectHeader.module.scss";
 import logo from "../../icons/logo-mastercraft.svg";
 import bookmarkIcon from "../../icons/icon-bookmark.svg";
+import { ReactComponent as BookmarkIcon } from "../../icons/icon-bookmark.svg";
+import { useState } from "react";
 
 export const ProjectHeader = ({ title, description, onClick }) => {
+  const [bookmarked, setBookmarked] = useState(false);
+
+  const handleBookmarks = () => {
+    setBookmarked((prevBookmarked) => !prevBookmarked);
+  };
+
   return (
     <div className={styles.backProjectCard}>
       <img className={styles.logo} src={logo} alt="logo" />
@@ -13,22 +21,29 @@ export const ProjectHeader = ({ title, description, onClick }) => {
           Back this project
         </button>
 
-        {/* Mobile */}
-        <img
-          className={styles.bookmarkIconMobile}
-          src={bookmarkIcon}
-          alt="bookmark"
-        />
-
-        {/* DESKTOP  */}
-        <button className={styles.bookmarkBtn}>
-          <img
-            className={styles.bookmarkIconDesktop}
-            src={bookmarkIcon}
-            alt="bookmark"
+        <div onClick={handleBookmarks}>
+          <BookmarkIcon
+            className={
+              bookmarked
+                ? `${styles.bookmarkIconMobile} ${styles.bookmarkIconActive}`
+                : styles.bookmarkIconMobile
+            }
           />
-          <span className={styles.bookmark}>Bookmark</span>
-        </button>
+          <button className={styles.bookmarkBtn}>
+            <BookmarkIcon
+              className={
+                bookmarked
+                  ? `${styles.bookmarkIconDesktop} ${styles.bookmarkIconActive}`
+                  : styles.bookmarkIconDesktop
+              }
+            />
+            <span
+              className={bookmarked ? styles.bookmarked : styles.notBookmarked}
+            >
+              {bookmarked ? "Bookmarked" : "Bookmark"}
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );
