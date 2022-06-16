@@ -11,11 +11,11 @@ export const StatusCard = ({ daysLeft, projectStatus, goal }) => {
   return (
     <div className={styles.status}>
       <div className={styles.moneyBacked}>
-        <h1>${projectStatus.moneyBacked}</h1>
-        <p>of ${goal} backed</p>
+        <h1>${projectStatus.moneyBacked.toLocaleString("en-US")}</h1>
+        <p>of ${goal.toLocaleString("en-US")} backed</p>
       </div>
       <div className={styles.totalBackers}>
-        <h1>{projectStatus.totalBackers}</h1>
+        <h1>{projectStatus.totalBackers.toLocaleString("en-US")}</h1>
         <p>total backers</p>
       </div>
       <CountdownTimer targetDate={dateTimeAfterProjectDuration} />
