@@ -1,26 +1,20 @@
 import styles from "./Pledge.module.scss";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useDebouncedCallback from "../../hooks/useDebounceCallback";
 
-export const Pledge = ({
-  pledgeAmountInput,
-  pledgeAmountfromPledge,
-  onPledgeAmountSelected,
-  name,
-  onContinueButtonClick,
-}) => {
+export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
   const [lowValueErrorMessage, setLowValueErrorMessage] = useState("");
   const [enterPledgeErrorMessage, setEnterPledgeErrorMessage] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const amountInputRef = useRef();
 
   // input form validations
   const validatePledgeAmount = () => {
-    console.log({ pledgeAmountInput });
-    if (pledgeAmountInput < pledgeAmountfromPledge) {
+    if (amountInputRef.current.value < minimumAmount) {
       // show error message if the amount inserted by the user is lower than the required
       setLowValueErrorMessage(
-        `Value must be greater than or equal to $${pledgeAmountfromPledge}`
+        `Value must be greater than or equal to $${minimumAmount}`
       );
       // disable button if amount inserted by the user is less than the required
       setButtonDisabled(true);
@@ -36,10 +30,7 @@ export const Pledge = ({
   }, 500);
 
   const handleChange = (event) => {
-    const { name } = event.target;
-    const value = event.target.value.replace(/\D/g, "");
-
-    onPledgeAmountSelected(name, value);
+    event.target.value = event.target.value.replace(/\D/g, "");
 
     debouncedValidatePledgeAmount();
   };
@@ -55,7 +46,7 @@ export const Pledge = ({
   };
 
   const inputValidationClassName =
-    buttonDisabled && pledgeAmountInput !== ""
+    buttonDisabled && minimumAmount !== ""
       ? styles.invalidInput
       : styles.validInput;
 
@@ -77,9 +68,9 @@ export const Pledge = ({
         <div className={styles.pledgeAndSubmit}>
           <input
             type="text"
-            value={pledgeAmountInput}
+            ref={amountInputRef}
             className={`${styles.pledgeInput} ${inputValidationClassName}`}
-            name={name}
+            name="pledgeAmount"
             required
             onChange={handleChange}
           />
@@ -89,7 +80,9 @@ export const Pledge = ({
               className={`${styles.pledgeButton} ${
                 buttonDisabled && styles.buttonDisabled
               }`}
-              onClick={onContinueButtonClick}
+              onClick={() =>
+                onContinueButtonClick(id, amountInputRef.current.value)
+              }
               disabled={buttonDisabled}
             >
               Continue
@@ -97,10 +90,10 @@ export const Pledge = ({
           </div>
         </div>
       </motion.div>
-      {lowValueErrorMessage && pledgeAmountInput !== "" ? (
+      {lowValueErrorMessage && minimumAmount !== "" ? (
         <p className={styles.errorMessage}>{lowValueErrorMessage}</p>
       ) : null}
-      {enterPledgeErrorMessage && !pledgeAmountInput ? (
+      {enterPledgeErrorMessage && !minimumAmount ? (
         <p className={styles.errorMessage}>{enterPledgeErrorMessage}</p>
       ) : null}
     </div>

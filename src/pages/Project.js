@@ -22,27 +22,15 @@ const Project = () => {
 
   const [selectedPledge, setSelectedPledge] = useState({
     pledgeId: "",
-    pledgeAmount: "",
     formSubmitted: false,
   });
 
-  console.log(selectedPledge);
-
-  const handleStockUpdate = (pledgeId, stockQuantity) => {
+  const handleStockUpdate = (pledgeId) => {
     setAllPledges((prevPledges) => {
       const chosenPledge = prevPledges.find(({ id }) => id === pledgeId);
-      chosenPledge.stock = stockQuantity - 1;
+      chosenPledge.stock -= 1;
 
       return prevPledges;
-    });
-  };
-
-  const handlePledgeAmountSelected = (productId, pledgeAmount) => {
-    setSelectedPledge((prevSelectedPledge) => {
-      return {
-        ...prevSelectedPledge,
-        [productId]: pledgeAmount,
-      };
     });
   };
 
@@ -77,7 +65,6 @@ const Project = () => {
     setShowModal(false);
     setSelectedPledge({
       pledgeId: "",
-      pledgeAmount: "",
       formSubmitted: false,
     });
   };
@@ -94,12 +81,11 @@ const Project = () => {
   });
 
   // update the status card with the additional backer + money backed
-  const handleProjectStatus = () => {
+  const handleProjectStatus = (pledgedAmount) => {
     setAddBacker(true);
     setProjectStatus((prevProjectStatus) => {
       return {
-        moneyBacked:
-          prevProjectStatus.moneyBacked + parseInt(selectedPledge.pledgeAmount),
+        moneyBacked: prevProjectStatus.moneyBacked + parseInt(pledgedAmount),
         totalBackers: addBacker
           ? // if the user already made a first pledge, keep the same number of backers
             prevProjectStatus.totalBackers
@@ -112,6 +98,11 @@ const Project = () => {
   if (!currentProject) {
     return <div style={{ color: "white" }}>Project not found</div>;
   }
+
+  const handlePledgeConfirmClick = (pledgeId, pledgedAmount) => {
+    handleProjectStatus(pledgedAmount);
+    handleStockUpdate(pledgeId);
+  };
 
   // get the value of a specific project's properties
   const {
@@ -145,10 +136,8 @@ const Project = () => {
             pledges={allPledges}
             selectedPledge={selectedPledge}
             onPledgeSelect={handlePledgeSelect}
-            onPledgeAmountSelected={handlePledgeAmountSelected}
             onSubmit={handleSubmit}
-            onPledgeConfirmClick={handleProjectStatus}
-            onStockUpdate={handleStockUpdate}
+            onPledgeConfirmClick={handlePledgeConfirmClick}
           />
         </PledgesModalCard>
         <StatusCard
