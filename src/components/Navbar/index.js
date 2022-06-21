@@ -26,14 +26,14 @@ export const Navbar = () => {
     : styles.menuIcon;
 
   return (
-    <div
+    <nav
       className={
         navbarBackgroundChange
           ? `${styles.navbar} ${styles.active}`
           : styles.navbar
       }
     >
-      <Link to="#top" style={{ "text-decoration": "none" }}>
+      <Link to="#top" style={{ textDecoration: "none" }}>
         <h3
           className={
             navbarBackgroundChange
@@ -61,6 +61,6 @@ export const Navbar = () => {
         <li>Discover</li>
         <li>Get Started</li>
       </ul>
-    </div>
+    </nav>
   );
 };
