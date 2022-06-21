@@ -13,7 +13,7 @@ export const CountdownTimer = ({ targetDate }) => {
     </div>
   ) : (
     <div className={styles.daysLeft}>
-      <div className={days <= 3 && styles.danger}>
+      <div className={days <= 3 ? styles.danger : null}>
         <h1>{days}</h1>
         <p>days left</p>
       </div>
