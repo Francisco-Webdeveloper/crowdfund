@@ -14,7 +14,9 @@ export const ProjectHeader = ({ title, description, onClick }) => {
     <div className={styles.backProjectCard}>
       <img className={styles.logo} src={logo} alt="logo" />
       <h2 className={styles.title}>{title}</h2>
-      <p className={styles.description}>{description}</p>
+      <p data-testid="project-description" className={styles.description}>
+        {description}
+      </p>
       <div className={styles.buttons}>
         <button className={styles.backProjectBtn} onClick={onClick}>
           Back this project
@@ -28,15 +30,17 @@ export const ProjectHeader = ({ title, description, onClick }) => {
                 : styles.bookmarkIconMobile
             }
           />
-          <button className={styles.bookmarkBtn}>
+          <button className={styles.bookmarkBtn} data-testid="bookmark">
             <BookmarkIcon
               className={
                 bookmarked
                   ? `${styles.bookmarkIconDesktop} ${styles.bookmarkIconActive}`
                   : styles.bookmarkIconDesktop
               }
+              data-testid="bookmark-icon"
             />
             <span
+              data-testid="bookmark-button-text"
               className={bookmarked ? styles.bookmarked : styles.notBookmarked}
             >
               {bookmarked ? "Bookmarked" : "Bookmark"}

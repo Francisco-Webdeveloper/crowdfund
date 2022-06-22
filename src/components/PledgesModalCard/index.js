@@ -5,7 +5,7 @@ import closeModalIcon from "../../icons/icon-close-modal.svg";
 
 export const PledgesModalCard = ({
   showModal,
-  handleClose,
+  onHide,
   modalIntroduction,
   pledgeSubmitted,
   confirmationPledgeText,
@@ -14,27 +14,29 @@ export const PledgesModalCard = ({
   return pledgeSubmitted ? (
     // show the modal that confirms the form submission
     <ModalPledgeSubmittedCard
-      handleClose={handleClose}
+      handleClose={onHide}
       confirmationPledgeText={confirmationPledgeText}
     />
   ) : (
     // show the modal that shows the pledges and inputs
     <Modal
       show={showModal}
-      onHide={handleClose}
+      onHide={onHide}
       backdrop="static"
       keyboard={false}
       centered
       dialogClassName={styles.pledgesModal}
+      data-testid="pledges-modal"
     >
       <div className={styles.modalContainer}>
         <div className={styles.header}>
           <h2 className={styles.title}>Back this project</h2>
           <img
+            data-testid="close-modal"
             className={styles.modalClose}
             src={closeModalIcon}
             alt="close-modal"
-            onClick={handleClose}
+            onClick={onHide}
           />
         </div>
         <p className={styles.introduction}>{modalIntroduction}</p>

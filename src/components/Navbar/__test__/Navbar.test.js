@@ -11,19 +11,19 @@ const MockNavBar = () => {
 };
 
 describe("Navbar", () => {
-  test("Should render logo", () => {
+  it("Should render logo", () => {
     render(<MockNavBar />);
     const logoElement = screen.getByRole("heading", { name: "crowdfund" });
     expect(logoElement.textContent).toBe("crowdfund");
   });
 
-  test("Should render the navbar links", () => {
+  it("Should render the navbar links", () => {
     render(<MockNavBar />);
     const linkElements = screen.getAllByRole("listitem");
     expect(linkElements.length).toBe(3);
   });
 
-  test("Navbar links should be 'About', 'Discover' and 'Get Started'", () => {
+  it("Navbar links should be 'About', 'Discover' and 'Get Started'", () => {
     render(<MockNavBar />);
     const linkNames = ["About", "Discover", "Get Started"];
     linkNames.forEach((link) => {
@@ -32,14 +32,14 @@ describe("Navbar", () => {
     });
   });
 
-  test("Navbar should not show white background when window < 305px", () => {
+  it("Navbar should not show transparent background when window < 305px", () => {
     render(<MockNavBar />);
     const navbarElement = screen.getByRole("navigation");
     fireEvent.scroll(window, { target: { scrollY: 304 } });
     expect(navbarElement).not.toHaveClass("active");
   });
 
-  test("Navbar should show white background when window >= 305px", () => {
+  it("Navbar should show white background when window >= 305px", () => {
     render(<MockNavBar />);
     const navbarElement = screen.getByRole("navigation");
     fireEvent.scroll(window, { target: { scrollY: 305 } });

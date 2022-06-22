@@ -127,7 +127,7 @@ const Project = () => {
         />
         <PledgesModalCard
           showModal={showModal}
-          handleClose={handleCloseModal}
+          onHide={handleCloseModal}
           modalIntroduction={modalIntroduction}
           pledgeSubmitted={selectedPledge.formSubmitted}
           confirmationPledgeText={confirmationPledgeText}

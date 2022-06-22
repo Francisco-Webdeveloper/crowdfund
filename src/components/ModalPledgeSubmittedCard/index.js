@@ -15,6 +15,7 @@ export const ModalPledgeSubmittedCard = ({
       keyboard={false}
       centered
       dialogClassName={styles.pledgesModal}
+      data-testid="modal"
     >
       <div className={styles.modalContainer}>
         <img
@@ -23,7 +24,9 @@ export const ModalPledgeSubmittedCard = ({
           alt="completed action icon"
         />
         <h5 className={styles.sayThanks}>Thanks for your support!</h5>
-        <p className={styles.confirmationText}>{confirmationPledgeText}</p>
+        <p role="paragraph" className={styles.confirmationText}>
+          {confirmationPledgeText}
+        </p>
         <Link to="#top">
           <button onClick={handleClose} className={styles.confirmationBtn}>
             Got it
