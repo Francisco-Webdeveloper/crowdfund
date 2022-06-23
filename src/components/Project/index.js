@@ -1,23 +1,19 @@
 import { useState } from "react";
 import styles from "./Project.module.scss";
-import { Navbar } from "../components/Navbar";
-import { HeroImage } from "../components/HeroImage";
-import { ProjectHeader } from "../components/ProjectHeader";
-import { StatusCard } from "../components/StatusCard";
-import { About } from "../components/About";
-import { PledgeCard } from "../components/PledgeCard";
-import { PledgesModalCard } from "../components/PledgesModalCard";
-import pledgesData from "../pledgesData";
-import projectsData from "../projectsData";
-import { useParams } from "react-router-dom";
-import { PledgeList } from "../components/PledgeList";
+import { Navbar } from "../Navbar";
+import { HeroImage } from "../HeroImage";
+import { ProjectHeader } from "../ProjectHeader";
+import { StatusCard } from "../StatusCard";
+import { About } from "../About";
+import { PledgeCard } from "../PledgeCard";
+import { PledgesModalCard } from "../PledgesModalCard";
+import { PledgeList } from "../PledgeList";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 import { HashLink as Link } from "react-router-hash-link";
 
-const Project = () => {
+const Project = ({ pledges, project }) => {
   const [showModal, setShowModal] = useState(false);
   const [addBacker, setAddBacker] = useState(false);
-  const { pledges } = pledgesData.data;
   const [allPledges, setAllPledges] = useState(pledges);
 
   const [selectedPledge, setSelectedPledge] = useState({
@@ -69,15 +65,9 @@ const Project = () => {
     });
   };
 
-  const { projectId } = useParams();
-
-  const { projects } = projectsData.data;
-  // find the project whose id is the same as the projectId in our path
-  const currentProject = projects.find((project) => project.id === projectId);
-
   const [projectStatus, setProjectStatus] = useState({
-    moneyBacked: currentProject.moneyBacked,
-    totalBackers: currentProject.totalBackers,
+    moneyBacked: project.moneyBacked,
+    totalBackers: project.totalBackers,
   });
 
   // update the status card with the additional backer + money backed
@@ -95,10 +85,6 @@ const Project = () => {
     });
   };
 
-  if (!currentProject) {
-    return <div style={{ color: "white" }}>Project not found</div>;
-  }
-
   const handlePledgeConfirmClick = (pledgeId, pledgedAmount) => {
     handleProjectStatus(pledgedAmount);
     handleStockUpdate(pledgeId);
@@ -113,7 +99,7 @@ const Project = () => {
     about,
     modalIntroduction,
     confirmationPledgeText,
-  } = currentProject;
+  } = project;
 
   return (
     <div className={styles.container}>

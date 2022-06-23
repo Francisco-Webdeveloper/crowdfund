@@ -23,7 +23,7 @@ export const NoRewardPledge = ({ pledgeId, onPledgeSelect }) => {
           id="noReward"
           name="pledgeId"
           value="noReward"
-          checked={pledgeId === "noReward"}
+          defaultChecked={pledgeId === "noReward"}
           onChange={onPledgeSelect}
         />
         <label htmlFor="noReward" className={styles.noProduct}>

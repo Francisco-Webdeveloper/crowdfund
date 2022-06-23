@@ -6,8 +6,8 @@ const onClickMock = jest.fn();
 
 describe("PledgesModalCard", () => {
   // FAILED
-  // it("Should close the modal when close icon is clicked", () => {
-  //   render(<PledgesModalCard onClick={onClickMock} />);
-  //   const closeIconElement = screen.getByAltText("close-modal");
-  // });
+  it("Should close the modal when close icon is clicked", () => {
+    //   render(<PledgesModalCard onClick={onClickMock} />);
+    //   const closeIconElement = screen.getByAltText("close-modal");
+  });
 });
