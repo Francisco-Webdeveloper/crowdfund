@@ -5,9 +5,9 @@ import { PledgesModalCard } from "../index";
 const onClickMock = jest.fn();
 
 describe("PledgesModalCard", () => {
-  // FAILED
   it("Should close the modal when close icon is clicked", () => {
-    //   render(<PledgesModalCard onClick={onClickMock} />);
-    //   const closeIconElement = screen.getByAltText("close-modal");
+    render(<PledgesModalCard onClick={onClickMock} showModal={true} />);
+    const closeIconElement = screen.getByAltText("close-modal");
+    userEvent.click(closeIconElement);
   });
 });

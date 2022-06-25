@@ -14,7 +14,7 @@ export const PledgesModalCard = ({
   return pledgeSubmitted ? (
     // show the modal that confirms the form submission
     <ModalPledgeSubmittedCard
-      handleClose={onHide}
+      onCloseClick={onHide}
       confirmationPledgeText={confirmationPledgeText}
     />
   ) : (

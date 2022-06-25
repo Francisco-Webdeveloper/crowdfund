@@ -11,12 +11,12 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
 
   // input form validations
   const validatePledgeAmount = () => {
-    if (amountInputRef.current.value < minimumAmount) {
-      // show error message if the amount inserted by the user is lower than the required
+    console.log(Number(amountInputRef.current.value), minimumAmount);
+    console.log(Number(amountInputRef.current.value) < minimumAmount);
+    if (Number(amountInputRef.current.value) < minimumAmount) {
       setLowValueErrorMessage(
         `Value must be greater than or equal to $${minimumAmount}`
       );
-      // disable button if amount inserted by the user is less than the required
       setButtonDisabled(true);
     } else {
       setLowValueErrorMessage(null);
@@ -63,6 +63,7 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
         variants={variants}
         transition={{ duration: 1 }}
         className={styles.pledgeCard}
+        data-testid="pledge-input"
       >
         <p className={styles.pledgeTitle}>Enter your pledge</p>
         <div className={styles.pledgeAndSubmit}>

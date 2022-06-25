@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import { Navbar } from "../index";
 
@@ -44,5 +45,13 @@ describe("Navbar", () => {
     const navbarElement = screen.getByRole("navigation");
     fireEvent.scroll(window, { target: { scrollY: 305 } });
     expect(navbarElement).toHaveClass("navbar active");
+  });
+
+  it("Should go to the top of the page when logo clicked", () => {
+    render(<MockNavBar />);
+    const logoElement = screen.getByRole("heading", { name: "crowdfund" });
+    userEvent.click(logoElement);
+    // const idElement = document.getElementById("#top");
+    // expect(idElement).toBeInTheDocument();
   });
 });

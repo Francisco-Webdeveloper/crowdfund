@@ -45,7 +45,7 @@ const MockProject = () => {
   );
 };
 
-describe("Project", () => {
+describe("Project - show modal", () => {
   it("Should open pledges modal when 'Back this project' button is clicked", () => {
     render(<MockProject />);
     const backProjectButtonElement = screen.getByRole("button", {
@@ -54,5 +54,32 @@ describe("Project", () => {
     userEvent.click(backProjectButtonElement);
     const pledgesModalElement = screen.getByTestId("pledges-modal");
     expect(pledgesModalElement).toBeInTheDocument();
+  });
+});
+
+describe("Project - inside the modal", () => {
+  const getPledgesListModal = () => {
+    render(<MockProject />);
+    const selectRewardButtonElements = screen.getAllByRole("button", {
+      name: "Select Reward",
+    });
+    userEvent.click(selectRewardButtonElements[0]);
+
+    const pledgesModalElement = screen.getByTestId("pledges-modal");
+    expect(pledgesModalElement).toBeInTheDocument();
+  };
+
+  beforeEach(() => {
+    getPledgesListModal();
+  });
+
+  it("'Select Reward' buttons clicked should open pledges modal", () => {});
+
+  it("Renders pledges modal with selected pledge and input", () => {
+    const selectedPledgeCardElement = screen.getAllByTestId("pledge-card")[0];
+    expect(selectedPledgeCardElement).toHaveClass("pledgeCardSelected");
+
+    const selectedPledgeInput = screen.getAllByTestId("pledge-input")[0];
+    expect(selectedPledgeInput).toBeInTheDocument();
   });
 });

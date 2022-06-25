@@ -4,13 +4,12 @@ import styles from "./ModalPledgeSubmittedCard.module.scss";
 import iconCheck from "../../icons/icon-check.svg";
 
 export const ModalPledgeSubmittedCard = ({
-  handleClose,
+  onCloseClick,
   confirmationPledgeText,
 }) => {
   return (
     <Modal
       show
-      onHide={handleClose}
       backdrop="static"
       keyboard={false}
       centered
@@ -28,7 +27,7 @@ export const ModalPledgeSubmittedCard = ({
           {confirmationPledgeText}
         </p>
         <Link to="#top">
-          <button onClick={handleClose} className={styles.confirmationBtn}>
+          <button onClick={onCloseClick} className={styles.confirmationBtn}>
             Got it
           </button>
         </Link>

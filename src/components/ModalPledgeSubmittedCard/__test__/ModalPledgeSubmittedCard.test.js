@@ -3,15 +3,15 @@ import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import { ModalPledgeSubmittedCard } from "../index";
 
+const onClickMock = jest.fn();
+
 const MockModalPledgeSubmittedCard = () => {
   return (
     <BrowserRouter>
-      <ModalPledgeSubmittedCard />
+      <ModalPledgeSubmittedCard onCloseClick={onClickMock} />
     </BrowserRouter>
   );
 };
-
-const onClickMock = jest.fn();
 
 describe("ModalPledgeSubmittedCard", () => {
   it("should render modal content", () => {
@@ -27,11 +27,12 @@ describe("ModalPledgeSubmittedCard", () => {
   });
 
   it("Should close modal when button clicked", () => {
-    // FAILED
-    render(<MockModalPledgeSubmittedCard onClick={onClickMock} />);
-    // const buttonElement = screen.getByRole("button", { name: "Got it" });
-    // const modalElement = screen.queryByTestId("modal");
-    // userEvent.click(buttonElement);
+    // FAILED - mismatch between expected and received / issue: props ?
+    render(<MockModalPledgeSubmittedCard />);
+    const buttonElement = screen.getByRole("button", { name: "Got it" });
+    userEvent.click(buttonElement);
+    const modalElement = screen.queryByTestId("modal");
+    // expect(modalElement).toBeNull();
     // expect(modalElement).not.toBeInTheDocument();
   });
 });

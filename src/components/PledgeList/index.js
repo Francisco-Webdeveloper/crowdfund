@@ -32,14 +32,19 @@ export const PledgeList = ({
           }
 
           return (
-            <div key={id} className={pledgeCardClassName} id="reward">
+            <div
+              key={id}
+              className={pledgeCardClassName}
+              id="reward"
+              data-testid="pledge-card"
+            >
               <div className={styles.inputLabelAndPledgeAmount}>
                 <input
                   type="radio"
                   id={id}
                   name="pledgeId"
                   value={id}
-                  checked={pledgeCardSelected} // React is in charge of controlling the input rather than the input having its own html state
+                  checked={pledgeCardSelected}
                   onChange={onPledgeSelect}
                   disabled={disabled}
                 />
@@ -60,7 +65,7 @@ export const PledgeList = ({
               {pledgeCardSelected && (
                 <Pledge
                   id={id}
-                  minimumAmount={selectedPledge.pledgeAmount}
+                  minimumAmount={pledgeAmount}
                   onContinueButtonClick={onPledgeConfirmClick}
                 />
               )}
