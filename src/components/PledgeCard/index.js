@@ -29,7 +29,9 @@ export const PledgeCard = ({
       <p className={styles.description}>{description}</p>
       <div className={styles.stockAndSelect}>
         <div className={styles.stockLeft}>
-          <h1 className={styles.stock}>{stock}</h1>
+          <h1 className={styles.stock} data-testid="stock-left">
+            {stock}
+          </h1>
           <span className={styles.left}>left</span>
         </div>
         <Link to="#reward">

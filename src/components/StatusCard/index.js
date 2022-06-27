@@ -11,11 +11,15 @@ export const StatusCard = ({ daysLeft, projectStatus, goal }) => {
   return (
     <div className={styles.status}>
       <div className={styles.moneyBacked}>
-        <h1>${projectStatus.moneyBacked.toLocaleString("en-US")}</h1>
+        <h1 data-testid="total-money-backed">
+          ${projectStatus.moneyBacked.toLocaleString("en-US")}
+        </h1>
         <p>of ${goal.toLocaleString("en-US")} backed</p>
       </div>
       <div className={styles.totalBackers}>
-        <h1>{projectStatus.totalBackers.toLocaleString("en-US")}</h1>
+        <h1 data-testid="total-backers">
+          {projectStatus.totalBackers.toLocaleString("en-US")}
+        </h1>
         <p>total backers</p>
       </div>
       <CountdownTimer targetDate={dateTimeAfterProjectDuration} />
@@ -23,6 +27,7 @@ export const StatusCard = ({ daysLeft, projectStatus, goal }) => {
         now={(projectStatus.moneyBacked / goal) * 100}
         className={styles.progressBar}
         variant="info"
+        data-testid="progress-bar"
       />
     </div>
   );

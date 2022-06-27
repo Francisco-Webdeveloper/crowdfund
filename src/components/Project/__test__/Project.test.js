@@ -45,6 +45,34 @@ const MockProject = () => {
   );
 };
 
+const getPledgesListModal = () => {
+  render(<MockProject />);
+  const selectRewardButtonElements = screen.getAllByRole("button", {
+    name: "Select Reward",
+  });
+  userEvent.click(selectRewardButtonElements[0]);
+
+  const pledgesModalElement = screen.getByTestId("pledges-modal");
+  expect(pledgesModalElement).toBeInTheDocument();
+};
+
+const getSelectedPledgeCard = () => {
+  const selectedPledgeCardElement = screen.getAllByTestId("pledge-card")[0];
+  expect(selectedPledgeCardElement).toHaveClass("pledgeCardSelected");
+
+  const selectedPledgeInput = screen.getAllByTestId("pledge-input")[0];
+  expect(selectedPledgeInput).toBeInTheDocument();
+};
+
+const changeInputValueAndSendPledge = () => {
+  const inputElement = screen.getByLabelText("$");
+  userEvent.type(inputElement, "25");
+  const continueButtonElement = screen.getByRole("button", {
+    name: "Continue",
+  });
+  userEvent.click(continueButtonElement);
+};
+
 describe("Project - show modal", () => {
   it("Should open pledges modal when 'Back this project' button is clicked", () => {
     render(<MockProject />);
@@ -58,17 +86,6 @@ describe("Project - show modal", () => {
 });
 
 describe("Project - inside the modal", () => {
-  const getPledgesListModal = () => {
-    render(<MockProject />);
-    const selectRewardButtonElements = screen.getAllByRole("button", {
-      name: "Select Reward",
-    });
-    userEvent.click(selectRewardButtonElements[0]);
-
-    const pledgesModalElement = screen.getByTestId("pledges-modal");
-    expect(pledgesModalElement).toBeInTheDocument();
-  };
-
   beforeEach(() => {
     getPledgesListModal();
   });
@@ -76,10 +93,42 @@ describe("Project - inside the modal", () => {
   it("'Select Reward' buttons clicked should open pledges modal", () => {});
 
   it("Renders pledges modal with selected pledge and input", () => {
-    const selectedPledgeCardElement = screen.getAllByTestId("pledge-card")[0];
-    expect(selectedPledgeCardElement).toHaveClass("pledgeCardSelected");
+    getSelectedPledgeCard();
+  });
+});
 
-    const selectedPledgeInput = screen.getAllByTestId("pledge-input")[0];
-    expect(selectedPledgeInput).toBeInTheDocument();
+describe("Project - update project data", () => {
+  beforeEach(() => {
+    getPledgesListModal();
+    getSelectedPledgeCard();
+    changeInputValueAndSendPledge();
+  });
+
+  it("Should be able to update stock when 'Continue' button clicked", () => {
+    const stockElement = screen.getAllByTestId("stock-left")[0];
+
+    // FAILED - Does not update stock
+    expect(stockElement.textContent).toBe("100");
+  });
+
+  it("Should be able to update total money backed when 'Continue' button clicked", () => {
+    const moneyBackedElement = screen.getByTestId("total-money-backed");
+
+    // FAILED - Does not update total amount backed
+    expect(moneyBackedElement.textContent).toBe("$89,939");
+  });
+
+  it("Should be able to update the progress bar", () => {
+    const progressBarElement = screen.getByRole("progressbar");
+
+    // FAILED - Does not update progress bar
+    expect(progressBarElement).toHaveStyle("width: 89.939%");
+  });
+
+  it("Should be able to update total backers when 'Continue' button clicked", () => {
+    const totalBackersElement = screen.getByTestId("total-backers");
+
+    // FAILED - Does not update total backers
+    expect(totalBackersElement.textContent).toBe("5,008");
   });
 });

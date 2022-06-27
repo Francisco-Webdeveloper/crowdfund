@@ -15,17 +15,14 @@ const Project = ({ pledges, project }) => {
   const [showModal, setShowModal] = useState(false);
   const [addBacker, setAddBacker] = useState(false);
   const [allPledges, setAllPledges] = useState(pledges);
-
-  const [selectedPledge, setSelectedPledge] = useState({
-    pledgeId: "",
-    formSubmitted: false,
-  });
+  const [selectedPledge, setSelectedPledge] = useState({ pledgeId: "" });
+  const [pledgeSubmitted, setPledgeSubmitted] = useState(false);
 
   const handleStockUpdate = (pledgeId) => {
     setAllPledges((prevPledges) => {
       const chosenPledge = prevPledges.find(({ id }) => id === pledgeId);
       chosenPledge.stock -= 1;
-
+      console.log({ stock: chosenPledge.stock });
       return prevPledges;
     });
   };
@@ -42,15 +39,9 @@ const Project = ({ pledges, project }) => {
     });
   };
 
-  // update the state to true when the form is submitted
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSelectedPledge((prevselectedPledge) => {
-      return {
-        ...prevselectedPledge,
-        formSubmitted: true,
-      };
-    });
+    setPledgeSubmitted(true);
   };
 
   // show the modal when the user clicks the button
@@ -59,10 +50,7 @@ const Project = ({ pledges, project }) => {
   // hide the modal when the user and exits and clean the data
   const handleCloseModal = () => {
     setShowModal(false);
-    setSelectedPledge({
-      pledgeId: "",
-      formSubmitted: false,
-    });
+    setPledgeSubmitted(false);
   };
 
   const [projectStatus, setProjectStatus] = useState({
@@ -115,7 +103,7 @@ const Project = ({ pledges, project }) => {
           showModal={showModal}
           onHide={handleCloseModal}
           modalIntroduction={modalIntroduction}
-          pledgeSubmitted={selectedPledge.formSubmitted}
+          pledgeSubmitted={pledgeSubmitted}
           confirmationPledgeText={confirmationPledgeText}
         >
           <PledgeList

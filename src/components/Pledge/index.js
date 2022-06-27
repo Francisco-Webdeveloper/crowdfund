@@ -11,8 +11,6 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
 
   // input form validations
   const validatePledgeAmount = () => {
-    console.log(Number(amountInputRef.current.value), minimumAmount);
-    console.log(Number(amountInputRef.current.value) < minimumAmount);
     if (Number(amountInputRef.current.value) < minimumAmount) {
       setLowValueErrorMessage(
         `Value must be greater than or equal to $${minimumAmount}`
@@ -74,8 +72,12 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
             name="pledgeAmount"
             required
             onChange={handleChange}
+            id="$"
+            data-testid="input-value"
           />
-          <span className={styles.placeholder}>$</span>
+          <label htmlFor="$" className={styles.placeholder}>
+            $
+          </label>
           <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <button
               className={`${styles.pledgeButton} ${
@@ -92,7 +94,9 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
         </div>
       </motion.div>
       {lowValueErrorMessage && minimumAmount !== "" ? (
-        <p className={styles.errorMessage}>{lowValueErrorMessage}</p>
+        <p data-testid="low-value-error" className={styles.errorMessage}>
+          {lowValueErrorMessage}
+        </p>
       ) : null}
       {enterPledgeErrorMessage && !minimumAmount ? (
         <p className={styles.errorMessage}>{enterPledgeErrorMessage}</p>
