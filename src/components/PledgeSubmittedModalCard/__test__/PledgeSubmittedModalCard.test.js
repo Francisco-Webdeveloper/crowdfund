@@ -1,21 +1,27 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { ModalPledgeSubmittedCard } from "../index";
+import { PledgeSubmittedModalCard } from "../index";
 
-const onClickMock = jest.fn();
+const MockPledgeSubmittedModalCard = () => {
+  const [showModal, setShowModal] = useState(true);
 
-const MockModalPledgeSubmittedCard = () => {
   return (
     <BrowserRouter>
-      <ModalPledgeSubmittedCard onCloseClick={onClickMock} />
+      <PledgeSubmittedModalCard
+        onCloseClick={() => {
+          setShowModal(false);
+        }}
+        showModal={showModal}
+      />
     </BrowserRouter>
   );
 };
 
-describe("ModalPledgeSubmittedCard", () => {
+describe("PledgeSubmittedModalCard", () => {
   it("should render modal content", () => {
-    render(<MockModalPledgeSubmittedCard />);
+    render(<MockPledgeSubmittedModalCard />);
     const iconElement = screen.getByAltText(/completed action icon/i);
     const headingElement = screen.getByRole("heading", { name: /Thanks/i });
     const buttonElement = screen.getByRole("button", { name: "Got it" });
@@ -27,12 +33,18 @@ describe("ModalPledgeSubmittedCard", () => {
   });
 
   it("Should close modal when button clicked", () => {
-    // FAILED - mismatch between expected and received / issue: props ?
-    render(<MockModalPledgeSubmittedCard />);
-    const buttonElement = screen.getByRole("button", { name: "Got it" });
+    // FAILED - mismatch between expected and received
+    render(<MockPledgeSubmittedModalCard />);
+
+    const buttonElement = screen.getByRole("button", {
+      name: "Got it",
+    });
+
+    // console.log(prettyDOM(modalElement));
     userEvent.click(buttonElement);
-    const modalElement = screen.queryByTestId("modal");
-    // expect(modalElement).toBeNull();
-    // expect(modalElement).not.toBeInTheDocument();
+
+    const modalElement = screen.getByTestId("pledge-submitted-modal");
+
+    expect(modalElement).toBeNull();
   });
 });

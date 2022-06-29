@@ -1,7 +1,7 @@
 import styles from "./Pledge.module.scss";
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
-import useDebouncedCallback from "../../hooks/useDebounceCallback";
+import clsx from "clsx";
 
 export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
   const [lowValueErrorMessage, setLowValueErrorMessage] = useState("");
@@ -9,8 +9,15 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const amountInputRef = useRef();
 
+  console.log("Pledge");
+
   // input form validations
   const validatePledgeAmount = () => {
+    console.log(
+      "validatePledgeAmount",
+      minimumAmount,
+      Number(amountInputRef.current.value) < minimumAmount
+    );
     if (Number(amountInputRef.current.value) < minimumAmount) {
       setLowValueErrorMessage(
         `Value must be greater than or equal to $${minimumAmount}`
@@ -22,15 +29,9 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
     }
   };
 
-  // usedebounce hook
-  const debouncedValidatePledgeAmount = useDebouncedCallback(() => {
-    validatePledgeAmount();
-  }, 500);
-
   const handleChange = (event) => {
     event.target.value = event.target.value.replace(/\D/g, "");
-
-    debouncedValidatePledgeAmount();
+    validatePledgeAmount();
   };
 
   // display error message when use hovers the button without inserting the pledge
@@ -80,9 +81,10 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
           </label>
           <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <button
-              className={`${styles.pledgeButton} ${
+              className={clsx(
+                styles.pledgeButton,
                 buttonDisabled && styles.buttonDisabled
-              }`}
+              )}
               onClick={() =>
                 onContinueButtonClick(id, amountInputRef.current.value)
               }

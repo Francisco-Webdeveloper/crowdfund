@@ -1,22 +1,27 @@
 import { HashLink as Link } from "react-router-hash-link";
 import { Modal } from "react-bootstrap";
-import styles from "./ModalPledgeSubmittedCard.module.scss";
+import styles from "./PledgeSubmittedModalCard.module.scss";
 import iconCheck from "../../icons/icon-check.svg";
 
-export const ModalPledgeSubmittedCard = ({
+export const PledgeSubmittedModalCard = ({
   onCloseClick,
   confirmationPledgeText,
+  showModal,
 }) => {
+  console.log({ showModal });
   return (
     <Modal
-      show
+      show={showModal}
       backdrop="static"
       keyboard={false}
       centered
       dialogClassName={styles.pledgesModal}
-      data-testid="modal"
+      onHide={onCloseClick}
     >
-      <div className={styles.modalContainer}>
+      <div
+        className={styles.modalContainer}
+        data-testid="pledge-submitted-modal"
+      >
         <img
           className={styles.iconCheck}
           src={iconCheck}

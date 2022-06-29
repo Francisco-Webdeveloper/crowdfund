@@ -1,5 +1,4 @@
 import { Modal } from "react-bootstrap";
-import { ModalPledgeSubmittedCard } from "../ModalPledgeSubmittedCard";
 import styles from "./PledgesModalCard.module.scss";
 import closeModalIcon from "../../icons/icon-close-modal.svg";
 
@@ -7,18 +6,9 @@ export const PledgesModalCard = ({
   showModal,
   onHide,
   modalIntroduction,
-  pledgeSubmitted,
-  confirmationPledgeText,
   children,
 }) => {
-  return pledgeSubmitted ? (
-    // show the modal that confirms the form submission
-    <ModalPledgeSubmittedCard
-      onCloseClick={onHide}
-      confirmationPledgeText={confirmationPledgeText}
-    />
-  ) : (
-    // show the modal that shows the pledges and inputs
+  return (
     <Modal
       show={showModal}
       onHide={onHide}

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { prettyDOM, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import Project from "../index";
@@ -51,7 +51,6 @@ const getPledgesListModal = () => {
     name: "Select Reward",
   });
   userEvent.click(selectRewardButtonElements[0]);
-
   const pledgesModalElement = screen.getByTestId("pledges-modal");
   expect(pledgesModalElement).toBeInTheDocument();
 };
@@ -59,7 +58,6 @@ const getPledgesListModal = () => {
 const getSelectedPledgeCard = () => {
   const selectedPledgeCardElement = screen.getAllByTestId("pledge-card")[0];
   expect(selectedPledgeCardElement).toHaveClass("pledgeCardSelected");
-
   const selectedPledgeInput = screen.getAllByTestId("pledge-input")[0];
   expect(selectedPledgeInput).toBeInTheDocument();
 };
@@ -67,6 +65,7 @@ const getSelectedPledgeCard = () => {
 const changeInputValueAndSendPledge = () => {
   const inputElement = screen.getByLabelText("$");
   userEvent.type(inputElement, "25");
+  expect(inputElement.value).toBe("25");
   const continueButtonElement = screen.getByRole("button", {
     name: "Continue",
   });
@@ -105,29 +104,23 @@ describe("Project - update project data", () => {
   });
 
   it("Should be able to update stock when 'Continue' button clicked", () => {
-    const stockElement = screen.getAllByTestId("stock-left")[0];
-
-    // FAILED - Does not update stock
+    const stockElement = screen.getByTestId("stock-left-Bamboo Stand");
     expect(stockElement.textContent).toBe("100");
   });
 
   it("Should be able to update total money backed when 'Continue' button clicked", () => {
     const moneyBackedElement = screen.getByTestId("total-money-backed");
-
-    // FAILED - Does not update total amount backed
     expect(moneyBackedElement.textContent).toBe("$89,939");
   });
 
   it("Should be able to update the progress bar", () => {
     const progressBarElement = screen.getByRole("progressbar");
-
-    // FAILED - Does not update progress bar
     expect(progressBarElement).toHaveStyle("width: 89.939%");
   });
 
   it("Should be able to update total backers when 'Continue' button clicked", () => {
     const totalBackersElement = screen.getByTestId("total-backers");
-
+    console.log(prettyDOM(totalBackersElement));
     // FAILED - Does not update total backers
     expect(totalBackersElement.textContent).toBe("5,008");
   });

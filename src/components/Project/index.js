@@ -7,6 +7,7 @@ import { StatusCard } from "../StatusCard";
 import { About } from "../About";
 import { PledgeCard } from "../PledgeCard";
 import { PledgesModalCard } from "../PledgesModalCard";
+import { PledgeSubmittedModalCard } from "../PledgeSubmittedModalCard";
 import { PledgeList } from "../PledgeList";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 import { HashLink as Link } from "react-router-hash-link";
@@ -18,12 +19,20 @@ const Project = ({ pledges, project }) => {
   const [selectedPledge, setSelectedPledge] = useState({ pledgeId: "" });
   const [pledgeSubmitted, setPledgeSubmitted] = useState(false);
 
+  console.log({ showModal });
+
   const handleStockUpdate = (pledgeId) => {
     setAllPledges((prevPledges) => {
-      const chosenPledge = prevPledges.find(({ id }) => id === pledgeId);
-      chosenPledge.stock -= 1;
-      console.log({ stock: chosenPledge.stock });
-      return prevPledges;
+      const updatedPledges = [...prevPledges];
+      const chosenPledgeIndex = updatedPledges.findIndex(
+        ({ id }) => id === pledgeId
+      );
+      const chosenPledge = updatedPledges[chosenPledgeIndex];
+      updatedPledges[chosenPledgeIndex] = {
+        ...chosenPledge,
+        stock: chosenPledge.stock - 1,
+      };
+      return updatedPledges;
     });
   };
 
@@ -60,20 +69,24 @@ const Project = ({ pledges, project }) => {
 
   // update the status card with the additional backer + money backed
   const handleProjectStatus = (pledgedAmount) => {
-    setAddBacker(true);
     setProjectStatus((prevProjectStatus) => {
+      let { totalBackers } = prevProjectStatus;
+
+      if (!addBacker) {
+        totalBackers++;
+        setAddBacker(true);
+      }
+
       return {
         moneyBacked: prevProjectStatus.moneyBacked + parseInt(pledgedAmount),
-        totalBackers: addBacker
-          ? // if the user already made a first pledge, keep the same number of backers
-            prevProjectStatus.totalBackers
-          : // if it is his first pledge, increment the total backers by 1.
-            prevProjectStatus.totalBackers++,
+        // totalBackers: prevProjectStatus.totalBackers++,
+        totalBackers,
       };
     });
   };
 
   const handlePledgeConfirmClick = (pledgeId, pledgedAmount) => {
+    console.log("handlePledgeConfirmClick");
     handleProjectStatus(pledgedAmount);
     handleStockUpdate(pledgeId);
   };
@@ -99,21 +112,29 @@ const Project = ({ pledges, project }) => {
           title={title}
           onClick={handleShowModal}
         />
-        <PledgesModalCard
-          showModal={showModal}
-          onHide={handleCloseModal}
-          modalIntroduction={modalIntroduction}
-          pledgeSubmitted={pledgeSubmitted}
-          confirmationPledgeText={confirmationPledgeText}
-        >
-          <PledgeList
-            pledges={allPledges}
-            selectedPledge={selectedPledge}
-            onPledgeSelect={handlePledgeSelect}
-            onSubmit={handleSubmit}
-            onPledgeConfirmClick={handlePledgeConfirmClick}
+        {pledgeSubmitted ? (
+          <PledgeSubmittedModalCard
+            onCloseClick={handleCloseModal}
+            confirmationPledgeText={confirmationPledgeText}
+            showModal={showModal}
           />
-        </PledgesModalCard>
+        ) : (
+          <PledgesModalCard
+            showModal={showModal}
+            onHide={handleCloseModal}
+            modalIntroduction={modalIntroduction}
+            pledgeSubmitted={pledgeSubmitted}
+            confirmationPledgeText={confirmationPledgeText}
+          >
+            <PledgeList
+              pledges={allPledges}
+              selectedPledge={selectedPledge}
+              onPledgeSelect={handlePledgeSelect}
+              onSubmit={handleSubmit}
+              onPledgeConfirmClick={handlePledgeConfirmClick}
+            />
+          </PledgesModalCard>
+        )}
         <StatusCard
           daysLeft={daysLeft}
           goal={goal}
