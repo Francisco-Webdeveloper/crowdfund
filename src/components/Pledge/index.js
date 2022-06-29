@@ -5,13 +5,11 @@ import clsx from "clsx";
 
 export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
   const [lowValueErrorMessage, setLowValueErrorMessage] = useState("");
-  const [enterPledgeErrorMessage, setEnterPledgeErrorMessage] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const amountInputRef = useRef();
 
   console.log("Pledge");
 
-  // input form validations
   const validatePledgeAmount = () => {
     console.log(
       "validatePledgeAmount",
@@ -32,16 +30,6 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
   const handleChange = (event) => {
     event.target.value = event.target.value.replace(/\D/g, "");
     validatePledgeAmount();
-  };
-
-  // display error message when use hovers the button without inserting the pledge
-  const handleMouseEnter = () => {
-    if (buttonDisabled) {
-      setEnterPledgeErrorMessage("Please enter your pledge");
-    }
-  };
-  const handleMouseLeave = () => {
-    setEnterPledgeErrorMessage("");
   };
 
   const inputValidationClassName =
@@ -79,29 +67,24 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
           <label htmlFor="$" className={styles.placeholder}>
             $
           </label>
-          <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <button
-              className={clsx(
-                styles.pledgeButton,
-                buttonDisabled && styles.buttonDisabled
-              )}
-              onClick={() =>
-                onContinueButtonClick(id, amountInputRef.current.value)
-              }
-              disabled={buttonDisabled}
-            >
-              Continue
-            </button>
-          </div>
+          <button
+            className={clsx(
+              styles.pledgeButton,
+              buttonDisabled && styles.buttonDisabled
+            )}
+            onClick={() =>
+              onContinueButtonClick(id, amountInputRef.current.value)
+            }
+            disabled={buttonDisabled}
+          >
+            Continue
+          </button>
         </div>
       </motion.div>
       {lowValueErrorMessage && minimumAmount !== "" ? (
         <p data-testid="low-value-error" className={styles.errorMessage}>
           {lowValueErrorMessage}
         </p>
-      ) : null}
-      {enterPledgeErrorMessage && !minimumAmount ? (
-        <p className={styles.errorMessage}>{enterPledgeErrorMessage}</p>
       ) : null}
     </div>
   );
