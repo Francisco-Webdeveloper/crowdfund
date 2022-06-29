@@ -36,7 +36,6 @@ const Project = ({ pledges, project }) => {
     });
   };
 
-  // update the state with value of the radio buttons
   const handlePledgeSelect = (event) => {
     const { name, value } = event.target;
 
@@ -53,10 +52,8 @@ const Project = ({ pledges, project }) => {
     setPledgeSubmitted(true);
   };
 
-  // show the modal when the user clicks the button
   const handleShowModal = () => setShowModal(true);
 
-  // hide the modal when the user and exits and clean the data
   const handleCloseModal = () => {
     setShowModal(false);
     setPledgeSubmitted(false);
@@ -67,7 +64,6 @@ const Project = ({ pledges, project }) => {
     totalBackers: project.totalBackers,
   });
 
-  // update the status card with the additional backer + money backed
   const handleProjectStatus = (pledgedAmount) => {
     setProjectStatus((prevProjectStatus) => {
       let { totalBackers } = prevProjectStatus;
@@ -78,8 +74,8 @@ const Project = ({ pledges, project }) => {
       }
 
       return {
-        moneyBacked: prevProjectStatus.moneyBacked + parseInt(pledgedAmount),
-        // totalBackers: prevProjectStatus.totalBackers++,
+        moneyBacked:
+          prevProjectStatus.moneyBacked + parseInt(pledgedAmount, 10),
         totalBackers,
       };
     });
@@ -91,7 +87,6 @@ const Project = ({ pledges, project }) => {
     handleStockUpdate(pledgeId);
   };
 
-  // get the value of a specific project's properties
   const {
     daysLeft,
     goal,
