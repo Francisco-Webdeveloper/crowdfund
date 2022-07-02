@@ -98,7 +98,7 @@ const Project = ({ pledges, project }) => {
   } = project;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.projectContainer}>
       <Navbar />
       <HeroImage />
       <div className={styles.mainSection}>

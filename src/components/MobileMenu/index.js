@@ -1,6 +1,5 @@
 import { Modal } from "react-bootstrap";
 import styles from "./MobileMenu.module.scss";
-// import "bootstrap/dist/css/bootstrap.min.css";
 
 export const MobileMenu = ({ showMenu, handleClose }) => {
   return (
