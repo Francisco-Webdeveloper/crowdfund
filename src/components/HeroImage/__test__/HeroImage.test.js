@@ -5,6 +5,6 @@ describe("HeroImage", () => {
   it("renders hero image", () => {
     render(<HeroImage />);
     const imageElement = screen.getByTestId("hero-image");
-    expect(imageElement.className).toBe("hero");
+    expect(imageElement).toBeInTheDocument();
   });
 });
