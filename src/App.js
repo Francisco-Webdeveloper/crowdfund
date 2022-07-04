@@ -7,10 +7,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="/project-crowdfunding/:projectId"
-          element={<ProjectPage />}
-        />
+        <Route path="/project/:projectId" element={<ProjectPage />} />
       </Routes>
     </BrowserRouter>
   );

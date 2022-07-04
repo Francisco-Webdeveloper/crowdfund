@@ -62,7 +62,7 @@ $paragraph-color: #959595;
 body {
   margin: 0;
   font-family: $font-stack;
-  background-color: #0e0e0e;
+  // background-color: #0e0e0e;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -90,10 +90,6 @@ body {
     margin-bottom: 275px;
   }
 }
-
-// .modal-backdrop {
-//   background: linear-gradient(transparent, 40%, black);
-// }
 
 .progress-bar {
   border-radius: 14px;

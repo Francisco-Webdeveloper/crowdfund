@@ -19,8 +19,6 @@ const Project = ({ pledges, project }) => {
   const [selectedPledge, setSelectedPledge] = useState({ pledgeId: "" });
   const [pledgeSubmitted, setPledgeSubmitted] = useState(false);
 
-  console.log({ showModal });
-
   const handleStockUpdate = (pledgeId) => {
     setAllPledges((prevPledges) => {
       const updatedPledges = [...prevPledges];
@@ -95,12 +93,14 @@ const Project = ({ pledges, project }) => {
     about,
     modalIntroduction,
     confirmationPledgeText,
+    coverImage,
+    coverImageXl,
   } = project;
 
   return (
     <div className={styles.projectContainer}>
       <Navbar />
-      <HeroImage />
+      <HeroImage image={coverImage} imageXl={coverImageXl} />
       <div className={styles.mainSection}>
         <ProjectHeader
           description={description}

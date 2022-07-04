@@ -17,7 +17,11 @@ const ProjectPage = () => {
 
   const { pledges } = pledgesData.data;
 
-  return <Project pledges={pledges} project={currentProject} />;
+  const pledgeSet = pledges.find(
+    (pledgeGroup) => pledgeGroup.id === currentProject.id
+  );
+
+  return <Project pledges={pledgeSet.pledgeGroup} project={currentProject} />;
 };
 
 export default ProjectPage;

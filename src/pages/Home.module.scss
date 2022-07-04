@@ -2,7 +2,8 @@
 
 .homeContainer {
   background-color: #fff;
-  height: 100vh;
+  padding-bottom: 50px;
+  height: 100%;
 
   .navbar {
     width: 100%;
@@ -10,6 +11,9 @@
     padding: 0 0 16px 0;
     border-bottom: 1px solid #e7e1e1;
     margin-bottom: 40px;
+    position: fixed;
+    top: 0;
+    z-index: 1;
     @media (min-width: 965px) {
       padding: 0;
     }
@@ -19,7 +23,7 @@
     color: #30dd47;
     width: 100%;
     font-weight: 600;
-    font-size: 32px;
+    font-size: 36px;
     text-align: center;
     padding: 24px 0;
     border-bottom: 1px solid #e7e1e1;
@@ -74,24 +78,24 @@
     display: flex;
     flex-direction: column;
     margin: 0 32px;
+    margin-top: 190px;
   }
 
   .links,
   .content {
     @media (min-width: 460px) {
-      margin: 0 46px;
+      margin-left: 46px;
+      margin-right: 46px;
     }
 
     @media (min-width: 576px) {
-      margin: 0 62px;
+      margin-left: 62px;
+      margin-right: 62px;
     }
 
     @media (min-width: 768px) {
-      margin: 0 74px;
-    }
-
-    @media (min-width: 768px) {
-      margin: 0 74px;
+      margin-left: 74px;
+      margin-right: 74px;
     }
   }
 
@@ -113,16 +117,33 @@
     font-size: 24px;
     font-weight: 400;
     margin-bottom: 30px;
-    text-decoration: underline;
+    @media (min-width: 576px) {
+      font-size: 28px;
+    }
+    @media (min-width: 768px) {
+      text-align: center;
+      font-size: 32px;
+    }
   }
+
+  .slogan {
+    @media (min-width: 576px) {
+      display: none;
+    }
+  }
+
   .onCrowdfund {
     font-size: 12px;
     opacity: 0.6;
+    @media (min-width: 768px) {
+      text-align: center;
+    }
   }
 
   .ProjectsStatus {
     margin: 0;
     box-shadow: 0 2px 6px 0 rgb(0 0 0 / 0.17);
+    margin-bottom: 50px;
   }
 
   .projectsFunded,
@@ -132,10 +153,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 74px;
+    height: 96px;
+
+    @media (min-width: 576px) {
+      height: 120px;
+    }
 
     @media (min-width: 768px) {
-      height: 120px;
+      height: 140px;
     }
   }
 
@@ -159,5 +184,55 @@
     color: $paragraph-color;
     margin: 0;
     font-size: 15px;
+  }
+
+  .featuredProjects {
+    font-size: 15px;
+  }
+
+  .projects {
+    @media (min-width: 768px) {
+      .project:nth-child(odd) {
+        padding-right: 20px;
+      }
+      .project:nth-child(even) {
+        padding-left: 20px;
+      }
+    }
+    @media (min-width: 992px) {
+      .project:nth-child(odd) {
+        padding-right: 40px;
+      }
+      .project:nth-child(even) {
+        padding-left: 40px;
+      }
+    }
+  }
+
+  .project {
+    color: #000;
+    text-decoration: none;
+    &:hover {
+      color: #037362;
+      text-decoration: underline;
+      filter: brightness(75%);
+    }
+  }
+
+  .projectCoverImg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .nameAndDescription {
+    margin: 15px 0 40px 0;
+  }
+
+  .name {
+    font-weight: 400;
+  }
+
+  .description {
+    opacity: 0.7;
   }
 }
