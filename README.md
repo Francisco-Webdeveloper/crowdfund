@@ -144,6 +144,79 @@ export const ProjectHeader = ({ title, description, onClick }) => {
 ```
 The `ReactComponent` import name is significant and tells Create React App that you want a React component that renders a SVG, rather than its filename.
 
+* Child component updating Parent state <br />
+In the parent component, declare a state and define a function to update the state. Pass that function down as props to the child component
+```
+const Project = ({ pledges, project }) => {
+  const [allPledges, setAllPledges] = useState(pledges);
+  const [projectStatus, setProjectStatus] = useState({
+    moneyBacked: project.moneyBacked,
+    totalBackers: project.totalBackers,
+  });
+  
+  const handleStockUpdate = (pledgeId) => {
+    setAllPledges((...));
+  };
+
+  const handleProjectStatus = (pledgedAmount) => {
+    setProjectStatus((...));
+  };
+
+  const handlePledgeConfirmClick = (pledgeId, pledgedAmount) => {
+    handleProjectStatus(pledgedAmount);
+    handleStockUpdate(pledgeId);
+  };
+  
+  return(
+    (...)
+    <PledgeList
+      onPledgeConfirmClick={handlePledgeConfirmClick}
+    />
+  )
+}
+```
+Between the parent component and the component where the function will be invoked there is a middle component that will work as a bridge to accept and pass props through to the child component.
+```
+export const PledgeList = ({
+  onPledgeConfirmClick,
+}) => {
+  return (
+    <Pledge
+      onContinueButtonClick={onPledgeConfirmClick}
+    />
+  )
+```
+in the Child component, we define a button with an onClick event and invoke the function passed as props with the correspondent arguments:
+```
+export const Pledge = ({ onContinueButtonClick }) => {
+  return (
+    <button onClick={() => onContinueButtonClick(id, amountInputRef.current.value)} >
+      Continue
+    </button>
+  )
+}
+```
+* Storing values with the useRef hook <br />
+As the name suggests, `useRef` can store a reference to a DOM element.
+To do this, I create the ref, and then I pass it into the element:
+```
+export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
+  const amountInputRef = useRef();
+
+  return(
+    <input
+      type="text"
+      ref={amountInputRef}
+      name="pledgeAmount"
+    />
+  )
+}
+```
+This way I can access the value of the input element by using the methods .current and .value like so `amountInputRef.current.value)`. <br />
+The key difference between `useState` and `useRef` is that:
+* If you update the state, your component will re-render;
+* If you update the value stored in your ref, nothing will happen.
+
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -252,7 +325,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Your Name - [@FranciscoLX81](https://twitter.com/FranciscoLX81) - francisco.santos.lx81@gmail.com
 
-Project Link: [https://github.com/Francisco-Webdeveloper/sports-quiz](https://github.com/Francisco-Webdeveloper/sports-quiz)
+Project Link: [https://github.com/Francisco-Webdeveloper/crowdfund](https://github.com/Francisco-Webdeveloper/crowdfund)
 
 
 <!-- ACKNOWLEDGEMENTS -->
@@ -261,11 +334,11 @@ Project Link: [https://github.com/Francisco-Webdeveloper/sports-quiz](https://gi
 * [Choose an Open Source License](https://choosealicense.com)
 * [GitHub Pages](https://pages.github.com/)
 * [Best-README-Template](https://github.com/othneildrew/Best-README-Template/blob/master/README.md)
-* [Open Trivia DB API](https://opentdb.com/api_config.php)
 * [Sass](https://sass-lang.com/guide)
 * [CSS Modules](https://github.com/css-modules/css-modules)
-* [Scrimba](https://scrimba.com/)
-* [nanoid](https://github.com/ai/nanoid)
+* [Frontend Mentor](https://www.frontendmentor.io)
+* [Firebase Documentation](https://firebase.google.com/docs/firestore?authuser=0)
+* [The Net Nina](https://netninja.dev/p/getting-started-with-firebase-9)
 * [Raúl Marín](https://github.com/raulmarindev)
 
 
