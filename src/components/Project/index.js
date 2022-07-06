@@ -11,6 +11,8 @@ import { PledgeSubmittedModalCard } from "../PledgeSubmittedModalCard";
 import { PledgeList } from "../PledgeList";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 import { HashLink as Link } from "react-router-hash-link";
+import { database } from "../../firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 
 const Project = ({ pledges, project }) => {
   const [showModal, setShowModal] = useState(false);
@@ -18,6 +20,21 @@ const Project = ({ pledges, project }) => {
   const [allPledges, setAllPledges] = useState(pledges);
   const [selectedPledge, setSelectedPledge] = useState({ pledgeId: "" });
   const [pledgeSubmitted, setPledgeSubmitted] = useState(false);
+
+  // Firebase - collection ref
+  const collectionRef = collection(database, "projects");
+
+  // Firebase - get collection data
+  getDocs(collectionRef)
+    .then((snapshot) => {
+      const projects = snapshot.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      console.log(projects);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 
   const handleStockUpdate = (pledgeId) => {
     setAllPledges((prevPledges) => {
@@ -80,7 +97,6 @@ const Project = ({ pledges, project }) => {
   };
 
   const handlePledgeConfirmClick = (pledgeId, pledgedAmount) => {
-    console.log("handlePledgeConfirmClick");
     handleProjectStatus(pledgedAmount);
     handleStockUpdate(pledgeId);
   };
