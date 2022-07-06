@@ -15,13 +15,11 @@ const ProjectPage = () => {
     return <div style={{ color: "white" }}>Project not found</div>;
   }
 
-  const { pledges } = pledgesData.data;
+  const pledges = pledgesData.data.pledgeGroups;
 
-  const pledgeSet = pledges.find(
-    (pledgeGroup) => pledgeGroup.id === currentProject.id
-  );
+  const pledgeSet = pledges.find((pledges) => pledges.id === currentProject.id);
 
-  return <Project pledges={pledgeSet.pledgeGroup} project={currentProject} />;
+  return <Project pledges={pledgeSet.pledges} project={currentProject} />;
 };
 
 export default ProjectPage;
