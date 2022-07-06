@@ -1,4 +1,181 @@
-# Getting Started with Create React App
+<div id="top"></div>
+
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/Francisco-Webdeveloper/sports-quiz">
+    <h2 align="center">Crowdfund</h2>
+  </a>
+
+  <p align="center">
+    A responsive frontend crowdfunding projects page, where the users can select the project they want to support and therefore submit a pledge and check the project's data status (the goal, total money backed, total number of backers, progress bar).
+<br/>
+    This web application went through Unit and Integration tests with Testing Library, and End-To-End tests with Cypress.
+    <br />
+    <a href="https://github.com/Francisco-Webdeveloper/crowdfunding-page"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/Francisco-Webdeveloper/crowdfunding-page">View Demo</a>
+    ·
+    <a href="https://github.com/Francisco-Webdeveloper/crowdfunding-page/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/Francisco-Webdeveloper/crowdfunding-page/issues">Request Feature</a>
+  </p>
+</div>
+
+
+
+<!-- TABLE OF CONTENTS -->
+## Table of Contents
+
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+  * [What I learned](#what-i-learned)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#usage)
+* [Roadmap](#roadmap)
+* [Contributing](#contributing)
+* [License](#license)
+* [Contact](#contact)
+* [Acknowledgements](#acknowledgements)
+
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+![Screenshot 2022-07-06 at 18 29 59](https://user-images.githubusercontent.com/67716187/177599222-3820dc40-9d41-4bd8-8146-7a1ba0d46b3c.png)
+![Screenshot 2022-07-06 at 18 30 52](https://user-images.githubusercontent.com/67716187/177599329-b478b2b7-a166-4033-81b3-9cd84690d636.png)
+
+Users should be able to:
+
+* View the optimal layout depending on their device's screen size
+* See hover states for interactive elements
+* Make a selection of which pledge to make
+* See an updated progress bar and total money raised based on their pledge total after confirming a pledge
+* See the number of total backers increment by one after confirming a pledge
+* Toggle whether or not the product is bookmarked
+
+### Built With
+This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+* [React](https://reactjs.org/)
+* [create-react-app](https://github.com/facebook/create-react-app)
+* [Sass](https://sass-lang.com/)
+* [React-Bootstrap](https://react-bootstrap.github.io/)
+* [Testing Library](https://testing-library.com/)
+* [Cypress](https://www.cypress.io/)
+* [Firebase](https://firebase.google.com/)
+* [Netlify](https://www.netlify.com/)
+* Flexbox
+* CSS Modules
+
+### What I learned
+* Using component composition to avoid prop drilling in React. It is possible to compose components by making one a child of another.
+```
+<PledgesModalCard
+  showModal={showModal}
+  onHide={handleCloseModal}
+  modalIntroduction={modalIntroduction}
+  pledgeSubmitted={pledgeSubmitted}
+  confirmationPledgeText={confirmationPledgeText}
+>
+  <PledgeList
+    pledges={allPledges}
+    selectedPledge={selectedPledge}
+    onPledgeSelect={handlePledgeSelect}
+    onSubmit={handleSubmit}
+    onPledgeConfirmClick={handlePledgeConfirmClick}
+  />
+</PledgesModalCard>  
+```
+`PledgeList` is invoked inside of `PledgesModalCard` and hence it is a child of it. Every component has an automatic prop name `children` that holds the children of the component. Therefore, in `PledgesModalCard` we can write:
+```
+export const PledgesModalCard = ({children}) => {
+  return (
+    <Modal>
+      (...)
+      {children}
+    </Modal>
+  );
+};
+```
+Finally, we can access the `PledgeList` props that were passed from the `PledgesModalCard` component:
+```
+export const PledgeList = ({
+  pledges,
+  selectedPledge,
+  onPledgeSelect,
+  onSubmit,
+  onPledgeConfirmClick,
+}) => {
+  return (
+    (...)
+  );
+});
+```
+* Import SVGs as React Components
+```
+import { ReactComponent as BookmarkIcon } from "../../icons/icon-bookmark.svg";
+
+export const ProjectHeader = ({ title, description, onClick }) => {
+  (...)
+  return (
+    <BookmarkIcon />
+  )
+```
+The `ReactComponent` import name is significant and tells Create React App that you want a React component that renders a SVG, rather than its filename.
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+You need to install the following elements:
+* npm
+```sh
+npm install npm@latest -g
+```
+* yarn
+```sh
+npm install yarn -g
+```
+
+### Installation
+
+1. Get a free JSON API at [https://opentdb.com/api_config.php](https://opentdb.com/api_config.php). Use of this API does not require an API Key.
+3. Clone the repo
+```sh
+git clone git@github.com:Francisco-Webdeveloper/sports-quiz.git
+```
+3. Install NPM packages
+```sh
+yarn install
+```
+
+<!-- USAGE EXAMPLES -->
+## Usage
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -45,26 +222,69 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+<!-- ROADMAP -->
+## Roadmap
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+See the [open issues](https://github.com/Francisco-Webdeveloper/sports-quiz/issues) for a list of proposed features (and known issues).
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<!-- CONTRIBUTING -->
+## Contributing
 
-### Making a Progressive Web App
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+<!-- LICENSE -->
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<!-- CONTACT -->
+## Contact
+
+Your Name - [@FranciscoLX81](https://twitter.com/FranciscoLX81) - francisco.santos.lx81@gmail.com
+
+Project Link: [https://github.com/Francisco-Webdeveloper/sports-quiz](https://github.com/Francisco-Webdeveloper/sports-quiz)
+
+
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
+* [Img Shields](https://shields.io)
+* [Choose an Open Source License](https://choosealicense.com)
+* [GitHub Pages](https://pages.github.com/)
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template/blob/master/README.md)
+* [Open Trivia DB API](https://opentdb.com/api_config.php)
+* [Sass](https://sass-lang.com/guide)
+* [CSS Modules](https://github.com/css-modules/css-modules)
+* [Scrimba](https://scrimba.com/)
+* [nanoid](https://github.com/ai/nanoid)
+* [Raúl Marín](https://github.com/raulmarindev)
+
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/Francisco-Webdeveloper/sports-quiz.svg?style=for-the-badge
+[contributors-url]: https://github.com/Francisco-Webdeveloper/sports-quiz/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Francisco-Webdeveloper/sports-quiz.svg?style=for-the-badge
+[forks-url]: https://github.com/Francisco-Webdeveloper/sports-quiz/network/members
+[stars-shield]: https://img.shields.io/github/stars/Francisco-Webdeveloper/sports-quiz.svg?style=for-the-badge
+[stars-url]: https://github.com/Francisco-Webdeveloper/sports-quiz/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Francisco-Webdeveloper/sports-quiz.svg?style=for-the-badge
+[issues-url]: https://github.com/Francisco-Webdeveloper/sports-quiz/issues
+[license-shield]: https://img.shields.io/github/license/Francisco-Webdeveloper/sports-quiz.svg?style=for-the-badge
+[license-url]: https://github.com/Francisco-Webdeveloper/sports-quiz/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/francisco-santos-webdeveloper/
+[product-screenshot]: public/screenshot.png
+
+
