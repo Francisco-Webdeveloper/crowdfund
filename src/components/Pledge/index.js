@@ -8,14 +8,7 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const amountInputRef = useRef();
 
-  console.log("Pledge");
-
   const validatePledgeAmount = () => {
-    console.log(
-      "validatePledgeAmount",
-      minimumAmount,
-      Number(amountInputRef.current.value) < minimumAmount
-    );
     if (Number(amountInputRef.current.value) < minimumAmount) {
       setLowValueErrorMessage(
         `Value must be greater than or equal to $${minimumAmount}`

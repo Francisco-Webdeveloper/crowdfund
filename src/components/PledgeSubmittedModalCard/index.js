@@ -8,7 +8,6 @@ export const PledgeSubmittedModalCard = ({
   confirmationPledgeText,
   showModal,
 }) => {
-  console.log({ showModal });
   return (
     <Modal
       show={showModal}
