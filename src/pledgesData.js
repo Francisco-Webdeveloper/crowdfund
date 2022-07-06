@@ -1,10 +1,10 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   data: {
-    pledges: [
+    pledgeGroups: [
       {
         id: "1",
-        pledgeGroup: [
+        pledges: [
           {
             id: "Bamboo Stand",
             pledgeAmount: 25,
@@ -30,7 +30,7 @@ export default {
       },
       {
         id: "2",
-        pledgeGroup: [
+        pledges: [
           {
             id: "KS Special - Everyday Sling",
             pledgeAmount: 59,
