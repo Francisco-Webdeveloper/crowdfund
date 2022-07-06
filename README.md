@@ -338,7 +338,7 @@ Project Link: [https://github.com/Francisco-Webdeveloper/crowdfund](https://gith
 * [CSS Modules](https://github.com/css-modules/css-modules)
 * [Frontend Mentor](https://www.frontendmentor.io)
 * [Firebase Documentation](https://firebase.google.com/docs/firestore?authuser=0)
-* [The Net Nina](https://netninja.dev/p/getting-started-with-firebase-9)
+* [The Net Ninja](https://netninja.dev/p/getting-started-with-firebase-9)
 * [Raúl Marín](https://github.com/raulmarindev)
 
 
