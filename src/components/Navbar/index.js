@@ -3,7 +3,8 @@ import styles from "./Navbar.module.scss";
 import { ReactComponent as MenuIcon } from "../../icons/icon-hamburger.svg";
 import { ReactComponent as CloseMenuIcon } from "../../icons/icon-close-menu.svg";
 import { useState } from "react";
-import { HashLink as Link } from "react-router-hash-link";
+// import { HashLink as Link } from "react-router-hash-link";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -33,7 +34,7 @@ export const Navbar = () => {
           : styles.navbar
       }
     >
-      <Link to="#top" style={{ textDecoration: "none" }}>
+      <Link to={`/`} style={{ textDecoration: "none" }}>
         <h3
           className={
             navbarBackgroundChange
