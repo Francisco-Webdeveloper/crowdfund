@@ -1,10 +1,62 @@
 import styles from "./Home.module.scss";
 import projectsData from "../projectsData";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
+import { database } from "../firebaseConfig";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  getDoc,
+  doc,
+} from "firebase/firestore";
 
 const Home = () => {
+  const [allProjects, setAllProjects] = useState(null);
+
   const { projects } = projectsData.data;
+
+  // Firebase - collection ref
+  const colRef = collection(database, "projects");
+
+  // Firebase - real time collection data
+  const collectProjectsDataFromFirebase = () => {
+    onSnapshot(colRef, (snapshot) => {
+      const projects = snapshot.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      setAllProjects(projects);
+    });
+  };
+
+  useEffect(() => {
+    collectProjectsDataFromFirebase();
+  }, []);
+
+  //   const projects = setTimeout(
+  //     () =>
+  //       allProjects.map(({ identifier, title, description, coverImage }) => {
+  //         return (
+  //           <Link
+  //             to={`/project/${identifier}`}
+  //             className={styles.project}
+  //             key={title}
+  //           >
+  //             <img
+  //               src={process.env.PUBLIC_URL + `/images/${coverImage}`}
+  //               alt="project-cover-img"
+  //               className={styles.projectCoverImg}
+  //             />
+  //             <div className={styles.nameAndDescription}>
+  //               <h5 className={styles.name}>{title}</h5>
+  //               <p className={styles.description}>{description}</p>
+  //             </div>
+  //           </Link>
+  //         );
+  //       }),
+  //     1000
+  //   );
 
   return (
     <div className={styles.homeContainer}>
@@ -61,6 +113,7 @@ const Home = () => {
               </Link>
             );
           })}
+          {/* {projects} */}
         </Row>
       </div>
     </div>

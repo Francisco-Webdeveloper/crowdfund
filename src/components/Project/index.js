@@ -12,29 +12,14 @@ import { PledgeList } from "../PledgeList";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 import { HashLink as Link } from "react-router-hash-link";
 import { database } from "../../firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
-const Project = ({ pledges, project }) => {
+const Project = ({ pledgesSet, project }) => {
   const [showModal, setShowModal] = useState(false);
   const [addBacker, setAddBacker] = useState(false);
-  const [allPledges, setAllPledges] = useState(pledges);
+  const [allPledges, setAllPledges] = useState(pledgesSet.pledges);
   const [selectedPledge, setSelectedPledge] = useState({ pledgeId: "" });
   const [pledgeSubmitted, setPledgeSubmitted] = useState(false);
-
-  // Firebase - collection ref
-  const collectionRef = collection(database, "projects");
-
-  // Firebase - get collection data
-  getDocs(collectionRef)
-    .then((snapshot) => {
-      const projects = snapshot.docs.map((doc) => {
-        return { ...doc.data(), id: doc.id };
-      });
-      console.log(projects);
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
 
   const handleStockUpdate = (pledgeId) => {
     setAllPledges((prevPledges) => {
@@ -77,6 +62,21 @@ const Project = ({ pledges, project }) => {
   const [projectStatus, setProjectStatus] = useState({
     moneyBacked: project.moneyBacked,
     totalBackers: project.totalBackers,
+  });
+
+  // Firebase - update document properties
+  const projectRef = doc(database, "projects", project.id);
+  updateDoc(projectRef, {
+    moneyBacked: projectStatus.moneyBacked,
+    totalBackers: projectStatus.totalBackers,
+  });
+
+  // not working!!
+  const pledgesRef = doc(database, "pledgeGroups", pledgesSet.id);
+  allPledges.forEach(({ stock }) => {
+    return updateDoc(pledgesRef, {
+      stock: arrayUnion(stock),
+    });
   });
 
   const handleProjectStatus = (pledgedAmount) => {
