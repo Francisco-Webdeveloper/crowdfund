@@ -20,8 +20,15 @@ const Project = ({ pledgesSet, project }) => {
   const [allPledges, setAllPledges] = useState(pledgesSet.pledges);
   const [selectedPledge, setSelectedPledge] = useState({ pledgeId: "" });
   const [pledgeSubmitted, setPledgeSubmitted] = useState(false);
+  const [projectStatus, setProjectStatus] = useState({
+    moneyBacked: project.moneyBacked || 0,
+    totalBackers: project.totalBackers || 0,
+  });
 
   const handleStockUpdate = (pledgeId) => {
+    // update the database
+
+    // if the update went well
     setAllPledges((prevPledges) => {
       const updatedPledges = [...prevPledges];
       const chosenPledgeIndex = updatedPledges.findIndex(
@@ -34,6 +41,8 @@ const Project = ({ pledgesSet, project }) => {
       };
       return updatedPledges;
     });
+
+    // if it did't work you show an error to the user
   };
 
   const handlePledgeSelect = (event) => {
@@ -59,41 +68,46 @@ const Project = ({ pledgesSet, project }) => {
     setPledgeSubmitted(false);
   };
 
-  const [projectStatus, setProjectStatus] = useState({
-    moneyBacked: project.moneyBacked,
-    totalBackers: project.totalBackers,
-  });
+  // // Firebase - update document properties
+  // const projectRef = doc(database, "projects", project.id);
+  // updateDoc(projectRef, {
+  //   moneyBacked: projectStatus.moneyBacked,
+  //   totalBackers: projectStatus.totalBackers,
+  // });
 
-  // Firebase - update document properties
-  const projectRef = doc(database, "projects", project.id);
-  updateDoc(projectRef, {
-    moneyBacked: projectStatus.moneyBacked,
-    totalBackers: projectStatus.totalBackers,
-  });
+  // // not working!!
+  // const pledgesRef = doc(database, "pledgeGroups", pledgesSet.id);
+  // allPledges.forEach(({ stock }) => {
+  //   return updateDoc(pledgesRef, {
+  //     stock: arrayUnion(stock),
+  //   });
+  // });
 
-  // not working!!
-  const pledgesRef = doc(database, "pledgeGroups", pledgesSet.id);
-  allPledges.forEach(({ stock }) => {
-    return updateDoc(pledgesRef, {
-      stock: arrayUnion(stock),
+  const updateProjectStatusInDb = async (moneyBacked, totalBackers) => {
+    const projectRef = doc(database, "projects", project.id);
+    return await updateDoc(projectRef, {
+      moneyBacked,
+      totalBackers,
     });
-  });
+  };
 
   const handleProjectStatus = (pledgedAmount) => {
-    setProjectStatus((prevProjectStatus) => {
-      let { totalBackers } = prevProjectStatus;
+    let { moneyBacked, totalBackers } = projectStatus;
 
-      if (!addBacker) {
-        totalBackers++;
-        setAddBacker(true);
-      }
+    if (!addBacker) {
+      totalBackers++;
+      setAddBacker(true);
+    }
 
-      return {
-        moneyBacked:
-          prevProjectStatus.moneyBacked + parseInt(pledgedAmount, 10),
-        totalBackers,
-      };
-    });
+    moneyBacked = moneyBacked + parseInt(pledgedAmount, 10);
+
+    updateProjectStatusInDb(moneyBacked, totalBackers)
+      .then(() => {
+        setProjectStatus({ totalBackers, moneyBacked });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handlePledgeConfirmClick = (pledgeId, pledgedAmount) => {

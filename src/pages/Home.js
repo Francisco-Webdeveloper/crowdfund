@@ -34,6 +34,8 @@ const Home = () => {
     collectProjectsDataFromFirebase();
   }, []);
 
+  console.log(allProjects);
+
   //   const projects = setTimeout(
   //     () =>
   //       allProjects.map(({ identifier, title, description, coverImage }) => {

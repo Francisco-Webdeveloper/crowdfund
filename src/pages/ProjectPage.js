@@ -16,8 +16,8 @@ const ProjectPage = () => {
   const [currentPledgesGroup, setCurrentPledgesGroup] = useState();
 
   // Firebase - collection ref
-  const projectsColRef = collection(database, "projects");
-  const pledgesColRef = collection(database, "pledgeGroups");
+  // const projectsColRef = collection(database, "projects");
+  // const pledgesColRef = collection(database, "pledgeGroups");
 
   // Firebase - get collection data
   // getDocs(projectsColRef).then((snapshot) => {
@@ -40,25 +40,31 @@ const ProjectPage = () => {
 
   // firebase - find the document whose identifier is the same as projectId
   useEffect(() => {
-    onSnapshot(projectsColRef, (snapshot) => {
-      const project = snapshot.docs.find((doc) => {
-        return doc.data().identifier === projectId;
+    const loadProjectData = () => {
+      const projectsColRef = collection(database, "projects");
+      onSnapshot(projectsColRef, (snapshot) => {
+        const project = snapshot.docs.find((doc) => {
+          return doc.data().identifier === projectId;
+        });
+        setCurrentProject({ ...project.data(), id: project.id });
       });
-      setCurrentProject({ ...project.data(), id: project.id });
-    });
-  }, []);
+    };
+
+    const loadPledgesData = () => {
+      const pledgesColRef = collection(database, "pledgeGroups");
+      onSnapshot(pledgesColRef, (snapshot) => {
+        const pledges = snapshot.docs.find((doc) => {
+          return doc.data().identifier === projectId;
+        });
+        setCurrentPledgesGroup({ ...pledges.data(), id: pledges.id });
+      });
+    };
+
+    loadProjectData();
+    loadPledgesData();
+  }, [projectId]);
 
   console.log(currentProject);
-
-  useEffect(() => {
-    onSnapshot(pledgesColRef, (snapshot) => {
-      const pledges = snapshot.docs.find((doc) => {
-        return doc.data().identifier === projectId;
-      });
-      setCurrentPledgesGroup({ ...pledges.data(), id: pledges.id });
-    });
-  }, []);
-
   console.log(currentPledgesGroup);
 
   // find the project whose id is the same as the projectId in our path
@@ -74,9 +80,17 @@ const ProjectPage = () => {
   //   (pledges) => pledges.id === currentProject.identifier
   // );
 
+  console.log({ currentPledgesGroup });
+  const isLoading = !currentPledgesGroup || !currentProject;
+
   return (
     // <Project pledges={currentPledgesGroup.pledges} project={currentProject} />
-    <Project pledgesSet={currentPledgesGroup} project={currentProject} />
+    <>
+      {isLoading && <div>loading...</div>}
+      {!isLoading && (
+        <Project pledgesSet={currentPledgesGroup} project={currentProject} />
+      )}
+    </>
   );
 };
 

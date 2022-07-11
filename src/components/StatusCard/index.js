@@ -3,6 +3,7 @@ import { ProgressBar } from "react-bootstrap";
 import { CountdownTimer } from "../CountdownTimer";
 
 export const StatusCard = ({ daysLeft, projectStatus, goal }) => {
+  console.log({ projectStatus });
   const DAYS_IN_MS = daysLeft * 24 * 60 * 60 * 1000;
   const NOW_IN_MS = new Date().getTime();
 
