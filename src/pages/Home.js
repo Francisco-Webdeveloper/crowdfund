@@ -1,21 +1,12 @@
 import styles from "./Home.module.scss";
-import projectsData from "../projectsData";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import { database } from "../firebaseConfig";
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  getDoc,
-  doc,
-} from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 
 const Home = () => {
-  const [allProjects, setAllProjects] = useState();
-
-  const { projects } = projectsData.data;
+  const [allProjects, setAllProjects] = useState([]);
 
   // Firebase - collection ref
   const colRef = collection(database, "projects");
@@ -36,27 +27,35 @@ const Home = () => {
 
   console.log({ allProjects });
 
-  //   const projects = allProjects.map(
-  //     ({ identifier, title, description, coverImage }) => {
-  //       return (
-  //         <Link
-  //           to={`/project/${identifier}`}
-  //           className={styles.project}
-  //           key={title}
-  //         >
-  //           <img
-  //             src={process.env.PUBLIC_URL + `/images/${coverImage}`}
-  //             alt="project-cover-img"
-  //             className={styles.projectCoverImg}
-  //           />
-  //           <div className={styles.nameAndDescription}>
-  //             <h5 className={styles.name}>{title}</h5>
-  //             <p className={styles.description}>{description}</p>
-  //           </div>
-  //         </Link>
-  //       );
-  //     }
-  //   );
+  const projects = allProjects.map(
+    ({ identifier, title, description, coverImage }) => {
+      return (
+        <Link
+          to={`/project/${identifier}`}
+          className={styles.project}
+          key={title}
+        >
+          <img
+            src={process.env.PUBLIC_URL + `/images/${coverImage}`}
+            alt="project-cover-img"
+            className={styles.projectCoverImg}
+          />
+          <div className={styles.nameAndDescription}>
+            <h5 className={styles.name}>{title}</h5>
+            <p className={styles.description}>{description}</p>
+          </div>
+        </Link>
+      );
+    }
+  );
+
+  const totalMoneyBacked = allProjects.reduce((accumulator, project) => {
+    return accumulator + project.moneyBacked;
+  }, 0);
+
+  const totalBackers = allProjects.reduce((accumulator, project) => {
+    return accumulator + project.totalBackers;
+  }, 0);
 
   return (
     <div className={styles.homeContainer}>
@@ -80,40 +79,25 @@ const Home = () => {
         <p className={styles.onCrowdfund}>ON CROWDFUND:</p>
         <Row xs={1} md={3} className={styles.ProjectsStatus}>
           <Col className={styles.projectsFunded}>
-            <h2 className={styles.metric}>{projects.length}</h2>
+            <h2 className={styles.metric}>{allProjects.length}</h2>
             <p className={styles.metricDescription}>projects funded</p>
           </Col>
           <Col className={styles.totalMoneyBacked}>
-            <h2 className={styles.metric}>$6,121,591,854</h2>
+            <h2 className={styles.metric}>
+              ${totalMoneyBacked.toLocaleString("en-US")}
+            </h2>
             <p className={styles.metricDescription}>towards creative work</p>
           </Col>
           <Col className={styles.totalPledges}>
-            <h2 className={styles.metric}>68,417,086</h2>
+            <h2 className={styles.metric}>
+              {totalBackers.toLocaleString("en-US")}
+            </h2>
             <p className={styles.metricDescription}>pledges</p>
           </Col>
         </Row>
         <p className={styles.featuredProjects}>FEATURED PROJECTS</p>
         <Row xs={2} md={3} className={styles.projects}>
-          {projects.map(({ id, title, description, coverImage }) => {
-            return (
-              <Link
-                to={`/project/${id}`}
-                className={styles.project}
-                key={title}
-              >
-                <img
-                  src={process.env.PUBLIC_URL + `/images/${coverImage}`}
-                  alt="project-cover-img"
-                  className={styles.projectCoverImg}
-                />
-                <div className={styles.nameAndDescription}>
-                  <h5 className={styles.name}>{title}</h5>
-                  <p className={styles.description}>{description}</p>
-                </div>
-              </Link>
-            );
-          })}
-          {/* {projects} */}
+          {projects}
         </Row>
       </div>
     </div>
