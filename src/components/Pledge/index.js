@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import clsx from "clsx";
 
-export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
+export const Pledge = ({ minimumAmount, id }) => {
   const [lowValueErrorMessage, setLowValueErrorMessage] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const amountInputRef = useRef();
@@ -54,10 +54,10 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
             name="pledgeAmount"
             required
             onChange={handleChange}
-            id="$"
+            id={id}
             data-testid="input-value"
           />
-          <label htmlFor="$" className={styles.placeholder}>
+          <label htmlFor={id} className={styles.placeholder}>
             $
           </label>
           <button
@@ -65,9 +65,6 @@ export const Pledge = ({ minimumAmount, id, onContinueButtonClick }) => {
               styles.pledgeButton,
               buttonDisabled && styles.buttonDisabled
             )}
-            onClick={() =>
-              onContinueButtonClick(id, amountInputRef.current.value)
-            }
             disabled={buttonDisabled}
           >
             Continue

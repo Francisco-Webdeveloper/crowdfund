@@ -12,12 +12,12 @@ import { PledgeList } from "../PledgeList";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 import { HashLink as Link } from "react-router-hash-link";
 import { database } from "../../firebaseConfig";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
-const Project = ({ pledgesSet, project }) => {
+const Project = ({ pledges = [], project, onStockUpdate }) => {
   const [showModal, setShowModal] = useState(false);
   const [addBacker, setAddBacker] = useState(false);
-  const [allPledges, setAllPledges] = useState(pledgesSet.pledges);
+  // const [allPledges, setAllPledges] = useState(pledges);
   const [selectedPledge, setSelectedPledge] = useState({ pledgeId: "" });
   const [pledgeSubmitted, setPledgeSubmitted] = useState(false);
   const [projectStatus, setProjectStatus] = useState({
@@ -25,25 +25,38 @@ const Project = ({ pledgesSet, project }) => {
     totalBackers: project.totalBackers || 0,
   });
 
-  const handleStockUpdate = (pledgeId) => {
-    // update the database
+  // const updateStockInDb = (pledgeId, stockAmount) => {
+  //   const pledgeRef = doc(database, "pledges", pledgeId);
+  //   return updateDoc(pledgeRef, {
+  //     stock: stockAmount,
+  //   });
+  // };
 
-    // if the update went well
-    setAllPledges((prevPledges) => {
-      const updatedPledges = [...prevPledges];
-      const chosenPledgeIndex = updatedPledges.findIndex(
-        ({ id }) => id === pledgeId
-      );
-      const chosenPledge = updatedPledges[chosenPledgeIndex];
-      updatedPledges[chosenPledgeIndex] = {
-        ...chosenPledge,
-        stock: chosenPledge.stock - 1,
-      };
-      return updatedPledges;
-    });
+  // const handleStockUpdate = (pledgeId) => {
+  //   const currentPledge = allPledges.find(({ id }) => id === pledgeId);
+  //   console.log({ currentPledge });
+  //   const { stock } = currentPledge;
 
-    // if it did't work you show an error to the user
-  };
+  //   console.log({ pledgeId });
+  //   updateStockInDb(pledgeId, stock - 1)
+  //     .then(
+  //       setAllPledges((prevPledges) => {
+  //         const updatedPledges = [...prevPledges];
+  //         const chosenPledgeIndex = updatedPledges.findIndex(
+  //           ({ id }) => id === pledgeId
+  //         );
+  //         const chosenPledge = updatedPledges[chosenPledgeIndex];
+  //         updatedPledges[chosenPledgeIndex] = {
+  //           ...chosenPledge,
+  //           stock: chosenPledge.stock - 1,
+  //         };
+  //         return updatedPledges;
+  //       })
+  //     )
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const handlePledgeSelect = (event) => {
     const { name, value } = event.target;
@@ -56,32 +69,12 @@ const Project = ({ pledgesSet, project }) => {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setPledgeSubmitted(true);
-  };
-
   const handleShowModal = () => setShowModal(true);
 
   const handleCloseModal = () => {
     setShowModal(false);
     setPledgeSubmitted(false);
   };
-
-  // // Firebase - update document properties
-  // const projectRef = doc(database, "projects", project.id);
-  // updateDoc(projectRef, {
-  //   moneyBacked: projectStatus.moneyBacked,
-  //   totalBackers: projectStatus.totalBackers,
-  // });
-
-  // // not working!!
-  // const pledgesRef = doc(database, "pledgeGroups", pledgesSet.id);
-  // allPledges.forEach(({ stock }) => {
-  //   return updateDoc(pledgesRef, {
-  //     stock: arrayUnion(stock),
-  //   });
-  // });
 
   const updateProjectStatusInDb = async (moneyBacked, totalBackers) => {
     const projectRef = doc(database, "projects", project.id);
@@ -110,9 +103,13 @@ const Project = ({ pledgesSet, project }) => {
       });
   };
 
-  const handlePledgeConfirmClick = (pledgeId, pledgedAmount) => {
-    handleProjectStatus(pledgedAmount);
-    handleStockUpdate(pledgeId);
+  const handleSubmit = (pledgeId, pledgedAmount) => {
+    setPledgeSubmitted(true);
+
+    if (pledgeId !== "Pledge with no reward") {
+      handleProjectStatus(pledgedAmount);
+      onStockUpdate(pledgeId);
+    }
   };
 
   const {
@@ -125,6 +122,8 @@ const Project = ({ pledgesSet, project }) => {
     confirmationPledgeText,
     coverImage,
     coverImageXl,
+    bookmarked,
+    id,
   } = project;
 
   return (
@@ -136,6 +135,8 @@ const Project = ({ pledgesSet, project }) => {
           description={description}
           title={title}
           onClick={handleShowModal}
+          isBookmarked={bookmarked}
+          id={id}
         />
         {pledgeSubmitted ? (
           <PledgeSubmittedModalCard
@@ -152,11 +153,10 @@ const Project = ({ pledgesSet, project }) => {
             confirmationPledgeText={confirmationPledgeText}
           >
             <PledgeList
-              pledges={allPledges}
+              pledges={pledges}
               selectedPledge={selectedPledge}
               onPledgeSelect={handlePledgeSelect}
               onSubmit={handleSubmit}
-              onPledgeConfirmClick={handlePledgeConfirmClick}
             />
           </PledgesModalCard>
         )}
@@ -167,11 +167,12 @@ const Project = ({ pledgesSet, project }) => {
         />
         <div className={styles.pledgesCard}>
           <About about={about} />
-          {allPledges.map(({ id, pledgeAmount, description, stock }) => {
+          {pledges.map(({ id, pledgeAmount, description, stock, name }) => {
             return (
               <PledgeCard
                 key={id}
-                product={id}
+                id={id}
+                product={name}
                 pledgeAmount={pledgeAmount}
                 description={description}
                 stock={stock}

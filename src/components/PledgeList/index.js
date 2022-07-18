@@ -7,33 +7,41 @@ export const PledgeList = ({
   selectedPledge,
   onPledgeSelect,
   onSubmit,
-  onPledgeConfirmClick,
 }) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log(event.target.elements["pledgeAmount"].id);
+    const { id, value } = event.target.elements["pledgeAmount"];
+    onSubmit(id, value);
+  };
+
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <NoRewardPledge
           pledgeId={selectedPledge.pledgeId}
           onPledgeSelect={onPledgeSelect}
         />
-        {pledges.map(({ id, pledgeAmount, description, stock }) => {
-          const disabled = stock > 0 ? false : true;
-          const pledgeCardSelected = id === selectedPledge.pledgeId;
+      </form>
+      {pledges.map(({ id, pledgeAmount, description, stock, name }) => {
+        const disabled = stock > 0 ? false : true;
+        const pledgeCardSelected = id === selectedPledge.pledgeId;
 
-          let pledgeCardClassName;
-          if (stock > 0) {
-            if (pledgeCardSelected) {
-              pledgeCardClassName = styles.pledgeCardSelected;
-            } else {
-              pledgeCardClassName = styles.pledgeCard;
-            }
+        let pledgeCardClassName;
+        if (stock > 0) {
+          if (pledgeCardSelected) {
+            pledgeCardClassName = styles.pledgeCardSelected;
           } else {
-            pledgeCardClassName = styles.pledgeCardDisabled;
+            pledgeCardClassName = styles.pledgeCard;
           }
+        } else {
+          pledgeCardClassName = styles.pledgeCardDisabled;
+        }
 
-          return (
+        return (
+          <form onSubmit={handleSubmit} key={id}>
             <div
-              key={id}
               className={pledgeCardClassName}
               id="reward"
               data-testid="pledge-card"
@@ -50,7 +58,7 @@ export const PledgeList = ({
                 />
                 <div className={styles.labelAndPledgeAmount}>
                   <label htmlFor={id} className={styles.product}>
-                    {id}
+                    {name}
                   </label>
                   <p className={styles.pledgeAmount}>
                     Pledge ${pledgeAmount} or more
@@ -63,16 +71,12 @@ export const PledgeList = ({
                 <p className={styles.left}>left</p>
               </div>
               {pledgeCardSelected && (
-                <Pledge
-                  id={id}
-                  minimumAmount={pledgeAmount}
-                  onContinueButtonClick={onPledgeConfirmClick}
-                />
+                <Pledge id={id} minimumAmount={pledgeAmount} />
               )}
             </div>
-          );
-        })}
-      </form>
+          </form>
+        );
+      })}
     </>
   );
 };

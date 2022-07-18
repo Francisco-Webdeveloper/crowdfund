@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 
 const Home = () => {
-  const [allProjects, setAllProjects] = useState(null);
+  const [allProjects, setAllProjects] = useState();
 
   const { projects } = projectsData.data;
 
@@ -34,30 +34,28 @@ const Home = () => {
     collectProjectsDataFromFirebase();
   }, []);
 
-  console.log(allProjects);
+  console.log({ allProjects });
 
-  //   const projects = setTimeout(
-  //     () =>
-  //       allProjects.map(({ identifier, title, description, coverImage }) => {
-  //         return (
-  //           <Link
-  //             to={`/project/${identifier}`}
-  //             className={styles.project}
-  //             key={title}
-  //           >
-  //             <img
-  //               src={process.env.PUBLIC_URL + `/images/${coverImage}`}
-  //               alt="project-cover-img"
-  //               className={styles.projectCoverImg}
-  //             />
-  //             <div className={styles.nameAndDescription}>
-  //               <h5 className={styles.name}>{title}</h5>
-  //               <p className={styles.description}>{description}</p>
-  //             </div>
-  //           </Link>
-  //         );
-  //       }),
-  //     1000
+  //   const projects = allProjects.map(
+  //     ({ identifier, title, description, coverImage }) => {
+  //       return (
+  //         <Link
+  //           to={`/project/${identifier}`}
+  //           className={styles.project}
+  //           key={title}
+  //         >
+  //           <img
+  //             src={process.env.PUBLIC_URL + `/images/${coverImage}`}
+  //             alt="project-cover-img"
+  //             className={styles.projectCoverImg}
+  //           />
+  //           <div className={styles.nameAndDescription}>
+  //             <h5 className={styles.name}>{title}</h5>
+  //             <p className={styles.description}>{description}</p>
+  //           </div>
+  //         </Link>
+  //       );
+  //     }
   //   );
 
   return (

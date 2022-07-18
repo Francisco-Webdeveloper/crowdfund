@@ -4,91 +4,120 @@ import Project from "../components/Project";
 // import projectsData from "../projectsData";
 // import pledgesData from "../pledgesData";
 import { database } from "../firebaseConfig";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  getDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { useEffect } from "react";
 
 const ProjectPage = () => {
   const { projectId } = useParams();
 
-  // const { projects } = projectsData.data;
-
   const [currentProject, setCurrentProject] = useState();
-  const [currentPledgesGroup, setCurrentPledgesGroup] = useState();
+  const [projectPledges, setProjectPledges] = useState();
 
-  // Firebase - collection ref
-  // const projectsColRef = collection(database, "projects");
-  // const pledgesColRef = collection(database, "pledgeGroups");
+  //
+  const updateStockInDb = (pledgeId, stockAmount) => {
+    const pledgeRef = doc(database, "pledges", pledgeId);
+    return updateDoc(pledgeRef, {
+      stock: stockAmount,
+    });
+  };
 
-  // Firebase - get collection data
-  // getDocs(projectsColRef).then((snapshot) => {
-  //   const projects = snapshot.docs.map((doc) => {
-  //     return { ...doc.data(), id: doc.id };
-  //   });
-  //   console.log(projects);
-  // });
-  // .catch((err) => {
-  //   console.log(err.message);
-  // });
+  const handleStockUpdate = (pledgeId) => {
+    const currentPledge = projectPledges.find(({ id }) => id === pledgeId);
+    const { stock } = currentPledge;
 
-  // Firebase - real time collection data
-  // onSnapshot(projectsColRef, (snapshot) => {
-  //   const projects = snapshot.docs.map((doc) => {
-  //     return { ...doc.data(), id: doc.id };
-  //   });
-  //   console.log(projects);
-  // });
+    updateStockInDb(pledgeId, stock - 1)
+      .then(
+        setProjectPledges((prevPledges) => {
+          const updatedPledges = [...prevPledges];
+          const chosenPledgeIndex = updatedPledges.findIndex(
+            ({ id }) => id === pledgeId
+          );
+          const chosenPledge = updatedPledges[chosenPledgeIndex];
+          updatedPledges[chosenPledgeIndex] = {
+            ...chosenPledge,
+            stock: chosenPledge.stock - 1,
+          };
+          return updatedPledges;
+        })
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  //
 
-  // firebase - find the document whose identifier is the same as projectId
   useEffect(() => {
+    const loadPledgesData = (pledgesReferences) => {
+      const references = pledgesReferences.map((reference) =>
+        getDoc(reference)
+      );
+      Promise.all(references).then((results) => {
+        setProjectPledges(
+          results.map((result) => {
+            return {
+              ...result.data(),
+              id: result.id,
+              name: result.data().id,
+            };
+          })
+        );
+      });
+    };
+
     const loadProjectData = () => {
       const projectsColRef = collection(database, "projects");
       onSnapshot(projectsColRef, (snapshot) => {
         const project = snapshot.docs.find((doc) => {
           return doc.data().identifier === projectId;
         });
+        console.log(project.data().pledges);
+        loadPledgesData(project.data().pledges);
         setCurrentProject({ ...project.data(), id: project.id });
       });
     };
 
-    const loadPledgesData = () => {
-      const pledgesColRef = collection(database, "pledgeGroups");
-      onSnapshot(pledgesColRef, (snapshot) => {
-        const pledges = snapshot.docs.find((doc) => {
-          return doc.data().identifier === projectId;
-        });
-        setCurrentPledgesGroup({ ...pledges.data(), id: pledges.id });
-      });
-    };
-
     loadProjectData();
-    loadPledgesData();
   }, [projectId]);
-
-  console.log(currentProject);
-  console.log(currentPledgesGroup);
-
-  // find the project whose id is the same as the projectId in our path
-  // const currentProject = projects.find((project) => project.id === projectId);
 
   if (!currentProject) {
     return <div style={{ color: "white" }}>Project not found</div>;
   }
 
-  // const pledges = pledgesData.data.pledgeGroups;
-
-  // const pledgeSet = pledges.find(
-  //   (pledges) => pledges.id === currentProject.identifier
+  // Fetch data from ProjectsData.js
+  // const { projects } = projectsData.data;
+  // const currentProjectFromFile = projects.find(
+  //   (project) => project.id === projectId
   // );
 
-  console.log({ currentPledgesGroup });
-  const isLoading = !currentPledgesGroup || !currentProject;
+  // Fetch data from pledgesData.js
+  // const pledges = pledgesData.data.pledgeGroups;
+  // const currentPledgeGroupFromFile = pledges.find(
+  //   (pledges) => pledges.projectId === currentProjectFromFile.id
+  // );
+
+  const isLoading = !projectPledges || !currentProject;
 
   return (
-    // <Project pledges={currentPledgesGroup.pledges} project={currentProject} />
     <>
       {isLoading && <div>loading...</div>}
+      {/* {isLoading && (
+        <Project
+          pledges={currentPledgeGroupFromFile}
+          project={currentProjectFromFile}
+        />
+      )} */}
       {!isLoading && (
-        <Project pledgesSet={currentPledgesGroup} project={currentProject} />
+        <Project
+          pledges={projectPledges}
+          project={currentProject}
+          onStockUpdate={handleStockUpdate}
+        />
       )}
     </>
   );

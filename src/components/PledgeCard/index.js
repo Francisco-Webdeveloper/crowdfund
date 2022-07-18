@@ -8,11 +8,12 @@ export const PledgeCard = ({
   stock,
   onClick,
   selectedPledge,
+  id,
 }) => {
   // opens the pledge list modal with the pledge selected from the project page
   const handleSelectedCardClicked = () => {
     onClick(); // show modal
-    selectedPledge.pledgeId = product;
+    selectedPledge.pledgeId = id;
   };
 
   const pledgeCardClassName =

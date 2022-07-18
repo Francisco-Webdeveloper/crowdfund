@@ -2,12 +2,25 @@ import styles from "./ProjectHeader.module.scss";
 import logo from "../../icons/logo-mastercraft.svg";
 import { ReactComponent as BookmarkIcon } from "../../icons/icon-bookmark.svg";
 import { useState } from "react";
+import { database } from "../../firebaseConfig";
+import { doc, updateDoc } from "firebase/firestore";
 
-export const ProjectHeader = ({ title, description, onClick }) => {
-  const [bookmarked, setBookmarked] = useState(false);
+export const ProjectHeader = ({
+  id,
+  title,
+  description,
+  onClick,
+  isBookmarked,
+}) => {
+  const [bookmarked, setBookmarked] = useState(isBookmarked);
 
   const handleBookmarks = () => {
-    setBookmarked((prevBookmarked) => !prevBookmarked);
+    const projectRef = doc(database, "projects", id);
+    updateDoc(projectRef, {
+      bookmarked: !bookmarked,
+    }).then(() => {
+      setBookmarked((prevBookmarked) => !prevBookmarked);
+    });
   };
 
   return (
