@@ -1,7 +1,5 @@
 import { useState } from "react";
 import styles from "./Project.module.scss";
-import { Navbar } from "../Navbar";
-import { HeroImage } from "../HeroImage";
 import { ProjectHeader } from "../ProjectHeader";
 import { StatusCard } from "../StatusCard";
 import { About } from "../About";
@@ -9,15 +7,13 @@ import { PledgeCard } from "../PledgeCard";
 import { PledgesModalCard } from "../PledgesModalCard";
 import { PledgeSubmittedModalCard } from "../PledgeSubmittedModalCard";
 import { PledgeList } from "../PledgeList";
-import { BsArrowUpCircleFill } from "react-icons/bs";
-import { HashLink as Link } from "react-router-hash-link";
 import { database } from "../../firebaseConfig";
 import { doc, updateDoc } from "firebase/firestore";
 
-const Project = ({ pledges = [], project, onStockUpdate }) => {
+const Project = ({ pledges = [], project }) => {
   const [showModal, setShowModal] = useState(false);
   const [addBacker, setAddBacker] = useState(false);
-  // const [allPledges, setAllPledges] = useState(pledges);
+  const [allPledges, setAllPledges] = useState(pledges);
   const [selectedPledge, setSelectedPledge] = useState({ pledgeId: "" });
   const [pledgeSubmitted, setPledgeSubmitted] = useState(false);
   const [projectStatus, setProjectStatus] = useState({
@@ -25,38 +21,38 @@ const Project = ({ pledges = [], project, onStockUpdate }) => {
     totalBackers: project.totalBackers || 0,
   });
 
-  // const updateStockInDb = (pledgeId, stockAmount) => {
-  //   const pledgeRef = doc(database, "pledges", pledgeId);
-  //   return updateDoc(pledgeRef, {
-  //     stock: stockAmount,
-  //   });
-  // };
+  const updateStockInDb = (pledgeId, stockAmount) => {
+    const pledgeRef = doc(database, "pledges", pledgeId);
+    return updateDoc(pledgeRef, {
+      stock: stockAmount,
+    });
+  };
 
-  // const handleStockUpdate = (pledgeId) => {
-  //   const currentPledge = allPledges.find(({ id }) => id === pledgeId);
-  //   console.log({ currentPledge });
-  //   const { stock } = currentPledge;
+  const handleStockUpdate = (pledgeId) => {
+    const currentPledge = allPledges.find(({ id }) => id === pledgeId);
+    console.log({ currentPledge });
+    const { stock } = currentPledge;
 
-  //   console.log({ pledgeId });
-  //   updateStockInDb(pledgeId, stock - 1)
-  //     .then(
-  //       setAllPledges((prevPledges) => {
-  //         const updatedPledges = [...prevPledges];
-  //         const chosenPledgeIndex = updatedPledges.findIndex(
-  //           ({ id }) => id === pledgeId
-  //         );
-  //         const chosenPledge = updatedPledges[chosenPledgeIndex];
-  //         updatedPledges[chosenPledgeIndex] = {
-  //           ...chosenPledge,
-  //           stock: chosenPledge.stock - 1,
-  //         };
-  //         return updatedPledges;
-  //       })
-  //     )
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+    console.log({ pledgeId });
+    updateStockInDb(pledgeId, stock - 1)
+      .then(
+        setAllPledges((prevPledges) => {
+          const updatedPledges = [...prevPledges];
+          const chosenPledgeIndex = updatedPledges.findIndex(
+            ({ id }) => id === pledgeId
+          );
+          const chosenPledge = updatedPledges[chosenPledgeIndex];
+          updatedPledges[chosenPledgeIndex] = {
+            ...chosenPledge,
+            stock: chosenPledge.stock - 1,
+          };
+          return updatedPledges;
+        })
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handlePledgeSelect = (event) => {
     const { name, value } = event.target;
@@ -104,12 +100,16 @@ const Project = ({ pledges = [], project, onStockUpdate }) => {
   };
 
   const handleSubmit = (pledgeId, pledgedAmount) => {
-    setPledgeSubmitted(true);
-
     if (pledgeId !== "Pledge with no reward") {
       handleProjectStatus(pledgedAmount);
-      onStockUpdate(pledgeId);
+      handleStockUpdate(pledgeId);
     }
+    setPledgeSubmitted(true);
+  };
+
+  const handleSubmitNoRewardPledge = (event) => {
+    event.preventDefault();
+    setPledgeSubmitted(true);
   };
 
   const {
@@ -120,16 +120,12 @@ const Project = ({ pledges = [], project, onStockUpdate }) => {
     about,
     modalIntroduction,
     confirmationPledgeText,
-    coverImage,
-    coverImageXl,
     bookmarked,
     id,
   } = project;
 
   return (
     <div className={styles.projectContainer}>
-      <Navbar />
-      <HeroImage image={coverImage} imageXl={coverImageXl} />
       <div className={styles.mainSection}>
         <ProjectHeader
           description={description}
@@ -157,6 +153,7 @@ const Project = ({ pledges = [], project, onStockUpdate }) => {
               selectedPledge={selectedPledge}
               onPledgeSelect={handlePledgeSelect}
               onSubmit={handleSubmit}
+              onSubmitNoReward={handleSubmitNoRewardPledge}
             />
           </PledgesModalCard>
         )}
@@ -182,13 +179,6 @@ const Project = ({ pledges = [], project, onStockUpdate }) => {
             );
           })}
         </div>
-      </div>
-      <div className={styles.toTheTopContainer}>
-        <Link to="#top">
-          <h2 className={styles.toTheTop}>
-            <BsArrowUpCircleFill />
-          </h2>
-        </Link>
       </div>
     </div>
   );

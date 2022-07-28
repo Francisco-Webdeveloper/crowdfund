@@ -7,18 +7,21 @@ export const PledgeList = ({
   selectedPledge,
   onPledgeSelect,
   onSubmit,
+  onSubmitNoReward,
 }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log(event.target.elements["pledgeAmount"].id);
-    const { id, value } = event.target.elements["pledgeAmount"];
+    console.log(event.target.elements);
+    const form = event.target;
+    const { id, value } = form.elements.namedItem("pledgeAmount");
+    // const { id, value } = form.elements["pledgeAmount"]
     onSubmit(id, value);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmitNoReward}>
         <NoRewardPledge
           pledgeId={selectedPledge.pledgeId}
           onPledgeSelect={onPledgeSelect}

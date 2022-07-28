@@ -1,0 +1,38 @@
+@mixin cardDesign {
+  width: 326px;
+  background: #fff;
+  border-radius: 7px;
+  @media (min-width: 992px) {
+    width: 528px;
+  }
+  @media (min-width: 1440px) {
+    width: 728px;
+    border-radius: 10px;
+  }
+}
+
+.toTheTopContainer {
+  position: relative;
+  width: 100vw;
+
+  .toTheTop {
+    color: #3cb4ab;
+    position: absolute;
+    right: 20px;
+    bottom: 30px;
+    &:hover {
+      color: #157a74;
+    }
+    @media (min-width: 576px) {
+      right: 60px;
+    }
+    @media (min-width: 768px) {
+      right: 100px;
+      bottom: 50px;
+    }
+    @media (min-width: 1400px) {
+      right: 150px;
+    }
+  }
+}
+// }

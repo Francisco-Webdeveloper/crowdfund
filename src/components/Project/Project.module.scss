@@ -40,29 +40,4 @@
       padding: 46px 46px 20px 46px;
     }
   }
-
-  .toTheTopContainer {
-    position: relative;
-    width: 100vw;
-
-    .toTheTop {
-      color: #3cb4ab;
-      position: absolute;
-      right: 20px;
-      bottom: 30px;
-      &:hover {
-        color: #157a74;
-      }
-      @media (min-width: 576px) {
-        right: 60px;
-      }
-      @media (min-width: 768px) {
-        right: 100px;
-        bottom: 50px;
-      }
-      @media (min-width: 1400px) {
-        right: 150px;
-      }
-    }
-  }
 }
