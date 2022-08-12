@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "firestore-jest-mock": "^0.18.0",
     "jest-watch-typeahead": "^0.6.5"
   }
 }

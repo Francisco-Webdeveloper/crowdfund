@@ -36,14 +36,15 @@ describe("PledgeSubmittedModalCard", () => {
     // FAILED - mismatch between expected and received
     render(<MockPledgeSubmittedModalCard />);
 
+    const modalElement = screen.getByTestId("pledge-submitted-modal");
+    expect(modalElement).toBeInTheDocument();
+
     const buttonElement = screen.getByRole("button", {
       name: "Got it",
     });
 
     // console.log(prettyDOM(modalElement));
     userEvent.click(buttonElement);
-
-    const modalElement = screen.getByTestId("pledge-submitted-modal");
 
     expect(modalElement).toBeNull();
   });

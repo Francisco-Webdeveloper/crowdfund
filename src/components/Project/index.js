@@ -28,12 +28,14 @@ const Project = ({ pledges = [], project }) => {
     });
   };
 
+  console.log({ allPledges });
+
   const handleStockUpdate = (pledgeId) => {
     const currentPledge = allPledges.find(({ id }) => id === pledgeId);
     console.log({ currentPledge });
     const { stock } = currentPledge;
 
-    console.log({ pledgeId });
+    console.log({ pledgeId }); // j9bfVC1CunRVdLECa7iu
     updateStockInDb(pledgeId, stock - 1)
       .then(
         setAllPledges((prevPledges) => {
@@ -149,7 +151,7 @@ const Project = ({ pledges = [], project }) => {
             confirmationPledgeText={confirmationPledgeText}
           >
             <PledgeList
-              pledges={pledges}
+              pledges={allPledges}
               selectedPledge={selectedPledge}
               onPledgeSelect={handlePledgeSelect}
               onSubmit={handleSubmit}
@@ -164,7 +166,7 @@ const Project = ({ pledges = [], project }) => {
         />
         <div className={styles.pledgesCard}>
           <About about={about} />
-          {pledges.map(({ id, pledgeAmount, description, stock, name }) => {
+          {allPledges.map(({ id, pledgeAmount, description, stock, name }) => {
             return (
               <PledgeCard
                 key={id}

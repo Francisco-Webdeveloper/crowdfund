@@ -2,38 +2,32 @@ import styles from "./Home.module.scss";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
-import { database } from "../firebaseConfig";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collectProjectsDataFromFirebase } from "../services/project";
 
 const Home = () => {
   const [allProjects, setAllProjects] = useState([]);
 
-  // Firebase - collection ref
-  const colRef = collection(database, "projects");
-
-  // Firebase - real time collection data
-  const collectProjectsDataFromFirebase = () => {
-    onSnapshot(colRef, (snapshot) => {
-      const projects = snapshot.docs.map((doc) => {
-        return { ...doc.data(), id: doc.id };
-      });
-      setAllProjects(projects);
-    });
-  };
-
   useEffect(() => {
-    collectProjectsDataFromFirebase();
+    const loadProjects = async () => {
+      console.log("before");
+      const projects = await collectProjectsDataFromFirebase();
+      console.log({ projects });
+      setAllProjects(projects);
+    };
+
+    loadProjects();
   }, []);
 
-  console.log({ allProjects });
+  // console.log({ allProjects });
 
   const projects = allProjects.map(
-    ({ identifier, title, description, coverImage }) => {
+    ({ title, description, coverImage, id }, index) => {
       return (
         <Link
-          to={`/project/${identifier}`}
+          to={`/project/${id}`}
           className={styles.project}
           key={title}
+          data-testid={`project-${index}`}
         >
           <img
             src={process.env.PUBLIC_URL + `/images/${coverImage}`}
@@ -76,29 +70,37 @@ const Home = () => {
         <h3 className={styles.title}>
           Bring a creative project<br className={styles.slogan}></br> to life.
         </h3>
-        <p className={styles.onCrowdfund}>ON CROWDFUND:</p>
-        <Row xs={1} md={3} className={styles.ProjectsStatus}>
-          <Col className={styles.projectsFunded}>
-            <h2 className={styles.metric}>{allProjects.length}</h2>
-            <p className={styles.metricDescription}>projects funded</p>
-          </Col>
-          <Col className={styles.totalMoneyBacked}>
-            <h2 className={styles.metric}>
-              ${totalMoneyBacked.toLocaleString("en-US")}
-            </h2>
-            <p className={styles.metricDescription}>towards creative work</p>
-          </Col>
-          <Col className={styles.totalPledges}>
-            <h2 className={styles.metric}>
-              {totalBackers.toLocaleString("en-US")}
-            </h2>
-            <p className={styles.metricDescription}>pledges</p>
-          </Col>
-        </Row>
-        <p className={styles.featuredProjects}>FEATURED PROJECTS</p>
-        <Row xs={2} md={3} className={styles.projects}>
-          {projects}
-        </Row>
+        {projects.length > 0 && (
+          <>
+            <p className={styles.onCrowdfund}>ON CROWDFUND:</p>
+            <Row xs={1} md={3} className={styles.ProjectsStatus}>
+              <Col className={styles.projectsFunded}>
+                <h2 data-testid="total-projects" className={styles.metric}>
+                  {allProjects.length}
+                </h2>
+                <p className={styles.metricDescription}>projects funded</p>
+              </Col>
+              <Col className={styles.totalMoneyBacked}>
+                <h2 data-testid="total-money-backed" className={styles.metric}>
+                  ${totalMoneyBacked.toLocaleString("en-US")}
+                </h2>
+                <p className={styles.metricDescription}>
+                  towards creative work
+                </p>
+              </Col>
+              <Col className={styles.totalPledges}>
+                <h2 data-testid="total-pledges" className={styles.metric}>
+                  {totalBackers.toLocaleString("en-US")}
+                </h2>
+                <p className={styles.metricDescription}>pledges</p>
+              </Col>
+            </Row>
+            <p className={styles.featuredProjects}>FEATURED PROJECTS</p>
+            <Row xs={2} md={3} className={styles.projects}>
+              {projects}
+            </Row>
+          </>
+        )}
       </div>
     </div>
   );

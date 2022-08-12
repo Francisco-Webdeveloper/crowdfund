@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 export const HeroImage = ({ image, imageXl }) => {
-  const [windowSizeSmall, setWindowSmall] = useState(false);
+  const [windowSizeSmall, setWindowSizeSmall] = useState(false);
 
   const isWindowSizeSmall = () => {
     if (window.innerWidth < 768) {
-      setWindowSmall(true);
+      setWindowSizeSmall(true);
     } else {
-      setWindowSmall(false);
+      setWindowSizeSmall(false);
     }
   };
 

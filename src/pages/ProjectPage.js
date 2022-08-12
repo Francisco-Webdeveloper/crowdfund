@@ -6,8 +6,7 @@ import { Navbar } from "../components/Navbar";
 import { HeroImage } from "../components/HeroImage";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 import { HashLink as Link } from "react-router-hash-link";
-import { database } from "../firebaseConfig";
-import { collection, onSnapshot, getDoc } from "firebase/firestore";
+import { getPledges, getProject } from "../services/project";
 
 const ProjectPage = () => {
   const { projectId } = useParams();
@@ -15,34 +14,19 @@ const ProjectPage = () => {
   const [currentProject, setCurrentProject] = useState();
   const [projectPledges, setProjectPledges] = useState();
 
-  useEffect(() => {
-    const loadPledgesData = (pledgesReferences) => {
-      const references = pledgesReferences.map((reference) =>
-        getDoc(reference)
-      );
-      Promise.all(references).then((results) => {
-        setProjectPledges(
-          results.map((result) => {
-            return {
-              ...result.data(),
-              id: result.id,
-              name: result.data().id,
-            };
-          })
-        );
-      });
-    };
+  // getProject("NUEBYucaMWYBlGs9qwX9").then((project) => {
+  //   console.log({ project });
+  // });
 
-    const loadProjectData = () => {
-      const projectsColRef = collection(database, "projects");
-      onSnapshot(projectsColRef, (snapshot) => {
-        const project = snapshot.docs.find((doc) => {
-          return doc.data().identifier === projectId;
-        });
-        console.log(project.data().pledges);
-        loadPledgesData(project.data().pledges);
-        setCurrentProject({ ...project.data(), id: project.id });
-      });
+  useEffect(() => {
+    const loadProjectData = async () => {
+      const project = await getProject(projectId);
+      console.log({ project });
+      const pledges = await getPledges(project.pledges);
+      console.log({ pledges });
+
+      setCurrentProject(project);
+      setProjectPledges(pledges);
     };
 
     loadProjectData();
